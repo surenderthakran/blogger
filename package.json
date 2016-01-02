@@ -1,0 +1,23 @@
+{
+  "name": "blogger",
+  "version": "1.0.0",
+  "description": "A tech blogging project",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.13.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/surenderthakran/blogger.git"
+  },
+  "author": "Surender Thakran",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/surenderthakran/blogger/issues"
+  },
+  "homepage": "https://github.com/surenderthakran/blogger#readme"
+}
