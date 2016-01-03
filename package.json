@@ -4,7 +4,6 @@
   "description": "A tech blogging project",
   "main": "index.js",
   "dependencies": {
-    "express": "^4.13.3",
     "glue": "^3.0.0",
     "good": "^6.4.0",
     "good-console": "^5.2.0",
