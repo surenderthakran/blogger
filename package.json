@@ -4,7 +4,13 @@
   "description": "A tech blogging project",
   "main": "index.js",
   "dependencies": {
-    "express": "^4.13.3"
+    "express": "^4.13.3",
+    "glue": "^3.0.0",
+    "good": "^6.4.0",
+    "good-console": "^5.2.0",
+    "good-file": "^5.1.1",
+    "hapi": "^11.1.4",
+    "inert": "^3.2.0"
   },
   "devDependencies": {},
   "scripts": {
