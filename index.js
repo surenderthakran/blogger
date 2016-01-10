@@ -4,6 +4,7 @@ const Hapi = require("hapi");
 const Inert = require("inert");
 const Good = require("good");
 const GoodConsole = require("good-console");
+const GoodFile = require('good-file');
 
 const server = new Hapi.Server();
 server.connection({
@@ -40,7 +41,19 @@ var options = {
     opsInterval: 1000,
     reporters: [{
         reporter: GoodConsole,
-        events: { log: '*', response: '*' }
+        events: { log: '*' },
+        config: {
+            format: "DDMMYY/HHmmss.SSS"
+        }
+    }, {
+        reporter: GoodFile,
+        events: { log: '*', request: '*', response: '*', wreck: '*' },
+        config: {
+            path: './log/',
+            prefix: 'requests',
+            format: 'DD-MM-YYYY',
+            extension: '.log'
+        }
     }]
 };
 
@@ -52,7 +65,10 @@ server.register({
         console.error(err);
     } else {
         server.start(() => {
-            console.log('Server running at:', server.info.uri);
+            server.log(["server"], 'Server running at:' + server.info.uri);
         });
     }
 });
+
+// @TODO: in error handling block of a request, use request.getLog() to print request's logs for debugging
+// @TODO: create loggin plugin based on 'good' which we implicitly handle multiple good plugins registration and configuration. Use https://github.com/hapijs/good/blob/master/API.md for reference.
