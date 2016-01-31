@@ -19,7 +19,7 @@ const server = new Hapi.Server({
 server.connection({
     host: "0.0.0.0",                        // @TODO: decide between "localhost" and "0.0.0.0" for docker containers
     port: 18660,
-    labels: ["static"]
+    labels: ["webserver"]
 });
 
 const good_options = {
