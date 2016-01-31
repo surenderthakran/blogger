@@ -4,12 +4,22 @@ const Hapi = require("hapi");
 const Inert = require("inert");
 const Good = require("good");
 const GoodConsole = require("good-console");
-const GoodFile = require('good-file');
+const GoodFile = require("good-file");
+const Path = require("path");
 
-const server = new Hapi.Server();
+const server = new Hapi.Server({
+    connections: {
+        routes: {
+            files: {
+                relativeTo: Path.join(__dirname, 'views')
+            }
+        }
+    }
+});
 server.connection({
     host: "0.0.0.0",                        // @TODO: decide between "localhost" and "0.0.0.0" for docker containers
-    port: 3000
+    port: 3000,
+    labels: ["static"]
 });
 
 server.register(Inert, (err) => {
@@ -19,18 +29,11 @@ server.register(Inert, (err) => {
 
     server.route({
         method: 'GET',
-        path: '/',
-        handler: function (request, reply) {
-            reply.file(__dirname + '/views/about.html');
-        }
-    });
-
-    server.route({
-        method: 'GET',
         path: '/{filename*}',
         handler: {
             directory: {
-                path: __dirname + "/views"
+                path: ".",
+                index: ["index.html", "about.html"]
             }
         }
     });
@@ -41,7 +44,7 @@ var options = {
     opsInterval: 1000,
     reporters: [{
         reporter: GoodConsole,
-        events: { log: '*' },
+        events: { log: '*', request: '*', response: '*' },              // @TODO: fix GoodConsole not logging request events
         config: {
             format: "DDMMYY/HHmmss.SSS"
         }
@@ -60,7 +63,7 @@ var options = {
 server.register({
     register: Good,
     options: options
-}, function (err) {
+}, (err) => {
     if (err) {
         console.error(err);
     } else {
