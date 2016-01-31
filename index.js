@@ -18,29 +18,11 @@ const server = new Hapi.Server({
 });
 server.connection({
     host: "0.0.0.0",                        // @TODO: decide between "localhost" and "0.0.0.0" for docker containers
-    port: 3000,
+    port: 18660,
     labels: ["static"]
 });
 
-server.register(Inert, (err) => {
-    if (err) {
-        throw err;
-    }
-
-    server.route({
-        method: 'GET',
-        path: '/{filename*}',
-        handler: {
-            directory: {
-                path: ".",
-                index: ["index.html", "about.html"]
-            }
-        }
-    });
-});
-
-
-var options = {
+var good_options = {
     opsInterval: 1000,
     reporters: [{
         reporter: GoodConsole,
@@ -60,13 +42,28 @@ var options = {
     }]
 };
 
-server.register({
-    register: Good,
-    options: options
-}, (err) => {
+server.register([
+    Inert,
+    {
+        register: Good,
+        options: good_options
+    }
+], (err) => {
     if (err) {
         console.error(err);
     } else {
+
+        server.route({
+            method: 'GET',
+            path: '/{filename*}',
+            handler: {
+                directory: {
+                    path: ".",
+                    index: ["index.html", "about.html"]
+                }
+            }
+        });
+
         server.start(() => {
             server.log(["server"], 'Server running at:' + server.info.uri);
         });
