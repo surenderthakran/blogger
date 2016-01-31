@@ -22,7 +22,7 @@ server.connection({
     labels: ["static"]
 });
 
-var good_options = {
+const good_options = {
     opsInterval: 1000,
     reporters: [{
         reporter: GoodConsole,
@@ -42,17 +42,8 @@ var good_options = {
     }]
 };
 
-server.register([
-    Inert,
-    {
-        register: Good,
-        options: good_options
-    }
-], (err) => {
-    if (err) {
-        console.error(err);
-    } else {
-
+const staticRoutesPlugin = {
+    register: function (server, options, next) {
         server.route({
             method: 'GET',
             path: '/{filename*}',
@@ -63,6 +54,29 @@ server.register([
                 }
             }
         });
+
+        next();
+    }
+};
+
+staticRoutesPlugin.register.attributes = {
+    name: "staticRoutesPlugin",
+    version: "1.0.0"
+};
+
+server.register([
+    Inert,
+    {
+        register: Good,
+        options: good_options
+    },
+    {
+        register: staticRoutesPlugin
+    }
+], (err) => {
+    if (err) {
+        console.error(err);
+    } else {
 
         server.start(() => {
             server.log(["server"], 'Server running at:' + server.info.uri);
