@@ -61,7 +61,8 @@ const staticRoutesPlugin = {
 
 staticRoutesPlugin.register.attributes = {
     name: "staticRoutesPlugin",
-    version: "1.0.0"
+    version: "1.0.0",
+    multiple: false
 };
 
 server.register([
