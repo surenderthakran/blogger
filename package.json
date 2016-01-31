@@ -4,11 +4,10 @@
   "description": "A tech blogging project",
   "main": "index.js",
   "dependencies": {
-    "glue": "^3.0.0",
     "good": "^6.4.0",
     "good-console": "^5.2.0",
     "good-file": "^5.1.1",
-    "hapi": "^11.1.4",
+    "hapi": "^12.1.0",
     "inert": "^3.2.0"
   },
   "devDependencies": {},
