@@ -356,7 +356,8 @@ th {
 * {
   margin: 0;
   padding: 0;
-  float: left; }
+  float: left;
+  box-sizing: border-box; }
 
 html {
   width: 100%; }
@@ -375,46 +376,37 @@ body {
 header.page-header {
   background-color: #DBDFFF;
   width: 100%;
-  box-sizing: border-box;
-  padding: 1em; }
-
-/* Signature */
-header.page-header > div.signature {
-  width: 40%;
-  min-width: 260px;
-  line-height: 1.5em; }
-
-header.page-header > div.signature > a {
-  text-decoration: none;
-  color: #4E4E4E;
-  letter-spacing: 1px; }
-
-header.page-header > div.signature > a > p {
-  font-size: 1.3em; }
-
-header.page-header > div.signature > p {
-  font-size: 1em;
-  color: #5E72AF;
-  letter-spacing: 1px; }
-
-/* External icons */
-header.page-header .external-logos {
-  padding: 2px 0; }
-
-header.page-header .external-logos > a {
-  text-decoration: none;
-  padding: 0 10px 0 0; }
-
-/* Search Bar */
-header.page-header > div.searchbar {
-  width: 30%; }
-
-header.page-header > div.searchbar > a.searchicon {
-  width: 30%; }
-
-/* Navigation Menu */
-header.page-header > nav.menu {
-  width: 30%; }
-
-header.page-header > nav.menu > ul {
-  list-style-type: none; }
+  padding: 1em;
+  /* Signature */
+  /* Center Bar */
+  /* Navigation Menu */ }
+  header.page-header .signature {
+    width: 30%;
+    min-width: 260px;
+    line-height: 1.5em; }
+    header.page-header .signature .external-logos-large {
+      padding: 2px 0; }
+    header.page-header .signature .external-logos-large > a {
+      text-decoration: none;
+      padding: 0 10px 0 0; }
+  header.page-header .signature > a {
+    text-decoration: none;
+    color: #4E4E4E;
+    letter-spacing: 1px;
+    font-size: 1.3em; }
+  header.page-header .signature > p {
+    font-size: 1em;
+    color: #5E72AF;
+    letter-spacing: 1px; }
+  header.page-header .centerbar {
+    width: 40%;
+    /* External icons */ }
+    header.page-header .centerbar .external-logos-small {
+      padding: 2px 0; }
+    header.page-header .centerbar .external-logos-small > a {
+      text-decoration: none;
+      padding: 0 10px 0 0; }
+  header.page-header nav.menu {
+    width: 30%; }
+    header.page-header nav.menu ul {
+      list-style-type: none; }
