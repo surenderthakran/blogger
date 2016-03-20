@@ -376,7 +376,7 @@ body {
 header.page-header {
   background-color: #DBDFFF;
   width: 100%;
-  padding: 1em;
+  padding: 1.5em;
   /* Signature */
   /* Center Bar */
   /* Navigation Menu */ }
@@ -385,7 +385,9 @@ header.page-header {
     min-width: 260px;
     line-height: 1.5em; }
     header.page-header .signature .external-logos-large {
-      padding: 2px 0; }
+      padding: 2px 0;
+      display: none;
+      /* remove display: none when this construct is needed again */ }
     header.page-header .signature .external-logos-large > a {
       text-decoration: none;
       padding: 0 10px 0 0; }

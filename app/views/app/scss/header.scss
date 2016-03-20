@@ -3,7 +3,7 @@
 header.page-header {
     background-color: #DBDFFF;
     width: 100%;
-    padding: 1em;
+    padding: 1.5em;
 
     /* Signature */
 
@@ -14,6 +14,7 @@ header.page-header {
 
         .external-logos-large {
             padding: 2px 0;
+            display: none;              /* remove display: none when this construct is needed again */
         }
 
         .external-logos-large > a {
