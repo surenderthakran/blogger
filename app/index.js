@@ -34,7 +34,7 @@ const good_options = {
         reporter: GoodFile,
         events: { log: '*', request: '*', response: '*', wreck: '*' },
         config: {
-            path: './log/',
+            path: './app/log/',
             prefix: 'requests',
             format: 'DD-MM-YYYY',
             extension: '.log'
