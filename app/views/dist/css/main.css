@@ -402,9 +402,12 @@ header.page-header {
     letter-spacing: 1px; }
   header.page-header .centerbar {
     width: 40%;
+    text-align: center;
     /* External icons */ }
     header.page-header .centerbar .external-logos-small {
-      padding: 2px 0; }
+      padding: 2px 0;
+      display: inline-block;
+      float: none; }
     header.page-header .centerbar .external-logos-small > a {
       text-decoration: none;
       padding: 0 10px 0 0; }

@@ -7,3 +7,7 @@ blogger
 ####To run gulp watch command:
 
 `./node_modules/gulp/bin/gulp.js --gulpfile app/gulpfile.js --cwd app/ watch`
+
+####To npm install:
+
+`npm install app/`
