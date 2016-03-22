@@ -1,13 +1,9 @@
-blogger
+##Blogger
 
-####To start node:
+####To create blogger application image:
 
-`node app/index.js`
+docker build -t blogger_app .
 
-####To run gulp watch command:
+####To start blogger server in docker container:
 
-`./node_modules/gulp/bin/gulp.js --gulpfile app/gulpfile.js --cwd app/ watch`
-
-####To npm install:
-
-`npm install app/`
+docker run -it -d --name blogger_app_1 --net=host blogger_app
