@@ -4,10 +4,10 @@ FROM surenderthakran/nodejs:v5
 
 MAINTAINER https://github.com/surenderthakran
 
-ADD app/ /blogger/app
+ADD . /blogger
 
 WORKDIR /blogger
 
-RUN make -f app/Makefile install
+RUN make install
 
-CMD make -f app/Makefile run
+CMD make run

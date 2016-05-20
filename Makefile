@@ -7,15 +7,18 @@ help:
 
 install:
 	@echo Running make install...
-	npm config set unsafe-perm true
-	npm install app/
+	@npm config set unsafe-perm true
+	@npm install --prefix ./ app/
 
 run:
 	@echo Running make run...
 	@echo Starting nodejs...
-	node app/index.js
+	@node app/index.js
 
 clean:
-	rm -rf node_modules
+	@rm -rf node_modules
 
-.PHONY: help install run clean
+# to catch all default targets and do nothing
+.DEFAULT: ;
+
+.PHONY: help install run exec clean
