@@ -12,6 +12,10 @@ install:
 
 run:
 	@echo Running make run...
+ifeq ($(NODE_ENV), dev)
+	@echo Starting gulp watch in background...
+	@nohup ./node_modules/gulp/bin/gulp.js watch &
+endif
 	@echo Starting nodejs...
 	@node app/index.js
 
