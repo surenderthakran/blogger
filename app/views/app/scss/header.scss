@@ -1,0 +1,68 @@
+/* Page Header */
+
+header.page-header {
+    background-color: #DBDFFF;
+    width: 100%;
+    padding: 1.5em;
+
+    /* Signature */
+
+    .signature {
+        width: 30%;
+        min-width: 260px;
+        line-height: 1.5em;
+
+        .external-logos-large {
+            padding: 2px 0;
+            display: none;              /* remove display: none when this construct is needed again */
+        }
+
+        .external-logos-large > a {
+            text-decoration: none;
+            padding: 0 10px 0 0;
+        }
+    }
+
+    .signature > a {
+        text-decoration: none;
+        color: #4E4E4E;
+        letter-spacing: 1px;
+        font-size: 1.3em;
+    }
+
+    .signature > p {
+        font-size: 1em;
+        color: #5E72AF;
+        letter-spacing: 1px;
+    }
+
+    /* Center Bar */
+
+    .centerbar {
+        width: 40%;
+        text-align: center;
+
+        /* External icons */
+
+        .external-logos-small {
+            padding: 2px 0;
+            display: inline-block;
+            float: none;
+        }
+
+        .external-logos-small > a {
+            text-decoration: none;
+            padding: 0 10px 0 0;
+        }
+    }
+
+    /* Navigation Menu */
+
+    nav.menu {
+        width: 30%;
+
+        ul {
+            list-style-type: none;
+        }
+    }
+}

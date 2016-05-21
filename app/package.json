@@ -1,0 +1,28 @@
+{
+  "name": "blogger",
+  "version": "1.0.0",
+  "description": "A tech blogging project",
+  "main": "index.js",
+  "dependencies": {
+    "good": "^6.4.0",
+    "good-console": "^5.2.0",
+    "good-file": "^5.1.1",
+    "hapi": "^12.1.0",
+    "inert": "^3.2.0",
+    "gulp": "^3.9.1",
+    "gulp-sass": "^2.2.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/surenderthakran/blogger.git"
+  },
+  "author": "Surender Thakran",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/surenderthakran/blogger/issues"
+  },
+  "homepage": "https://github.com/surenderthakran/blogger#readme"
+}

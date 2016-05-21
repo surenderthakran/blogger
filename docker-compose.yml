@@ -1,0 +1,13 @@
+app:
+    build: .
+    command: make run
+    volumes:
+        - ./app:/blogger/app
+    environment:
+        NODE_ENV: dev
+    ports:
+        - "18660:18660"
+    log_driver: "json-file"
+    log_opt:
+       max-size: "10k"
+       max-file: "20"
