@@ -412,7 +412,10 @@ header.page-header {
         float: none; }
       header.page-header .toggle-bar .centerbar .external-logos-small > a {
         text-decoration: none;
-        padding: 0 10px 0 0; }
+        padding: 0 10px 0 0;
+        opacity: 0.5; }
+      header.page-header .toggle-bar .centerbar .external-logos-small > a:hover {
+        opacity: 1; }
     header.page-header .toggle-bar nav.menu {
       width: 50%; }
       header.page-header .toggle-bar nav.menu ul {
@@ -422,4 +425,7 @@ header.page-header {
           text-decoration: none;
           font-size: 1.2em;
           color: #5E72AF;
-          letter-spacing: 1px; }
+          letter-spacing: 1px;
+          line-height: 1.5em; }
+        header.page-header .toggle-bar nav.menu ul a:hover {
+          color: red; }

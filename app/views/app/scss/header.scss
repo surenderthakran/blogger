@@ -56,6 +56,11 @@ header.page-header {
             .external-logos-small > a {
                 text-decoration: none;
                 padding: 0 10px 0 0;
+                opacity: 0.5;
+            }
+
+            .external-logos-small > a:hover {
+                opacity: 1;
             }
         }
 
@@ -73,6 +78,11 @@ header.page-header {
                     font-size: 1.2em;
                     color: #5E72AF;
                     letter-spacing: 1px;
+                    line-height: 1.5em;
+                }
+
+                a:hover {
+                    color: red;
                 }
             }
         }
