@@ -36,33 +36,45 @@ header.page-header {
         letter-spacing: 1px;
     }
 
-    /* Center Bar */
+    .toggle-bar {
+        width: 70%;
 
-    .centerbar {
-        width: 40%;
-        text-align: center;
+        /* Center Bar */
 
-        /* External icons */
+        .centerbar {
+            width: 50%;
+            text-align: center;
 
-        .external-logos-small {
-            padding: 2px 0;
-            display: inline-block;
-            float: none;
+            /* External icons */
+
+            .external-logos-small {
+                padding: 2px 0;
+                display: inline-block;
+                float: none;
+            }
+
+            .external-logos-small > a {
+                text-decoration: none;
+                padding: 0 10px 0 0;
+            }
         }
 
-        .external-logos-small > a {
-            text-decoration: none;
-            padding: 0 10px 0 0;
-        }
-    }
+        /* Navigation Menu */
 
-    /* Navigation Menu */
+        nav.menu {
+            width: 50%;
 
-    nav.menu {
-        width: 30%;
+            ul {
+                list-style-type: none;
+                float: right;
 
-        ul {
-            list-style-type: none;
+                a {
+                    text-decoration: none;
+                    font-size: 1.2em;
+                    color: #5E72AF;
+                    letter-spacing: 1px;
+                }
+            }
         }
     }
 }

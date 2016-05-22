@@ -377,9 +377,7 @@ header.page-header {
   background-color: #DBDFFF;
   width: 100%;
   padding: 1.5em;
-  /* Signature */
-  /* Center Bar */
-  /* Navigation Menu */ }
+  /* Signature */ }
   header.page-header .signature {
     width: 30%;
     min-width: 260px;
@@ -400,18 +398,28 @@ header.page-header {
     font-size: 1em;
     color: #5E72AF;
     letter-spacing: 1px; }
-  header.page-header .centerbar {
-    width: 40%;
-    text-align: center;
-    /* External icons */ }
-    header.page-header .centerbar .external-logos-small {
-      padding: 2px 0;
-      display: inline-block;
-      float: none; }
-    header.page-header .centerbar .external-logos-small > a {
-      text-decoration: none;
-      padding: 0 10px 0 0; }
-  header.page-header nav.menu {
-    width: 30%; }
-    header.page-header nav.menu ul {
-      list-style-type: none; }
+  header.page-header .toggle-bar {
+    width: 70%;
+    /* Center Bar */
+    /* Navigation Menu */ }
+    header.page-header .toggle-bar .centerbar {
+      width: 50%;
+      text-align: center;
+      /* External icons */ }
+      header.page-header .toggle-bar .centerbar .external-logos-small {
+        padding: 2px 0;
+        display: inline-block;
+        float: none; }
+      header.page-header .toggle-bar .centerbar .external-logos-small > a {
+        text-decoration: none;
+        padding: 0 10px 0 0; }
+    header.page-header .toggle-bar nav.menu {
+      width: 50%; }
+      header.page-header .toggle-bar nav.menu ul {
+        list-style-type: none;
+        float: right; }
+        header.page-header .toggle-bar nav.menu ul a {
+          text-decoration: none;
+          font-size: 1.2em;
+          color: #5E72AF;
+          letter-spacing: 1px; }
