@@ -364,7 +364,9 @@ html {
 
 body {
   font-family: Open Sans,Helvetica Neue,sans-serif;
-  width: 100%; }
+  width: 100%;
+  background-color: #FBF5F5;
+  color: #444444; }
 
 .hidden {
   display: none; }
@@ -377,6 +379,7 @@ header.page-header {
   background-color: #DBDFFF;
   width: 100%;
   padding: 1.5em;
+  box-shadow: 0 2px 5px rgba(9, 9, 9, 0.5);
   /* Signature */ }
   header.page-header .signature {
     width: 30%;
@@ -412,7 +415,10 @@ header.page-header {
         float: none; }
       header.page-header .toggle-bar .centerbar .external-logos-small > a {
         text-decoration: none;
-        padding: 0 10px 0 0; }
+        padding: 0 10px 0 0;
+        opacity: 0.5; }
+      header.page-header .toggle-bar .centerbar .external-logos-small > a:hover {
+        opacity: 1; }
     header.page-header .toggle-bar nav.menu {
       width: 50%; }
       header.page-header .toggle-bar nav.menu ul {
@@ -422,4 +428,25 @@ header.page-header {
           text-decoration: none;
           font-size: 1.2em;
           color: #5E72AF;
-          letter-spacing: 1px; }
+          letter-spacing: 1px;
+          line-height: 2em; }
+        header.page-header .toggle-bar nav.menu ul a:hover {
+          opacity: 0.5; }
+
+article {
+  max-width: 1024px;
+  margin: 0 auto;
+  float: none;
+  padding: 2em;
+  overflow: hidden;
+  font-family: Open Sans,Helvetica Neue,sans-serif; }
+  article header {
+    padding: 2em 0;
+    border-bottom: solid 1px #CCC; }
+  article h1 {
+    width: 100%;
+    font-size: 2.5em; }
+  article time {
+    width: 100%;
+    font-size: 1em;
+    opacity: 0.8; }

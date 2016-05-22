@@ -4,6 +4,7 @@ header.page-header {
     background-color: #DBDFFF;
     width: 100%;
     padding: 1.5em;
+    box-shadow: 0 2px 5px rgba(9,9,9,0.5);
 
     /* Signature */
 
@@ -56,6 +57,11 @@ header.page-header {
             .external-logos-small > a {
                 text-decoration: none;
                 padding: 0 10px 0 0;
+                opacity: 0.5;
+            }
+
+            .external-logos-small > a:hover {
+                opacity: 1;
             }
         }
 
@@ -73,6 +79,11 @@ header.page-header {
                     font-size: 1.2em;
                     color: #5E72AF;
                     letter-spacing: 1px;
+                    line-height: 2em;
+                }
+
+                a:hover {
+                    opacity: 0.5;
                 }
             }
         }
