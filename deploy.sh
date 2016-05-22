@@ -1,4 +1,4 @@
 #!/bin/bash
 
-echo "Deploying..."
+echo "Deploying build $1 ..."
 git status
