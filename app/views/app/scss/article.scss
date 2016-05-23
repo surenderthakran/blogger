@@ -1,5 +1,5 @@
 article {
-    max-width: 1024px;
+    max-width: 960px;
     margin: 0 auto;
     float: none;
     padding: 2em;
@@ -9,16 +9,58 @@ article {
     header {
         padding: 2em 0;
         border-bottom: solid 1px #CCC;
+        width: 100%;
+
+        h1 {
+            width: 100%;
+            font-size: 2.5em;
+            letter-spacing: 0.01em;
+        }
+
+        time {
+            width: 100%;
+            font-size: 1em;
+            opacity: 0.8;
+        }
     }
 
-    h1 {
+    div.article-body {
+        padding: 2em 0;
         width: 100%;
-        font-size: 2.5em;
-    }
 
-    time {
-        width: 100%;
-        font-size: 1em;
-        opacity: 0.8;
+        h2 {
+            margin: 0.5em 0;
+        }
+
+        p {
+            margin: 0.5em 0;
+            line-height: 1.4em;
+            font-weight: 400;
+            font-size: 1.1em;
+            word-spacing: 0.1em;
+
+            a {
+                float: none;
+                color: inherit;
+                border-bottom: 1px dotted #444444;
+                text-decoration: none;
+            }
+
+            a:hover {
+                color: #000;
+                border-bottom: 1px solid #000;
+            }
+        }
+
+        pre {
+            margin: 0.5em 0;
+            background-color: #dedede;
+            padding: 0.5em;
+            width: 100%;
+
+            code {
+                margin: 0.5em 0;
+            }
+        }
     }
 }
