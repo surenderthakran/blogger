@@ -365,7 +365,6 @@ html {
 body {
   font-family: Open Sans,Helvetica Neue,sans-serif;
   width: 100%;
-  background-color: #FBF5F5;
   color: #444444; }
 
 .hidden {
@@ -434,7 +433,7 @@ header.page-header {
           opacity: 0.5; }
 
 article {
-  max-width: 1024px;
+  max-width: 960px;
   margin: 0 auto;
   float: none;
   padding: 2em;
@@ -442,11 +441,39 @@ article {
   font-family: Open Sans,Helvetica Neue,sans-serif; }
   article header {
     padding: 2em 0;
-    border-bottom: solid 1px #CCC; }
-  article h1 {
-    width: 100%;
-    font-size: 2.5em; }
-  article time {
-    width: 100%;
-    font-size: 1em;
-    opacity: 0.8; }
+    border-bottom: solid 1px #CCC;
+    width: 100%; }
+    article header h1 {
+      width: 100%;
+      font-size: 2.5em;
+      letter-spacing: 0.01em; }
+    article header time {
+      width: 100%;
+      font-size: 1em;
+      opacity: 0.8; }
+  article div.article-body {
+    padding: 2em 0;
+    width: 100%; }
+    article div.article-body h2 {
+      margin: 0.5em 0; }
+    article div.article-body p {
+      margin: 0.5em 0;
+      line-height: 1.4em;
+      font-weight: 400;
+      font-size: 1.1em;
+      word-spacing: 0.1em; }
+      article div.article-body p a {
+        float: none;
+        color: inherit;
+        border-bottom: 1px dotted #444444;
+        text-decoration: none; }
+      article div.article-body p a:hover {
+        color: #000;
+        border-bottom: 1px solid #000; }
+    article div.article-body pre {
+      margin: 0.5em 0;
+      background-color: #dedede;
+      padding: 0.5em;
+      width: 100%; }
+      article div.article-body pre code {
+        margin: 0.5em 0; }
