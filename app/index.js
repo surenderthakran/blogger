@@ -50,7 +50,7 @@ const staticRoutesPlugin = {
             handler: {
                 directory: {
                     path: ".",
-                    index: ["index.html", "about.html"]
+                    index: ["index.html"]
                 }
             }
         });
