@@ -2,9 +2,6 @@
 
 const Hapi = require("hapi");
 const Inert = require("inert");
-const Good = require("good");
-const GoodConsole = require("good-console");
-const GoodFile = require("good-file");
 const Path = require("path");
 
 const server = new Hapi.Server({
@@ -16,31 +13,12 @@ const server = new Hapi.Server({
         }
     }
 });
+
 server.connection({
     host: "0.0.0.0",                        // @TODO: decide between "localhost" and "0.0.0.0" for docker containers
     port: 18660,
     labels: ["webserver"]
 });
-
-const good_options = {
-    opsInterval: 1000,
-    reporters: [{
-        reporter: GoodConsole,
-        events: { log: '*', request: '*', response: '*' },              // @TODO: fix GoodConsole not logging request events
-        config: {
-            format: "DDMMYY/HHmmss.SSS"
-        }
-    }, {
-        reporter: GoodFile,
-        events: { log: '*', request: '*', response: '*', wreck: '*' },
-        config: {
-            path: './log/',
-            prefix: 'requests',
-            format: 'DD-MM-YYYY',
-            extension: '.log'
-        }
-    }]
-};
 
 const staticRoutesPlugin = {
     register: function (server, options, next) {
@@ -68,10 +46,6 @@ staticRoutesPlugin.register.attributes = {
 server.register([
     Inert,
     {
-        register: Good,
-        options: good_options
-    },
-    {
         register: staticRoutesPlugin
     }
 ], (err) => {
@@ -80,7 +54,7 @@ server.register([
     } else {
 
         server.start(() => {
-            server.log(["server"], 'Server running at:' + server.info.uri);
+            console.log('Server running at:' + server.info.uri);
         });
     }
 });
