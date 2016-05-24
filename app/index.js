@@ -3,6 +3,8 @@
 const Hapi = require("hapi");
 const Inert = require("inert");
 const Path = require("path");
+const Vision = require('vision');
+const Mustache = require("mustache");
 
 const server = new Hapi.Server({
     connections: {
@@ -22,6 +24,52 @@ server.connection({
 
 const staticRoutesPlugin = {
     register: function (server, options, next) {
+
+        const partials = {};
+
+        server.views({
+            engines: {
+                html: {
+                    compile: function (template) {
+                        Mustache.parse(template);
+
+                        return function (context) {
+                            return Mustache.render(template, context, partials);
+                        };
+                    },
+                    registerPartial: function (name, src) {
+                        console.log("inside registerPartial()");
+                        partials[name] = src;
+                    }
+                }
+            },
+            relativeTo: __dirname,
+            path: 'views',
+            partialsPath: 'views/partials'
+        });
+
+        server.route({ method: 'GET', path: '/', handler: function (request, reply) {
+            console.log("GET /");
+            reply.view('index', {
+                head: {
+                    title: "Home | Surender Thakran",
+                    description: "Surender Thakran's technical articles about web development, server management and enterprise architecture",
+                    keywords: "web,css3,html5"
+                }
+            });
+        } });
+
+        server.route({ method: 'GET', path: '/article', handler: function (request, reply) {
+            console.log("GET /article");
+            reply.view('article', {
+                head: {
+                    title: "Article | Surender Thakran",
+                    description: "Surender Thakran's technical articles about web development, server management and enterprise architecture",
+                    keywords: "web,css3,html5"
+                }
+            });
+        } });
+
         server.route({
             method: 'GET',
             path: '/{filename*}',
@@ -45,6 +93,7 @@ staticRoutesPlugin.register.attributes = {
 
 server.register([
     Inert,
+    Vision,
     {
         register: staticRoutesPlugin
     }
@@ -52,9 +101,12 @@ server.register([
     if (err) {
         console.error(err);
     } else {
+        server.start((err) => {
+            if (err) {
+                throw err;
+            }
 
-        server.start(() => {
-            console.log('Server running at:' + server.info.uri);
+            console.log('Server running at: ' + server.info.uri);
         });
     }
 });
