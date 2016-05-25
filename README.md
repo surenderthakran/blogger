@@ -2,13 +2,14 @@
 
 ###Salient Features:
 - Runs on `nodejs v5` and `npm v3`
-- Node.js runs with `hapi` framework
-- Architecture and dependencies are encapsulated in docker images hence making the dev and production environment COMPLETELY independent of host machine.
+- Node.js runs with [hapi](https://github.com/hapijs/hapi) framework
+- Makes use of [mustache](https://mustache.github.io/) templating engine on nodejs with [vision](https://github.com/hapijs/vision)
+- Architecture and dependencies are encapsulated in [docker](https://www.docker.com/) images hence making the dev and production environment COMPLETELY independent of host machine.
 - In Development Environment:
     - Provides simple development environment setup with docker-compose.
-    - scss to css auto compilation using gulp task runner.
+    - scss to css auto compilation using [gulp](http://gulpjs.com/) task runner.
 - In Production Environment:
-    - Continuous Deployment is achieved via Jenkins on every push to `production` branch
+    - Continuous Deployment is achieved via [Jenkins](https://jenkins.io/) on every push to `production` branch
 
 ###How To Use:
 ####To build docker image for the application:

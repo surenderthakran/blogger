@@ -70,6 +70,7 @@ const staticRoutesPlugin = {
             });
         } });
 
+        // @TODO: update to redirect all *.html requests to non-html urls
         server.route({
             method: 'GET',
             path: '/{filename*}',
