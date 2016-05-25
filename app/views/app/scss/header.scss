@@ -1,7 +1,7 @@
 /* Page Header */
 
 header.page-header {
-    background-color: #DBDFFF;
+    background-color: #EAEDFF;
     width: 100%;
     padding: 1.5em;
     box-shadow: 0 2px 5px rgba(9,9,9,0.5);
@@ -32,7 +32,7 @@ header.page-header {
     }
 
     .signature > p {
-        font-size: 1em;
+        font-size: 0.9em;
         color: #5E72AF;
         letter-spacing: 1px;
     }
@@ -58,10 +58,14 @@ header.page-header {
                 text-decoration: none;
                 padding: 0 10px 0 0;
                 opacity: 0.5;
+                -webkit-filter: grayscale(1);
+                filter: grayscale(1);
             }
 
             .external-logos-small > a:hover {
-                opacity: 1;
+                opacity: 0.8;
+                -webkit-filter: grayscale(0);
+                filter: grayscale(0);
             }
         }
 
@@ -75,15 +79,33 @@ header.page-header {
                 float: right;
 
                 a {
+                    position: relative;
                     text-decoration: none;
-                    font-size: 1.2em;
-                    color: #5E72AF;
+                    font-size: 1em;
+                    color: #3757B7;
                     letter-spacing: 1px;
                     line-height: 2em;
                 }
 
-                a:hover {
-                    opacity: 0.5;
+                a:before {
+                    content: "";
+                    position: absolute;
+                    width: 100%;
+                    height: 2px;
+                    bottom: 0;
+                    left: 0;
+                    background-color: #FF9D00;
+                    visibility: hidden;
+                    -webkit-transform: scaleX(0);
+                    transform: scaleX(0);
+                    -webkit-transition: all 0.3s ease-in-out 0s;
+                    transition: all 0.3s ease-in-out 0s;
+                }
+
+                a:hover:before {
+                    visibility: visible;
+                    -webkit-transform: scaleX(1);
+                    transform: scaleX(1);
                 }
             }
         }
