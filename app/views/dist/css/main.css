@@ -474,20 +474,22 @@ article {
   article div.article-body {
     padding: 2em 0;
     width: 100%; }
-    article div.article-body h2 {
-      margin: 0.5em 0; }
-    article div.article-body p {
+    article div.article-body h2, article div.article-body h3 {
+      margin: 0.5em 0;
+      width: 100%; }
+    article div.article-body p, article div.article-body ol, article div.article-body em {
       margin: 0.5em 0;
       line-height: 1.4em;
       font-weight: 400;
       font-size: 1.1em;
-      word-spacing: 0.1em; }
-      article div.article-body p a {
+      word-spacing: 0.1em;
+      width: 100%; }
+      article div.article-body p a, article div.article-body ol a, article div.article-body em a {
         float: none;
         color: inherit;
         border-bottom: 1px dotted #444444;
         text-decoration: none; }
-      article div.article-body p a:hover {
+      article div.article-body p a:hover, article div.article-body ol a:hover, article div.article-body em a:hover {
         color: #000;
         border-bottom: 1px solid #000; }
     article div.article-body pre {
@@ -496,4 +498,28 @@ article {
       padding: 0.5em;
       width: 100%; }
       article div.article-body pre code {
-        margin: 0.5em 0; }
+        width: 100%; }
+    article div.article-body ol {
+      list-style-type: decimal;
+      list-style-position: outside;
+      padding-left: 2em; }
+      article div.article-body ol li {
+        width: 100%; }
+    article div.article-body em {
+      font-weight: 600; }
+    article div.article-body div.image {
+      width: 100%;
+      padding: 1em; }
+      article div.article-body div.image a {
+        width: 100%;
+        padding: 1em 0;
+        font-style: italic;
+        color: #777777;
+        text-align: right; }
+    article div.article-body i, article div.article-body span, article div.article-body b {
+      float: none; }
+    article div.article-body span.underline {
+      text-decoration: underline; }
+    article div.article-body span.code {
+      font-family: monospace, monospace;
+      background-color: #efefef; }

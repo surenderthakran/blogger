@@ -28,16 +28,18 @@ article {
         padding: 2em 0;
         width: 100%;
 
-        h2 {
+        h2, h3 {
             margin: 0.5em 0;
+            width: 100%;
         }
 
-        p {
+        p, ol, em {
             margin: 0.5em 0;
             line-height: 1.4em;
             font-weight: 400;
             font-size: 1.1em;
             word-spacing: 0.1em;
+            width: 100%;
 
             a {
                 float: none;
@@ -59,8 +61,49 @@ article {
             width: 100%;
 
             code {
-                margin: 0.5em 0;
+                // margin: 0.5em 0;
+                width: 100%;
             }
+        }
+
+        ol {
+            list-style-type: decimal;
+            list-style-position: outside;
+            padding-left: 2em;
+
+            li {
+                width: 100%;
+            }
+        }
+
+        em {
+            font-weight: 600;
+        }
+
+        div.image {
+            width: 100%;
+            padding: 1em;
+
+            a {
+                width: 100%;
+                padding: 1em 0;
+                font-style: italic;
+                color: #777777;
+                text-align: right;
+            }
+        }
+
+        i, span, b {
+            float: none;
+        }
+
+        span.underline {
+            text-decoration: underline;;
+        }
+
+        span.code {
+            font-family: monospace, monospace;
+            background-color: #efefef;
         }
     }
 }
