@@ -1,7 +1,8 @@
 'use strict';
 
-module.exports = {
-    "s3-browser-upload-with-nodejs": {
+module.exports = [
+    {
+        article_id: "s3-browser-upload-with-nodejs",
         template_data: {
             head: {
                 title: "AWS S3 Direct Upload from Browser with Node.js as Backend | Surender Thakran",
@@ -15,4 +16,4 @@ module.exports = {
             }
         }
     }
-};
+];

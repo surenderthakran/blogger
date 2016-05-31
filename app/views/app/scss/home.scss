@@ -1,0 +1,48 @@
+section.article-list {
+    max-width: 960px;
+    margin: 0 auto;
+    float: none;
+    padding: 2em;
+    overflow: hidden;
+    font-family: Open Sans,Helvetica Neue,sans-serif;
+
+    header {
+        text-align: center;
+        width: 100%;
+        margin: 2em 0;
+        font-size: 1em;
+        letter-spacing: 0.1em;
+        font-weight: 600;
+    }
+
+    ul {
+        list-style-type: none;
+        width: 100%;
+
+        li {
+            padding: 2em 0;
+            border-top: solid 1px #aaa;
+            width: 100%;
+
+            a {
+                width: 100%;
+                text-decoration: none;
+                color: inherit;
+
+                :hover {
+                    opacity: 0.8;
+                }
+
+                h1 {
+                    text-align: left;
+                    font-size: 1.5em;
+                    margin: 0 0 0.5em 0;
+                }
+            }
+
+            time {
+                opacity: 0.8;
+            }
+        }
+    }
+}

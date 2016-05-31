@@ -57,17 +57,18 @@ const staticRoutesPlugin = {
                     title: "Home | Surender Thakran",
                     description: "Surender Thakran's technical articles about web development, server management and enterprise architecture",
                     keywords: "web,css3,html5"
-                }
+                },
+                articles: ArticleStore
             });
         } });
 
-        server.route({ method: "GET", path: "/article", handler: function (request, reply) {
-            console.log("GET /article");
-            reply.view("article", {
+        server.route({ method: "GET", path: "/about", handler: function (request, reply) {
+            console.log("GET /about");
+            reply.view("about", {
                 head: {
-                    title: "Article | Surender Thakran",
-                    description: "Surender Thakran's technical articles about web development, server management and enterprise architecture",
-                    keywords: "web,css3,html5"
+                    title: "About | Surender Thakran",
+                    description: "Page describing Surender Thakran, his career path and future goals.",
+                    keywords: "web architect,enterprise architect,startup,devops,backend developer,frontend developer,technology"
                 }
             });
         } });
@@ -81,8 +82,17 @@ const staticRoutesPlugin = {
 
             var article_id = request.params.article_id;
             console.log(article_id);
-            if (ArticleStore[article_id] !== undefined) {
-                var article_data = ArticleStore[article_id];
+
+            var index = -1;
+            for (var i = 0, len = ArticleStore.length; i < len; i++) {
+                if (ArticleStore[i]["article_id"] === article_id) {
+                    index = i;
+                    break;
+                }
+            }
+
+            if (index !== -1) {
+                var article_data = ArticleStore[index];
                 console.log(article_data);
 
                 reply.view(path, article_data.template_data);
