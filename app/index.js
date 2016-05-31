@@ -6,11 +6,13 @@ const Path = require("path");
 const Vision = require('vision');
 const Mustache = require("mustache");
 
+const ArticleStore = require("./articlestore");
+
 const server = new Hapi.Server({
     connections: {
         routes: {
             files: {
-                relativeTo: Path.join(__dirname, 'views')
+                relativeTo: Path.join(__dirname, "views")
             }
         }
     }
@@ -44,13 +46,13 @@ const staticRoutesPlugin = {
                 }
             },
             relativeTo: __dirname,
-            path: 'views',
-            partialsPath: 'views/partials'
+            path: "views",
+            partialsPath: "views/partials"
         });
 
-        server.route({ method: 'GET', path: '/', handler: function (request, reply) {
+        server.route({ method: "GET", path: "/", handler: function (request, reply) {
             console.log("GET /");
-            reply.view('index', {
+            reply.view("index", {
                 head: {
                     title: "Home | Surender Thakran",
                     description: "Surender Thakran's technical articles about web development, server management and enterprise architecture",
@@ -59,9 +61,9 @@ const staticRoutesPlugin = {
             });
         } });
 
-        server.route({ method: 'GET', path: '/article', handler: function (request, reply) {
+        server.route({ method: "GET", path: "/article", handler: function (request, reply) {
             console.log("GET /article");
-            reply.view('article', {
+            reply.view("article", {
                 head: {
                     title: "Article | Surender Thakran",
                     description: "Surender Thakran's technical articles about web development, server management and enterprise architecture",
@@ -70,10 +72,35 @@ const staticRoutesPlugin = {
             });
         } });
 
+        server.route({ method: "GET", path: "/articles/tech/{article_id*}", handler: function (request, reply) {
+            console.log("GET " + request.path);
+            console.log(request.params.article_id);
+
+            var path = request.path;
+            path = path.substring(1);
+
+            var article_id = request.params.article_id;
+            console.log(article_id);
+            if (ArticleStore[article_id] !== undefined) {
+                var article_data = ArticleStore[article_id];
+                console.log(article_data);
+
+                reply.view(path, article_data.template_data);
+            } else {
+                reply.view("404", {                 // @TODO: update 404 page
+                    head: {
+                        title: "Page Not Found | Surender Thakran",
+                        description: "The requested page does not exists",
+                        keywords: "404"
+                    }
+                });
+            }
+        }});
+
         // @TODO: update to redirect all *.html requests to non-html urls
         server.route({
-            method: 'GET',
-            path: '/{filename*}',
+            method: "GET",
+            path: "/{filename*}",
             handler: {
                 directory: {
                     path: ".",
@@ -107,7 +134,7 @@ server.register([
                 throw err;
             }
 
-            console.log('Server running at: ' + server.info.uri);
+            console.log("Server running at: " + server.info.uri);
         });
     }
 });
