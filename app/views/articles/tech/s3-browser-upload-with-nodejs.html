@@ -12,24 +12,24 @@
             </header>
             <div class="article-body">
                 <h2>What is this about?</h2>
-                <p>A substantial number of web applications nowadays need its users to upload content to get further processed or simply for storage. These can be images, videos, documents or simply text uploads. These uploads eventually end up getting stored on some kind of cloud storage. AWS' S3 is one of the more popular choices for such cloud storages. This article explains how to perform a <b>secure</b> upload to S3 directly from ones browser.</p>
-                <p>Uploading files to S3 can be done in one of the following ways:</p>
+                <p>A substantial number of web applications nowadays need its users to upload content for further processing or simply for storage. These can be images, videos, documents or simply text uploads. These uploads eventually end up getting stored on some kind of cloud storage. Amazon Web Service's (AWS) S3 is one of the more popular choices for such cloud storages. This article explains how to perform a <b>secure</b> upload to S3 directly from our browsers.</p>
+                <p>Uploading files to S3 can be done in one of the following techniques:</p>
                 <ol>
-                    <li>Upload files to your own backend server and from there route the upload to S3</li>
+                    <li>Upload files to our own backend server and from there route the upload to S3</li>
                     <li>Directly upload the files to S3 from browser <i>(recommended)</i></li>
                 </ol>
 
-                <h2>Which method to choose?</h2>
-                <p>Routing your S3 uploads via your own server has its own advantages and disadvantages. While it gives us better control about how, when and what to upload, it has a very noted disadvantage of putting unnecessary load on your own servers which can be avoided using the second method.</p>
-                <p>Directly uploading to S3 from client-side does allows to keep unnecessary load away from our servers and also produces faster uploads. Also, using <a href="http://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-authenticating-requests.html" target="_blank">AWS Signature Version 4</a> also provides all the security of uploading via routing through server. Even while uploading through browser, we can keep our user's secret key hidden from the browser by <b>using our server</b> to generate the upload parameters using the secret key.</p>
-                <em>Direct upload to S3 is almost always the preferred method.</em>
+                <h2>Which technique to choose?</h2>
+                <p>Routing our S3 uploads via our own server has its own advantages and disadvantages. While it gives us better control about how, when and what to upload, it has a very noted disadvantage of putting unnecessary load on our servers which can be avoided by directly uploading from the browser.</p>
+                <p>Directly uploading to S3 from the browser allows us to keep unnecessary load away from our servers. Also, using <a href="http://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-authenticating-requests.html" target="_blank">AWS Signature Version 4</a>, it allows us to keep our AWS secret key hidden from the browser by <b>using our server</b> to generate the upload parameters.</p>
+                <em>Direct upload to S3 is almost always the preferred technique.</em>
 
-                <h2>How does <span class="underline">secure</span> upload to S3, directly from the browser works?</h2>
+                <h2>How does <span class="underline">secure</span> upload to S3, directly from the browser, works?</h2>
                 <p>Uploading files to S3 directly from browser is a 5 step process:</p>
                 <ol>
                     <li>User uploads the file to the browser</li>
-                    <li>Browser makes an AJAX request to the backend (nodejs etc) with the uploaded file's information like name, size etc. (not the file itself)</li>
-                    <li>At the backend, a s3 policy document is created and encrypted with the AWS' Secret Key. Also, other upload parameters for S3 are generated and sent back to the browser.</li>
+                    <li>Browser makes an AJAX request to the backend with the uploaded file's information like name, size etc. (not the file itself)</li>
+                    <li>At the backend, a S3 policy document signed with the AWS' Secret Key alongwith other upload parameters for S3 are generated and sent back to the browser.</li>
                     <li>The browser makes an API upload request to S3 with the file alongwith the policy document and upload parameters.</li>
                     <li>S3 decrypts the policy document and if its content matches the upload parameters then a successful upload is performed.</li>
                 </ol>
@@ -37,9 +37,9 @@
 
                 <p>Before starting with any of these steps, we must properly configure our user account and S3 for a secure upload process.</p>
 
-                <h2>Configuring S3 and User Account</h2>
-                <p>First we must create an S3 bucket. Lets call it <span class="code">demo-dev</span>. Once created, we must set the CORS (Cross Origin Request Sharing) configuration for your bucket on S3. The preferred method to set the configuration is via the AWS S3 Management Console. Detailed instructions can be found <a href="http://docs.aws.amazon.com/AmazonS3/latest/dev/cors.html" target="_blank">in this CORS documentation</a>.</p>
-                <p>For greater security, the CORS configuration must be as restrictive as possible while permitting GET and POST requests. Assuming your application's URL to be <span class="code">demo.com</span>. The minimum CORS access needed for this article is:</p>
+                <h2>Configuring S3 Bucket and IAM User Account</h2>
+                <p>First we must create an S3 bucket. Lets call it <span class="code">demo-dev</span>. Once created, we must set the CORS (Cross Origin Request Sharing) configuration for our bucket on S3. The preferred method to set the configuration is via the AWS S3 Management Console. Detailed instructions can be found <a href="http://docs.aws.amazon.com/AmazonS3/latest/dev/cors.html" target="_blank">in this CORS documentation</a>.</p>
+                <p>For greater security, the CORS configuration must be as restrictive as possible while permitting POST requests. Assuming our application's URL to be <span class="code">demo.com</span>, the minimum CORS access needed for this article is:</p>
                 <pre><code>
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;CORSConfiguration xmlns="http://s3.amazonaws.com/doc/2006-03-01/"&gt;
@@ -50,25 +50,28 @@
     &lt;/CORSRule&gt;
 &lt;/CORSConfiguration&gt;
                 </code></pre>
-                <p>Now that the S3 bucket is created and properly configured, we need a user account for which we will fetch its accessKey and secretKey. These are the keys that will be used in Step 3 at nodejs to encrypt out policy document.</p>
-                <p>We must never use your root account user to generate Security Credentials (accessKey and secretKey). AWS allows for accounts to have restricted user accounts called <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html" target="_blank">IAM(Identity and Access Management)</a> Users. These user accounts can be configured to have only restricted access to AWS resources unlike your root account. We can learn here <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html" target="_blank">how to create an IAM user</a></p>
-                <p>Once the IAM user account is created, now we must assign it necessary permissions needed for this article. Permissions to an IAM user can be managed via IAM policy configurations. Instructions on <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html" target="_blank">how to configure IAM policies</a> can be found at the hyperlink.</p>
-                <p>Again,  for greater security, one must provide the bare minimum access to an IAM user that is needed. For the purpose of this article, an IAM user will need atleast the following permissions:</p>
+                <p>Now that the S3 bucket is created and properly configured, we need a user account for which we will generate its accessKey and secretKey from AWS IAM Console. These keys will be used in Step 3 to sign our policy document and in Step 4 to upload the file to S3.</p>
+                <p>We must never use our root account user to generate Security Credentials (accessKey and secretKey). AWS allows for accounts to have restricted user called <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html" target="_blank">IAM(Identity and Access Management)</a> Users. These users can be configured to have only restricted access to AWS resources unlike our root account. We can learn here <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html" target="_blank">how to create an IAM user</a></p>
+                <p>Once the IAM user is created, we must assign it necessary permissions needed for this article. Permissions to an IAM user can be managed via IAM policy configurations. Instructions on <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html" target="_blank">how to configure IAM policies</a> can be found at the hyperlink.</p>
+                <p>Again, for greater security, one must provide the bare minimum access to an IAM user that is needed. For the purpose of this article, an IAM user will need atleast the following inline policy:</p>
                 <pre><code>
 {
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": "s3:PutObject",
-      "Resource": "arn:aws:s3:::demo-dev/*"
-    }
-  ]
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:PutObject",
+                "s3:PutObjectAcl"
+            ],
+            "Resource": "arn:aws:s3:::demo-dev/*"
+        }
+    ]
 }
                 </code></pre>
-                <p>The <span class="code">demo-dev</span> being the name of our S3 bucket. We can also go through <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_examples.html">these policy document examples</a> to get a better understanding of how to frame policies.</p>
+                <p>The <span class="code">demo-dev</span> being the name of our S3 bucket. To define actions on multiple resources, the <span class="code">Resource</span> field can be an array. We can also go through <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_examples.html">these policy document examples</a> to get a better understanding of how to frame policies. We can learn about other policy permissions from <a href="http://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html" target="_blank">here</a></p>
                 <p>Once done, we must generate User Credentials for the user and save them for further use. We can learn from <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey" target="_blank"> here how to create access credentials.</a></p>
-                <p>Now that we have properly configured our S3 bucket and our IAM user, lets go through each step and see what exactly happens there.</p>
+                <p>Now that we have properly configured our S3 bucket and our IAM user, lets go through each step one by one.</p>
 
                 <h2>Step 1: Uploading file to the browser</h2>
                 <p>Uploading file to browser can be achieved simply via an <span class="code">input</span> element of type <span class="code">file</span>:</p>
@@ -268,6 +271,9 @@ xhr.send(formData);
     &lt;ETag&gt;"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"&lt;/ETag&gt;
 &lt;/PostResponse&gt;
                 </code></pre>
+
+                <h2>Example</h2>
+                <p>A working example code for the article can be found in my github repository: <a href="https://github.com/surenderthakran/s3-browser-upload-demo" target="_blank">https://github.com/surenderthakran/s3-browser-upload-demo</a></p>
             </div>
         </article>
     </body>
