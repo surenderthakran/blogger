@@ -10,7 +10,7 @@
             <ul>
                 {{#articles}}
                 <li>
-                    <a href="" target="_blank"><h1>{{ template_data.article.title }}</h1></a>
+                    <a href="{{ template_data.url }}" target="_blank"><h1>{{ template_data.article.title }}</h1></a>
                     <time datetime="{{ template_data.article.datetime }}">{{ template_data.article.date }}</time>
                 </li>
                 {{/articles}}
