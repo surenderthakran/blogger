@@ -402,6 +402,7 @@ header.page-header {
     letter-spacing: 1px; }
   header.page-header .toggle-bar {
     width: 70%;
+    margin: 0.5em 0;
     /* Center Bar */
     /* Navigation Menu */ }
     header.page-header .toggle-bar .centerbar {
@@ -427,99 +428,135 @@ header.page-header {
       header.page-header .toggle-bar nav.menu ul {
         list-style-type: none;
         float: right; }
-        header.page-header .toggle-bar nav.menu ul a {
-          position: relative;
-          text-decoration: none;
-          font-size: 1em;
-          color: #3757B7;
-          letter-spacing: 1px;
-          line-height: 2em; }
-        header.page-header .toggle-bar nav.menu ul a:before {
-          content: "";
-          position: absolute;
-          width: 100%;
-          height: 2px;
-          bottom: 0;
-          left: 0;
-          background-color: #FF9D00;
-          visibility: hidden;
-          -webkit-transform: scaleX(0);
-          transform: scaleX(0);
-          -webkit-transition: all 0.3s ease-in-out 0s;
-          transition: all 0.3s ease-in-out 0s; }
-        header.page-header .toggle-bar nav.menu ul a:hover:before {
-          visibility: visible;
-          -webkit-transform: scaleX(1);
-          transform: scaleX(1); }
+        header.page-header .toggle-bar nav.menu ul li {
+          padding: 0 0.8em; }
+          header.page-header .toggle-bar nav.menu ul li a {
+            position: relative;
+            text-decoration: none;
+            font-size: 1em;
+            color: #3757B7;
+            letter-spacing: 1px;
+            line-height: 2em; }
+          header.page-header .toggle-bar nav.menu ul li a:before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #FF9D00;
+            visibility: hidden;
+            -webkit-transform: scaleX(0);
+            transform: scaleX(0);
+            -webkit-transition: all 0.3s ease-in-out 0s;
+            transition: all 0.3s ease-in-out 0s; }
+          header.page-header .toggle-bar nav.menu ul li a:hover:before {
+            visibility: visible;
+            -webkit-transform: scaleX(1);
+            transform: scaleX(1); }
 
-article {
+section.article-list {
   max-width: 960px;
   margin: 0 auto;
   float: none;
   padding: 2em;
   overflow: hidden;
   font-family: Open Sans,Helvetica Neue,sans-serif; }
-  article header {
+  section.article-list header {
+    text-align: center;
+    width: 100%;
+    margin: 2em 0;
+    font-size: 1em;
+    letter-spacing: 0.1em;
+    font-weight: 600; }
+  section.article-list ul {
+    list-style-type: none;
+    width: 100%; }
+    section.article-list ul li {
+      padding: 2em 0;
+      border-top: solid 1px #aaa;
+      width: 100%; }
+      section.article-list ul li a {
+        width: 100%;
+        text-decoration: none;
+        color: inherit; }
+        section.article-list ul li a :hover {
+          opacity: 0.8; }
+        section.article-list ul li a h1 {
+          text-align: left;
+          font-size: 1.5em;
+          margin: 0 0 0.5em 0; }
+      section.article-list ul li time {
+        opacity: 0.8; }
+
+article.article {
+  max-width: 960px;
+  margin: 0 auto;
+  float: none;
+  padding: 2em;
+  overflow: hidden;
+  font-family: Open Sans,Helvetica Neue,sans-serif; }
+  article.article header {
     padding: 2em 0;
     border-bottom: solid 1px #CCC;
     width: 100%; }
-    article header h1 {
+    article.article header h1 {
       width: 100%;
       font-size: 2.5em;
       letter-spacing: 0.01em; }
-    article header time {
+    article.article header time {
       width: 100%;
       font-size: 1em;
       opacity: 0.8; }
-  article div.article-body {
+  article.article div.article-body {
     padding: 2em 0;
     width: 100%; }
-    article div.article-body h2, article div.article-body h3 {
+    article.article div.article-body h2, article.article div.article-body h3 {
       margin: 0.5em 0;
       width: 100%; }
-    article div.article-body p, article div.article-body ol, article div.article-body em {
+    article.article div.article-body p, article.article div.article-body ol, article.article div.article-body em {
       margin: 0.5em 0;
       line-height: 1.4em;
       font-weight: 400;
       font-size: 1.1em;
       word-spacing: 0.1em;
       width: 100%; }
-      article div.article-body p a, article div.article-body ol a, article div.article-body em a {
+      article.article div.article-body p a, article.article div.article-body ol a, article.article div.article-body em a {
         float: none;
         color: inherit;
         border-bottom: 1px dotted #444444;
         text-decoration: none; }
-      article div.article-body p a:hover, article div.article-body ol a:hover, article div.article-body em a:hover {
+      article.article div.article-body p a:hover, article.article div.article-body ol a:hover, article.article div.article-body em a:hover {
         color: #000;
         border-bottom: 1px solid #000; }
-    article div.article-body pre {
+    article.article div.article-body pre {
       margin: 0.5em 0;
       background-color: #efefef;
       padding: 0.5em;
       width: 100%; }
-      article div.article-body pre code {
+      article.article div.article-body pre code {
         width: 100%; }
-    article div.article-body ol {
+    article.article div.article-body ol {
       list-style-type: decimal;
       list-style-position: outside;
       padding-left: 2em; }
-      article div.article-body ol li {
+      article.article div.article-body ol li {
         width: 100%; }
-    article div.article-body em {
+    article.article div.article-body em {
       font-weight: 600; }
-    article div.article-body div.image {
+    article.article div.article-body div.image {
       width: 100%;
       padding: 1em; }
-      article div.article-body div.image a {
+      article.article div.article-body div.image a {
         width: 100%;
         padding: 1em 0;
         font-style: italic;
         color: #777777;
         text-align: right; }
-    article div.article-body i, article div.article-body span, article div.article-body b {
+    article.article div.article-body i, article.article div.article-body span, article.article div.article-body b {
       float: none; }
-    article div.article-body span.underline {
+    article.article div.article-body span.underline {
       text-decoration: underline; }
-    article div.article-body span.code {
+    article.article div.article-body span.code {
       font-family: monospace, monospace;
       background-color: #efefef; }
