@@ -476,7 +476,7 @@ header.page-header {
             height: 2px;
             bottom: 0;
             left: 0;
-            background-color: #FF9D00;
+            background-color: #484871;
             visibility: hidden;
             -webkit-transform: scaleX(0);
             transform: scaleX(0);
@@ -536,6 +536,9 @@ article.article {
       width: 100%;
       font-size: 2.5em;
       letter-spacing: 0.01em; }
+      @media screen and (max-width: 815px) {
+        article.article header h1 {
+          font-size: 1.5em; } }
     article.article header time {
       width: 100%;
       font-size: 1em;
@@ -578,7 +581,12 @@ article.article {
       font-weight: 600; }
     article.article div.article-body div.image {
       width: 100%;
-      padding: 1em; }
+      padding: 1em 0.5em;
+      text-align: center; }
+      article.article div.article-body div.image img {
+        height: auto;
+        max-width: 100%;
+        float: none; }
       article.article div.article-body div.image a {
         width: 100%;
         padding: 1em 0;
