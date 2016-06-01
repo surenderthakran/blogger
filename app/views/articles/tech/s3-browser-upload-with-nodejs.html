@@ -170,7 +170,7 @@ var policyBase64 = new Buffer(JSON.stringify(policy)).toString('base64');
                 <p>Once we have the encoded policy document, we need to generate a signing key. This key will used to sign the encoded policy document to generate the final signature which will be used for the upload.</p>
                 <p>The following diagram illustrates the general process of computing a signature.</p>
                 <div class="image">
-                    <img alt="image illustrating the process of computing a signature" src="/images/articles/s3-browser-upload-with-nodejs/signing-overview.png" width="510" height="284"/>
+                    <img alt="image illustrating the process of computing a signature" src="/images/articles/s3-browser-upload-with-nodejs/signing-overview.png" width="510" />
                     <a href="https://aws.amazon.com/documentation/" target="_blank">Image source</a>
                 </div>
                 <p>In the above image, the encoded policy document will be the "StringToSign". The encryption process can be performed using the node.js's inbuild package <a href="https://nodejs.org/api/crypto.html" target="_blank">crypto</a>.</p>

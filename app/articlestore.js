@@ -8,7 +8,7 @@ module.exports = [
             head: {
                 title: "AWS S3 Direct Upload from Browser with Node.js as Backend | Surender Thakran",
                 description: "Amazon Web Services (AWS) S3 Direct Upload from Browser with Node.js as Backend with example",
-                keywords: "aws,s3,nodejs,node.js,javascript,crypto,html,form,formdata"
+                keywords: "aws,s3,nodejs,node.js,express.js,expressjs,ajax,xhr,javascript,crypto,html,form,formdata"
             },
             article: {
                 title: "AWS S3 Direct Upload from Browser with Node.js as Backend",
