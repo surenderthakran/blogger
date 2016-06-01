@@ -1,15 +1,27 @@
 /* Page Header */
 
+$header-height: 95px;
+
+$responsive-threshold: 815px;
+$header-responsive-height: 75px;
+
 header.page-header {
-    background-color: #EAEDFF;
+    background-color: #E2E2E6;
     width: 100%;
+    height: $header-height;
     padding: 1.5em;
-    box-shadow: 0 2px 5px rgba(9,9,9,0.5);
+    box-shadow: 0 2px 5px rgba(57,57,86,0.5);
+
+    @media screen and (max-width: $responsive-threshold) {
+        background-color: #393956;
+        padding: 1em;
+        height: $header-responsive-height;
+    }
 
     /* Signature */
 
     .signature {
-        width: 30%;
+        width: 33%;
         min-width: 260px;
         line-height: 1.5em;
 
@@ -29,23 +41,49 @@ header.page-header {
         color: #4E4E4E;
         letter-spacing: 1px;
         font-size: 1.3em;
+
+        @media screen and (max-width: $responsive-threshold) {
+            color: #FFFFFF;
+        }
     }
 
     .signature > p {
         font-size: 0.9em;
-        color: #5E72AF;
+        color: #9E9E9E;
         letter-spacing: 1px;
+
+        @media screen and (max-width: $responsive-threshold) {
+            color: #E2E2E2;
+        }
     }
 
     .toggle-bar {
-        width: 70%;
+        width: 66%;
         margin: 0.5em 0;
+        float: right;
+
+        @media screen and (max-width: $responsive-threshold) {
+            width: 100%;
+            position: absolute;
+            background-color: #E2E2E6;
+            top: $header-responsive-height;
+            left: 0;
+            right: 0;
+            margin: 0;
+            box-shadow: 0 2px 5px rgba(57,57,86,0.5);
+            padding: 0.5em 1em;
+        }
 
         /* Center Bar */
 
         .centerbar {
             width: 50%;
             text-align: center;
+
+            @media screen and (max-width: $responsive-threshold) {
+                text-align: left;
+                width: auto;
+            }
 
             /* External icons */
 
@@ -57,7 +95,7 @@ header.page-header {
 
             .external-logos-small > a {
                 text-decoration: none;
-                padding: 0 10px 0 0;
+                padding: 0 10px;
                 opacity: 0.5;
                 -webkit-filter: grayscale(1);
                 filter: grayscale(1);
@@ -75,6 +113,11 @@ header.page-header {
         nav.menu {
             width: 50%;
 
+            @media screen and (max-width: $responsive-threshold) {
+                width: auto;
+                float: right;
+            }
+
             ul {
                 list-style-type: none;
                 float: right;
@@ -85,8 +128,8 @@ header.page-header {
                     a {
                         position: relative;
                         text-decoration: none;
-                        font-size: 1em;
-                        color: #3757B7;
+                        font-size: 0.9em;
+                        color: #393956;
                         letter-spacing: 1px;
                         line-height: 2em;
                     }
