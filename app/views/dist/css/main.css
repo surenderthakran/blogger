@@ -375,13 +375,19 @@ body {
 
 /* Page Header */
 header.page-header {
-  background-color: #EAEDFF;
+  background-color: #E2E2E6;
   width: 100%;
+  height: 95px;
   padding: 1.5em;
-  box-shadow: 0 2px 5px rgba(9, 9, 9, 0.5);
+  box-shadow: 0 2px 5px rgba(57, 57, 86, 0.5);
   /* Signature */ }
+  @media screen and (max-width: 815px) {
+    header.page-header {
+      background-color: #393956;
+      padding: 1em;
+      height: 75px; } }
   header.page-header .signature {
-    width: 30%;
+    width: 33%;
     min-width: 260px;
     line-height: 1.5em; }
     header.page-header .signature .external-logos-large {
@@ -396,26 +402,48 @@ header.page-header {
     color: #4E4E4E;
     letter-spacing: 1px;
     font-size: 1.3em; }
+    @media screen and (max-width: 815px) {
+      header.page-header .signature > a {
+        color: #FFFFFF; } }
   header.page-header .signature > p {
     font-size: 0.9em;
-    color: #5E72AF;
+    color: #9E9E9E;
     letter-spacing: 1px; }
+    @media screen and (max-width: 815px) {
+      header.page-header .signature > p {
+        color: #E2E2E2; } }
   header.page-header .toggle-bar {
-    width: 70%;
+    width: 66%;
     margin: 0.5em 0;
+    float: right;
     /* Center Bar */
     /* Navigation Menu */ }
+    @media screen and (max-width: 815px) {
+      header.page-header .toggle-bar {
+        width: 100%;
+        position: absolute;
+        background-color: #E2E2E6;
+        top: 75px;
+        left: 0;
+        right: 0;
+        margin: 0;
+        box-shadow: 0 2px 5px rgba(57, 57, 86, 0.5);
+        padding: 0.5em 1em; } }
     header.page-header .toggle-bar .centerbar {
       width: 50%;
       text-align: center;
       /* External icons */ }
+      @media screen and (max-width: 815px) {
+        header.page-header .toggle-bar .centerbar {
+          text-align: left;
+          width: auto; } }
       header.page-header .toggle-bar .centerbar .external-logos-small {
         padding: 2px 0;
         display: inline-block;
         float: none; }
       header.page-header .toggle-bar .centerbar .external-logos-small > a {
         text-decoration: none;
-        padding: 0 10px 0 0;
+        padding: 0 10px;
         opacity: 0.5;
         -webkit-filter: grayscale(1);
         filter: grayscale(1); }
@@ -425,6 +453,10 @@ header.page-header {
         filter: grayscale(0); }
     header.page-header .toggle-bar nav.menu {
       width: 50%; }
+      @media screen and (max-width: 815px) {
+        header.page-header .toggle-bar nav.menu {
+          width: auto;
+          float: right; } }
       header.page-header .toggle-bar nav.menu ul {
         list-style-type: none;
         float: right; }
@@ -433,8 +465,8 @@ header.page-header {
           header.page-header .toggle-bar nav.menu ul li a {
             position: relative;
             text-decoration: none;
-            font-size: 1em;
-            color: #3757B7;
+            font-size: 0.9em;
+            color: #393956;
             letter-spacing: 1px;
             line-height: 2em; }
           header.page-header .toggle-bar nav.menu ul li a:before {
