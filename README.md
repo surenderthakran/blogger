@@ -7,7 +7,7 @@
 - Architecture and dependencies are encapsulated in [docker](https://www.docker.com/) images hence making the dev and production environment COMPLETELY independent of host machine.
 - In Development Environment:
     - Provides simple development environment setup with docker-compose.
-    - scss to css auto compilation using [gulp](http://gulpjs.com/) task runner.
+    - scss to css auto compilation and CSS minification using [gulp](http://gulpjs.com/) task runner.
 - In Production Environment:
     - Continuous Deployment is achieved via [Jenkins](https://jenkins.io/) on every push to `production` branch
 
@@ -35,4 +35,4 @@ docker-compose up
 ```
 Above commands will run the blogger docker container with the `blogger/app/` folder volume mounted.
 
-It will also start a `gulp` watch task to compile `.scss` files into `.css` on change.
+It will also start a `gulp` watch task to compile `.scss` files into `.css` on change and minify the resultant `.css`.
