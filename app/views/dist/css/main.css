@@ -593,10 +593,11 @@ article.article {
         font-style: italic;
         color: #777777;
         text-align: right; }
-    article.article div.article-body i, article.article div.article-body span, article.article div.article-body b {
+    article.article div.article-body i, article.article div.article-body span, article.article div.article-body strong {
       float: none; }
     article.article div.article-body span.underline {
       text-decoration: underline; }
     article.article div.article-body span.code {
       font-family: monospace, monospace;
-      background-color: #efefef; }
+      background-color: #efefef;
+      padding: 0 0.2em; }

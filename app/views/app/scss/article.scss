@@ -104,7 +104,7 @@ article.article {
             }
         }
 
-        i, span, b {
+        i, span, strong {
             float: none;
         }
 
@@ -115,6 +115,7 @@ article.article {
         span.code {
             font-family: monospace, monospace;
             background-color: #efefef;
+            padding: 0 0.2em;
         }
     }
 }

@@ -12,7 +12,7 @@
             </header>
             <div class="article-body">
                 <h2>What is this about?</h2>
-                <p>A substantial number of web applications nowadays need its users to upload content for further processing or simply for storage. These can be images, videos, documents or simply text uploads. These uploads eventually end up getting stored on some kind of cloud storage. Amazon Web Service's (AWS) S3 is one of the more popular choices for such cloud storages. This article explains how to perform a <b>secure</b> upload to S3 directly from our browsers.</p>
+                <p>A substantial number of web applications nowadays need its users to upload content for further processing or simply for storage. These can be images, videos, documents or simply text uploads. These uploads eventually end up getting stored on some kind of cloud storage. Amazon Web Service's (AWS) S3 is one of the more popular choices for such cloud storages. This article explains how to perform a <strong>secure</strong> upload to S3 directly from our browsers.</p>
                 <p>Uploading files to S3 can be done in one of the following techniques:</p>
                 <ol>
                     <li>Upload files to our own backend server and from there route the upload to S3</li>
@@ -21,7 +21,7 @@
 
                 <h2>Which technique to choose?</h2>
                 <p>Routing our S3 uploads via our own server has its own advantages and disadvantages. While it gives us better control about how, when and what to upload, it has a very noted disadvantage of putting unnecessary load on our servers which can be avoided by directly uploading from the browser.</p>
-                <p>Directly uploading to S3 from the browser allows us to keep unnecessary load away from our servers. Also, using <a href="http://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-authenticating-requests.html" target="_blank">AWS Signature Version 4</a>, it allows us to keep our AWS secret key hidden from the browser by <b>using our server</b> to generate the upload parameters.</p>
+                <p>Directly uploading to S3 from the browser allows us to keep unnecessary load away from our servers. Also, using <a href="http://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-authenticating-requests.html" target="_blank">AWS Signature Version 4</a>, it allows us to keep our AWS secret key hidden from the browser by <strong>using our server</strong> to generate the upload parameters.</p>
                 <em>Direct upload to S3 is almost always the preferred technique.</em>
 
                 <h2>How does <span class="underline">secure</span> upload to S3, directly from the browser, works?</h2>
