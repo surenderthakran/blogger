@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {{>head_content}}
+    </head>
+    <body>
+        {{>header}}
+        <article class="article">
+            <header>
+                <h1>{{ article.title }}</h1>
+                <time datetime="{{ article.datetime }}">{{ article.date }}</time>
+            </header>
+            <div class="article-body">
+                <h2>What is this about?</h2>
+                <p><a href="https://www.docker.com/" target="_blank">Docker</a> is no longer the exotic new kid in the playground. A huge number of companies are adopting it in their development as well as deployment environments.</p>
+                <p>With this increasing usage, the number of use cases for this technology are also evolving. One of them is to be able to connect to a docker daemon running on a remote server. Here, one may suggest to simply <span class="code">SSH</span> to the remote server running the docker daemon and execute whatever commands or scripts one may desire. While not a bad idea, it does not works very well if we want to connect to multiple docker daemon's running on different hosts and get docker host information simultaneously.</p>
+                <p>This is where <a href="https://docs.docker.com/engine/reference/api/docker_remote_api/" target="_blank">Docker Remote API's</a> come to help us. Since docker version <span class="code">1.6.x</span> docker introduced REST apis to query the docker daemon. In default docker installations, remote api feature is disabled.</p>
+                <p>In this article, we will explore how to enable docker remote APIs on a linux distribution and connect to it remotely using SSH Tunnel.</p>
+
+                <h2>Enabling Docker Remote API</h2>
+                <p>In 14.04, Ubuntu uses <a href="http://upstart.ubuntu.com/" target="_blank">upstart</a> as the docker process manager. By default, <span class="code">upstart</span> jobs are located in <span class="code">/etc/init</span> and the docker Upstart job can be found at <span class="code">/etc/init/docker.conf</span>. A simple search in <span class="code">docker.conf</span> for <span class="code">DOCKER_OPTS</span> should reveal an unassigned <span class="code">DOCKER_OPTS</span> variable.</p>
+                <p>This variable needs to be given a value so that:</p>
+                <pre><code>
+DOCKER_OPTS='-H tcp://&lt;IP_ADDRESS&gt;:4243 -H unix:///var/run/docker.sock'
+                </code></pre>
+                <p>Replace <span class="code">&lt;IP_ADDRESS&gt;</span> with the IP address from which we will be connecting with the docker daemon's API. Providing any external IP address will also need us to expose our port <span class="code">4243</span> publicly or atleast over a VPN. Neither of which is a very secure method (specially exposing the port publicly). But still if we don't care much about security for just this once, we can use <span class="code">0.0.0.0</span> to allow docker daemon to accept requests from any IP address.</p>
+                <p>For a production environment however, it is imperative that security should be paramount. Hence, we will be creating a SSH tunnel with the docker host (i.e. the remote server on which we are enabling remote API). Since creating a SSH tunnel to the remote host will effectively put us in the host's local environment, we can configure docker daemon to accept requests only from the local IP i.e. <span class="code">127.0.0.1</span></p>
+                <p>Connecting via SSH tunnel only needs the port <span class="code">443</span> (default ssh port) to be exposed which in any case is needed to be able to connect to a remote host.</p>
+                <p>By default the Docker daemon listens on unix socket <span class="code">unix:///var/run/docker.sock</span> and the client must have <span class="code">root</span> access to interact with the daemon. Hence, the user we would be using to create an SSH tunnel should have <span class="code">root</span> access.</p>
+                <p>Once the file has been properly configured, we will have to restart the docker service with:</p>
+                <pre><code>
+sudo service docker restart
+                </code></pre>
+                <p>To verify if remote APIs have been enbaled. We can make an API call from the terminal on the host itself about information about all the docker images on the host.</p>
+                <pre><code>
+curl -X GET http://127.0.0.1:4243/images/json
+                </code></pre>
+                <p>This should print an array of JSONs to the stdout.</p>
+
+                <h2>Creating SSH Tunnel to the remote host</h2>
+                <p>Creating an SSH tunnel is a very starightforward process. All we will need is SSH login credentials of a user with root access. Assuming our user's name is <span class="code">ubuntu</span>, our tunnel command would be:</p>
+                <pre><code>
+ssh -f ubuntu@&lt;HOST_IP_ADDRESS&gt; -L 4244:127.0.0.1:4243 -N
+                </code></pre>
+                <p>Here, <span class="code">&lt;HOST_IP_ADDRESS&gt;</span> is the public IP address of the remote host machine. Above command would create an SSH tunnel between the remote host's port <span class="code">4243</span> and our localhost <span class="code">4244</span>.</p>
+                <p>For users connecting to AWS EC2 servers using <span class="code">.pem</span> file with user <span class="code">ubuntu</span>:</p>
+                <pre><code>
+ssh -i &lt;PATH_TO_PEM_FILE&gt; -f ubuntu@&lt;PUBLIC_DNS_NAME&gt; -L 4244:127.0.0.1:4243 -N
+                </code></pre>
+                <p>Replace <span class="code">&lt;PATH_TO_PEM_FILE&gt;</span> with the path to the <span class="code">.pem</span> file and <span class="code">&lt;PUBLIC_DNS_NAME&gt;</span> is the ec2 instance id.</p>
+                <p>If successfully done, we should be able to make API calls on out localhost to port <span class="code">4244</span>.</p>
+                <pre><code>
+curl -X GET http://127.0.0.1:4244/images/json
+                </code></pre>
+            </div>
+        </article>
+    </body>
+</html>
