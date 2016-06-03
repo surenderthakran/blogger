@@ -2,19 +2,19 @@
 
 $header-height: 95px;
 
-$responsive-threshold: 815px;
+$responsive-threshold: 830px;
 $header-responsive-height: 75px;
 
 header.page-header {
-    background-color: #E2E2E6;
+    background-color: #E0E2FB;
     width: 100%;
     height: $header-height;
-    padding: 1.5em;
+    padding: 1.5em 2em;
     box-shadow: 0 2px 5px rgba(255,255,255,0.5);
 
     @media screen and (max-width: $responsive-threshold) {
         background-color: #484871;
-        padding: 1em;
+        padding: 1em 2em;
         height: $header-responsive-height;
     }
 
@@ -65,13 +65,13 @@ header.page-header {
         @media screen and (max-width: $responsive-threshold) {
             width: 100%;
             position: absolute;
-            background-color: #E2E2E6;
+            background-color: #E0E2FB;
             top: $header-responsive-height;
             left: 0;
             right: 0;
             margin: 0;
             box-shadow: 0 2px 5px rgba(255,255,255,0.5);
-            padding: 0.5em 1em;
+            padding: 0.5em 2em;
         }
 
         /* Center Bar */
