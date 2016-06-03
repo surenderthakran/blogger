@@ -18,7 +18,7 @@
                 <p>In this article, we will explore how to enable docker remote APIs on a linux distribution and connect to it remotely using SSH Tunnel.</p>
 
                 <h2>Enabling Docker Remote API</h2>
-                <p>In 14.04, Ubuntu uses <a href="http://upstart.ubuntu.com/" target="_blank">upstart</a> as the docker process manager. By default, <span class="code">upstart</span> jobs are located in <span class="code">/etc/init</span> and the docker Upstart job can be found at <span class="code">/etc/init/docker.conf</span>. A simple search in <span class="code">docker.conf</span> for <span class="code">DOCKER_OPTS</span> should reveal an unassigned <span class="code">DOCKER_OPTS</span> variable.</p>
+                <p>In 14.04, Ubuntu uses <a href="http://upstart.ubuntu.com/" target="_blank">upstart</a> as the process manager. By default, <span class="code">upstart</span> jobs are located in <span class="code">/etc/init</span> and the docker Upstart job can be found at <span class="code">/etc/init/docker.conf</span>. A simple search in <span class="code">docker.conf</span> for <span class="code">DOCKER_OPTS</span> should reveal an unassigned <span class="code">DOCKER_OPTS</span> variable.</p>
                 <p>This variable needs to be given a value so that:</p>
                 <pre><code>
 DOCKER_OPTS='-H tcp://&lt;IP_ADDRESS&gt;:4243 -H unix:///var/run/docker.sock'
