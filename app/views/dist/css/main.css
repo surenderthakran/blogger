@@ -565,12 +565,10 @@ article.article {
         color: #000;
         border-bottom: 1px solid #000; }
     article.article div.article-body pre {
-      margin: 0.5em 0;
       background-color: #efefef;
-      padding: 0.5em;
       width: 100%; }
-      article.article div.article-body pre code {
-        width: 100%; }
+      article.article div.article-body pre code span.token.operator {
+        background-color: #EFEFEF; }
     article.article div.article-body ol {
       list-style-type: decimal;
       list-style-position: outside;
