@@ -59,14 +59,15 @@ article.article {
         }
 
         pre {
-            margin: 0.5em 0;
+            // margin: 0.5em 0;
             background-color: #efefef;
-            padding: 0.5em;
+            // padding: 0.5em;
             width: 100%;
 
             code {
-                // margin: 0.5em 0;
-                width: 100%;
+                span.token.operator {
+                    background-color: #EFEFEF;
+                }
             }
         }
 

@@ -50,6 +50,8 @@ const staticRoutesPlugin = {
             partialsPath: "views/partials"
         });
 
+        // @TODO: make urls case insensitive
+
         server.route({ method: "GET", path: "/", handler: function (request, reply) {
             console.log("GET /");
             reply.view("index", {
