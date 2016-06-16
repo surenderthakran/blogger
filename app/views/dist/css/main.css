@@ -500,7 +500,8 @@ section.article-list {
     margin: 2em 0;
     font-size: 1em;
     letter-spacing: 0.1em;
-    font-weight: 600; }
+    font-weight: 600;
+    color: #666; }
   section.article-list ul {
     list-style-type: none;
     width: 100%; }
