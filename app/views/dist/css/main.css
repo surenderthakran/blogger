@@ -365,7 +365,11 @@ html {
 body {
   font-family: Open Sans,Helvetica Neue,sans-serif;
   width: 100%;
-  color: #444444; }
+  color: #444444;
+  background-image: url("/images/background.jpg");
+  background-repeat: repeat;
+  background-position: top left;
+  background-attachment: fixed; }
 
 .hidden {
   display: none; }
