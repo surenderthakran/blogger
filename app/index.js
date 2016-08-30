@@ -75,9 +75,8 @@ const staticRoutesPlugin = {
             });
         } });
 
-        server.route({ method: "GET", path: "/articles/tech/{article_id*}", handler: function (request, reply) {
+        server.route({ method: "GET", path: "/articles/tech/{article_id}", handler: function (request, reply) {
             console.log("GET " + request.path);
-            console.log(request.params.article_id);
 
             var path = request.path;
             path = path.substring(1);
@@ -97,7 +96,7 @@ const staticRoutesPlugin = {
                 var article_data = ArticleStore[index];
                 console.log(article_data);
 
-                reply.view(path, article_data.template_data);
+                reply.view(path + "/index.html", article_data);
             } else {
                 reply.view("404", {                 // @TODO: update 404 page
                     head: {
@@ -152,4 +151,4 @@ server.register([
 });
 
 // @TODO: in error handling block of a request, use request.getLog() to print request's logs for debugging
-// @TODO: create loggin plugin based on 'good' which we implicitly handle multiple good plugins registration and configuration. Use https://github.com/hapijs/good/blob/master/API.md for reference.
+// @TODO: create logging plugin based on 'good' which we implicitly handle multiple good plugins registration and configuration. Use https://github.com/hapijs/good/blob/master/API.md for reference.
