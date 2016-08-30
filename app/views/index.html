@@ -10,8 +10,8 @@
             <ul>
                 {{#articles}}
                 <li>
-                    <a href="{{ template_data.url }}"><h1>{{ template_data.article.title }}</h1></a>
-                    <time datetime="{{ template_data.article.datetime }}">{{ template_data.article.date }}</time>
+                    <a href="{{ url }}"><h1>{{ article.title }}</h1></a>
+                    <time datetime="{{ article.datetime }}">{{ article.date }}</time>
                 </li>
                 {{/articles}}
             </ul>
