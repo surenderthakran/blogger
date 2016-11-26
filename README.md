@@ -2,7 +2,7 @@
 [http://surenderthakran.com](http://surenderthakran.com)
 
 ###Salient Features:
-- Runs on `nodejs v5` and `npm v3`
+- Runs on `nodejs v6` and `npm v3`
 - Node.js runs with [hapi](https://github.com/hapijs/hapi) framework
 - Makes use of [mustache](https://mustache.github.io/) templating engine on nodejs with [vision](https://github.com/hapijs/vision)
 - Architecture and dependencies are encapsulated in [docker](https://www.docker.com/) images hence making the dev and production environment COMPLETELY independent of host machine.
@@ -22,7 +22,7 @@ docker build -t blogger_app .
 ```
 docker run -it -d --name blogger_app_1 --net=host blogger_app
 ```
-The container will listen for requests on port `18660`.
+With `--net=host` the container will listen for requests on port `18660`.
 
 To listen on a different port (ex: `80`) run:
 ```

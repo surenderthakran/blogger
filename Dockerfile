@@ -1,6 +1,6 @@
 # Dockerfile for surenderthakran/blogger
 
-FROM surenderthakran/nodejs:v5
+FROM surenderthakran/nodejs:v6
 
 MAINTAINER https://github.com/surenderthakran
 
