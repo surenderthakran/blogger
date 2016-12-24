@@ -39,4 +39,4 @@ clean:
 # to catch all default targets and do nothing
 .DEFAULT: ;
 
-.PHONY: help install run exec clean
+.PHONY: help install run clean
