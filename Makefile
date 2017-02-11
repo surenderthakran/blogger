@@ -21,7 +21,7 @@ ifeq ($(NODE_ENV), dev)
 	@sleep 10
 	@echo Starting gulp watch in background...
 	@nohup ./node_modules/gulp/bin/gulp.js watch &
-	@echo Starting gulp watch in background...
+	@echo Starting server via nodemon...
 	@./node_modules/nodemon/bin/nodemon.js -e js,html app/index.js
 else
 	@echo Starting nodejs...
@@ -39,4 +39,4 @@ clean:
 # to catch all default targets and do nothing
 .DEFAULT: ;
 
-.PHONY: help install run exec clean
+.PHONY: help install run clean
