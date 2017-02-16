@@ -74,28 +74,28 @@ const staticRoutesPlugin = {
       });
     } });
 
-    server.route({ method: 'GET', path: '/articles/tech/{article_id}', handler: function (request, reply) {
+    server.route({ method: 'GET', path: '/articles/tech/{articleId}', handler: function (request, reply) {
       console.log('GET ' + request.path);
 
       var path = request.path;
       path = path.substring(1);
 
-      var article_id = request.params.article_id;
-      console.log(article_id);
+      var articleId = request.params.articleId;
+      console.log(articleId);
 
       var index = -1;
       for (var i = 0, len = ArticleStore.length; i < len; i++) {
-        if (ArticleStore[i]['article_id'] === article_id) {
+        if (ArticleStore[i].articleId === articleId) {
           index = i;
           break;
         }
       }
 
       if (index !== -1) {
-        var article_data = ArticleStore[index];
-        console.log(article_data);
+        var articleData = ArticleStore[index];
+        console.log(articleData);
 
-        reply.view(path + '/index.html', article_data);
+        reply.view(path + '/index.html', articleData);
       } else {
         reply.view('404', {                 // @TODO: update 404 page
           head: {

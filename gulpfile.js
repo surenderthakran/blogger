@@ -5,6 +5,7 @@ var sass = require('gulp-sass');
 var cleanCSS = require('gulp-clean-css');
 var rename = require("gulp-rename");
 var path = require('path');
+var jshint = require('gulp-jshint');
 
 // creates a vulcanized main.css file for main.scss and its dependencies.
 gulp.task('sass', function () {
@@ -26,6 +27,14 @@ gulp.task('clean-css', function() {
         .pipe(gulp.dest(__dirname + '/app/views/dist/css'));
 });
 
+gulp.task('lint-app', function() {
+  return gulp.src([
+    './app/**/*.js',
+    '!./app/views/dist{,/**}'])
+    .pipe(jshint())
+    .pipe(jshint.reporter('default'));
+});
+
 // TODO(surenderthakran): update to vulcanize and minimize js files.
 // moves main.js to dist on save.
 gulp.task('js-move', function () {
@@ -39,8 +48,10 @@ gulp.task('watch', function () {
     console.log("in watch");
     // watches all .scss files and runs sass and clean-css tasks when saved.
     gulp.watch(__dirname + '/app/views/app/scss/**/*.scss', ['sass', 'clean-css']);
-    // watches all .js files and runs js-move task when saved.
+    // watches all frontend .js files and runs js-move task when saved.
     gulp.watch(__dirname + '/app/views/app/js/**/*.js', ['js-move']);
+    // watches all .js files and runs lint-app task when saved.
+    gulp.watch(__dirname + '/app/**/*.js', ['lint-app']);
 });
 
 gulp.task('build', ['sass']);

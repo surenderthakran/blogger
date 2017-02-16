@@ -1,3 +1,7 @@
 'use strict';
 
-// TODO(surenderthakran): update script to add internal hyperlink index to articles
+(function() {
+  document.addEventListener('DOMContentLoaded', function(){
+    console.log('and');
+  });
+})();
