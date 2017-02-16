@@ -6,6 +6,7 @@ var cleanCSS = require('gulp-clean-css');
 var rename = require("gulp-rename");
 var path = require('path');
 var jshint = require('gulp-jshint');
+var stylish = require('jshint-stylish');
 
 // creates a vulcanized main.css file for main.scss and its dependencies.
 gulp.task('sass', function () {
@@ -32,7 +33,7 @@ gulp.task('lint-app', function() {
     './app/**/*.js',
     '!./app/views/dist{,/**}'])
     .pipe(jshint())
-    .pipe(jshint.reporter('default'));
+    .pipe(jshint.reporter(stylish));
 });
 
 // TODO(surenderthakran): update to vulcanize and minimize js files.
