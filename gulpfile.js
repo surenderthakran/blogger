@@ -1,12 +1,14 @@
 'use strict';
 
 var gulp = require('gulp');
-var sass = require('gulp-sass');
 var cleanCSS = require('gulp-clean-css');
-var rename = require("gulp-rename");
-var path = require('path');
+var concat = require('gulp-concat');
 var jshint = require('gulp-jshint');
+var rename = require("gulp-rename");
+var sass = require('gulp-sass');
+var uglify = require('gulp-uglify');
 var stylish = require('jshint-stylish');
+var path = require('path');
 
 // creates a vulcanized main.css file for main.scss and its dependencies.
 gulp.task('sass', function () {
@@ -36,12 +38,15 @@ gulp.task('lint-app', function() {
     .pipe(jshint.reporter(stylish));
 });
 
-// TODO(surenderthakran): update to vulcanize and minimize js files.
-// moves main.js to dist on save.
-gulp.task('js-move', function () {
-    console.log("in js-move");
-    return gulp.src(__dirname + '/app/views/app/js/main.js')
-        .pipe(gulp.dest(__dirname + '/app/views/dist/js'));
+// combines and compresses all .js files
+gulp.task('js-pack', function() {
+  console.log('in js-pack');
+  return gulp.src(__dirname + '/app/views/app/js/*.js')
+    .pipe(concat('main.js'))
+    .pipe(gulp.dest(__dirname + '/app/views/dist/js'))
+    .pipe(uglify())
+    .pipe(rename('main.min.js'))
+    .pipe(gulp.dest(__dirname + '/app/views/dist/js'));
 });
 
 // watches various frontend resources and runs tasks when saved.
@@ -49,8 +54,8 @@ gulp.task('watch', function () {
     console.log("in watch");
     // watches all .scss files and runs sass and clean-css tasks when saved.
     gulp.watch(__dirname + '/app/views/app/scss/**/*.scss', ['sass', 'clean-css']);
-    // watches all frontend .js files and runs js-move task when saved.
-    gulp.watch(__dirname + '/app/views/app/js/**/*.js', ['js-move']);
+    // watches all frontend .js files and runs js-pack task when saved.
+    gulp.watch(__dirname + '/app/views/app/js/**/*.js', ['js-pack']);
     // watches all .js files and runs lint-app task when saved.
     gulp.watch(__dirname + '/app/**/*.js', ['lint-app']);
 });
