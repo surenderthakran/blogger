@@ -36,4 +36,6 @@ docker-compose up
 ```
 Above commands will run the blogger docker container with the `blogger/app/` folder volume mounted.
 
-It will also start a `gulp` watch task to compile `.scss` files into `.css` on change and minify the resultant `.css`.
+It will also start a `gulp` watch task 
+- to compile `.scss` files into `.css` on change and minify the resultant `.css`.
+- to test and report jshint issues.

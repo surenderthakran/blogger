@@ -2,7 +2,7 @@
 
 module.exports = [
   {
-    article_id: 'enable-docker-remote-api-connect-ssh-tunnel',
+    articleId: 'enable-docker-remote-api-connect-ssh-tunnel',
     url: 'articles/tech/enable-docker-remote-api-connect-ssh-tunnel',
     head: {
       title: 'Enable Docker Remote API on Remote Docker Host and Connect Using SSH Tunnel On Ubuntu 14.04 | Surender Thakran',
@@ -16,7 +16,7 @@ module.exports = [
     }
   },
   {
-    article_id: 's3-browser-upload-with-nodejs',
+    articleId: 's3-browser-upload-with-nodejs',
     url: 'articles/tech/s3-browser-upload-with-nodejs',
     head: {
       title: 'AWS S3 Direct Upload from Browser with Node.js as Backend | Surender Thakran',
