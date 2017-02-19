@@ -8,6 +8,7 @@ var rename = require('gulp-rename');
 var sass = require('gulp-sass');
 var uglify = require('gulp-uglify');
 var stylish = require('jshint-stylish');
+var pump = require('pump');
 
 // compiles and compresses all .scss files.
 gulp.task('css-pack', function() {
@@ -33,13 +34,16 @@ gulp.task('js-lint', function() {
 });
 
 // combines and compresses all .js files.
-gulp.task('js-pack', function() {
-  return gulp.src(__dirname + '/app/views/app/js/*.js')
-    .pipe(concat('main.js'))
-    .pipe(gulp.dest(__dirname + '/app/views/dist/js'))
-    .pipe(uglify())
-    .pipe(rename('main.min.js'))
-    .pipe(gulp.dest(__dirname + '/app/views/dist/js'));
+gulp.task('js-pack', function(cb) {
+  console.log('inside js-pack');
+  pump([
+    gulp.src(__dirname + '/app/views/app/js/*.js'),
+    concat('main.js'),
+    gulp.dest(__dirname + '/app/views/dist/js'),
+    uglify(),
+    rename('main.min.js'),
+    gulp.dest(__dirname + '/app/views/dist/js')
+  ], cb);
 });
 
 // watches various frontend resources and runs tasks when saved.
