@@ -1,16 +1,3 @@
-/*global TableOfContent, Utils*/
-'use strict';
-
-(function() {
-  document.addEventListener('DOMContentLoaded', function(){
-    if (Utils.IsArticlePage()) {
-      var toc = new TableOfContent();
-      toc.GenerateIndexObject();
-      toc.CreateIndex();
-    }
-  });
-})();
-
 'use strict';
 
 const headers = ['H1', 'H2', 'H3', 'H4', 'H5', 'H6'];
@@ -52,23 +39,4 @@ TableOfContent.prototype.CreateIndex = function() {
   var article = document.getElementsByTagName('article')[0];
   var articleBody = document.getElementsByClassName('article-body')[0];
   article.insertBefore(indexList, articleBody);
-};
-
-'use strict';
-
-var Utils = {};
-
-/**
- * Checks if the current page is an article page.
- * @returns {Boolean} Returns if the current page is an article page.
- */
-Utils.IsArticlePage = function() {
-  var article = document.getElementsByTagName('article')[0];
-  if (article && article.className === 'article') {
-    var lastChild = article.lastElementChild;
-    if (lastChild.tagName === 'DIV' && lastChild.className === 'article-body') {
-      return true;
-    }
-  }
-  return false;
 };
