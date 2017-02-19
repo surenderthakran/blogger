@@ -28,6 +28,64 @@ article.article {
         }
     }
 
+    div.author-body {
+      padding: 2em 0;
+      width: 100%;
+
+      h2 {
+        margin: 0.5em 0;
+        width: 100%;
+      }
+
+      p {
+        margin: 0.5em 0;
+        line-height: 1.4em;
+        font-weight: 400;
+        font-size: 1.1em;
+        word-spacing: 0.1em;
+        width: 100%;
+
+        a {
+          float: none;
+          color: inherit;
+          border-bottom: 1px dotted #444444;
+          text-decoration: none;
+        }
+
+        a:hover {
+          color: #000;
+          border-bottom: 1px solid #000;
+        }
+      }
+    }
+
+    ul.article-index {
+      border-bottom: solid 1px #ccc;
+      font-size: 1.1em;
+      font-weight: 400;
+      line-height: 1.8em;
+      list-style: none;
+      padding: 1.5em 0;
+      width: 100%;
+      word-spacing: 0.1em;
+
+      li {
+        width: 100%;
+
+        a {
+          float: none;
+          color: inherit;
+          border-bottom: 1px dotted #444444;
+          text-decoration: none;
+        }
+
+        a:hover {
+          color: #000;
+          border-bottom: 1px solid #000;
+        }
+      }
+    }
+
     div.article-body {
         padding: 2em 0;
         width: 100%;
