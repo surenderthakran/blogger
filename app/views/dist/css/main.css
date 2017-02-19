@@ -548,6 +548,27 @@ article.article {
       width: 100%;
       font-size: 1em;
       opacity: 0.8; }
+  article.article div.author-body {
+    padding: 2em 0;
+    width: 100%; }
+    article.article div.author-body h2 {
+      margin: 0.5em 0;
+      width: 100%; }
+    article.article div.author-body p {
+      margin: 0.5em 0;
+      line-height: 1.4em;
+      font-weight: 400;
+      font-size: 1.1em;
+      word-spacing: 0.1em;
+      width: 100%; }
+      article.article div.author-body p a {
+        float: none;
+        color: inherit;
+        border-bottom: 1px dotted #444444;
+        text-decoration: none; }
+      article.article div.author-body p a:hover {
+        color: #000;
+        border-bottom: 1px solid #000; }
   article.article div.article-body {
     padding: 2em 0;
     width: 100%; }
