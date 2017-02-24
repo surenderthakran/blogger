@@ -6,7 +6,7 @@
     if (Utils.IsArticlePage()) {
       var toc = new TableOfContent();
       toc.GenerateIndexObject();
-      toc.CreateIndex();
+      toc.CreateIndexList();
     }
   });
 })();
