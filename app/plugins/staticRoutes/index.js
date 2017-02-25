@@ -2,8 +2,6 @@
 
 const Mustache = require('mustache');
 
-const ArticleStore = require('../../articlestore');
-
 exports.register = function (server, options, next) {
   const partials = {};
 
@@ -38,7 +36,7 @@ exports.register = function (server, options, next) {
         description: 'Surender Thakran\'s technical articles about web development, server management and enterprise architecture',
         keywords: 'web,css3,html5',
       },
-      articles: ArticleStore,
+      articles: request.server.app.articleStore,
     });
   } });
 
@@ -56,25 +54,20 @@ exports.register = function (server, options, next) {
   server.route({ method: 'GET', path: '/articles/tech/{articleId}', handler: function (request, reply) {
     console.log('GET ' + request.path);
 
-    var path = request.path;
-    path = path.substring(1);
-
+    const articleStore = request.server.app.articleStore;
     var articleId = request.params.articleId;
-    console.log(articleId);
 
     var index = -1;
-    for (var i = 0, len = ArticleStore.length; i < len; i++) {
-      if (ArticleStore[i].articleId === articleId) {
+    for (var i = 0, len = articleStore.length; i < len; i++) {
+      if (articleStore[i].articleId === articleId) {
         index = i;
         break;
       }
     }
 
     if (index !== -1) {
-      var articleData = ArticleStore[index];
-      console.log(articleData);
-
-      reply.view(path + '/index.html', articleData);
+      var articleData = articleStore[index];
+      reply.view('article', articleData);
     } else {
       reply.view('404', {                 // @TODO: update 404 page
         head: {

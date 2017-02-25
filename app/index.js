@@ -5,6 +5,7 @@ const Inert = require('inert');
 const Path = require('path');
 const Vision = require('vision');
 
+const ArticlesReaderPlugin = require('./plugins/articlesReader');
 const StaticRoutesPlugin = require('./plugins/staticRoutes');
 
 const server = new Hapi.Server({
@@ -26,9 +27,14 @@ server.connection({
   labels: ['webserver'],
 });
 
+server.app.viewsPath = __dirname + '/views';
+
 server.register([
   Inert,
   Vision,
+  {
+    register: ArticlesReaderPlugin,
+  },
   {
     register: StaticRoutesPlugin,
   },
