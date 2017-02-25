@@ -10,6 +10,9 @@ const ArticleStore = require('./articlestore');
 
 const server = new Hapi.Server({
   connections: {
+    router: {
+      stripTrailingSlash: true,
+    },
     routes: {
       files: {
         relativeTo: Path.join(__dirname, 'views/dist'),
