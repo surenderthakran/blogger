@@ -6,8 +6,8 @@ module.exports = [
     url: 'articles/tech/enable-docker-remote-api-connect-ssh-tunnel',
     head: {
       title: 'Enable Docker Remote API on Remote Docker Host and Connect Using SSH Tunnel On Ubuntu 14.04 | Surender Thakran',
-      description: '',
-      keywords: ''
+      description: 'Enable Docker Remote API on Remote Docker Host and Connect Using SSH Tunnel On Ubuntu 14.04',
+      keywords: 'docker,ssh,ubuntu,14.04,trusty'
     },
     article: {
       title: 'Enable Docker Remote API on Remote Docker Host and Connect Using SSH Tunnel On Ubuntu 14.04',
