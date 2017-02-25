@@ -91,7 +91,7 @@
 
                 <h2>Step 2: Sending AJAX request to node.js to fetch upload parameters</h2>
                 <p>After the file has been uploaded to the browser, we must fetch upload credentials for the file to upload to S3 from our server running on node.js. For node.js to be able to determine the file's MIME type we can either determine it in the browser itself by using the file's byte or for the sake of simplicity we use the file extension. (Note: A file's type need not be the same as mentioned by its extension).</p>
-                <p>First we must fetch the uploaded file's name from the <span code="class">input</span> element.</p>
+                <p>First we must fetch the uploaded file's name from the <span class="code">input</span> element.</p>
                 <pre><code class="language-js">var fileInput = document.getElementById('file_input');
 var file = fileInput.files[0];
 var filename = file.name;</code></pre>
