@@ -1,6 +1,10 @@
 'use strict';
 
+const Fs = require('fs');
 const Mustache = require('mustache');
+const Path = require('path');
+
+const ArticleStore = require('../../articlestore');
 
 exports.register = function (server, options, next) {
   const partials = {};
@@ -36,7 +40,7 @@ exports.register = function (server, options, next) {
         description: 'Surender Thakran\'s technical articles about web development, server management and enterprise architecture',
         keywords: 'web,css3,html5',
       },
-      articles: request.server.app.articleStore,
+      articles: ArticleStore,
     });
   } });
 
@@ -54,22 +58,23 @@ exports.register = function (server, options, next) {
   server.route({ method: 'GET', path: '/articles/tech/{articleId}', handler: function (request, reply) {
     console.log('GET ' + request.path);
 
-    const articleStore = request.server.app.articleStore;
+    // const articleStore = request.server.app.articleStore;
     var articleId = request.params.articleId;
 
     var index = -1;
-    for (var i = 0, len = articleStore.length; i < len; i++) {
-      if (articleStore[i].articleId === articleId) {
+    for (var i = 0, len = ArticleStore.length; i < len; i++) {
+      if (ArticleStore[i].articleId === articleId) {
         index = i;
         break;
       }
     }
 
     if (index !== -1) {
-      var articleData = articleStore[index];
+      var articleData = ArticleStore[index];
+      let articleBody = Fs.readFileSync(Path.join(server.app.viewsPath,
+          Path.join(articleData.url, 'index.html')), 'utf8');
       // prerendered to render urls in article before adding to article template
-      articleData.article.body = Mustache.render(articleData.article.body,
-          articleData);
+      articleData.article.body = Mustache.render(articleBody, articleData);
       reply.view('article', articleData);
     } else {
       reply.view('404', {                 // @TODO: update 404 page
