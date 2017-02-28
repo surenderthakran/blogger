@@ -67,6 +67,9 @@ exports.register = function (server, options, next) {
 
     if (index !== -1) {
       var articleData = articleStore[index];
+      // prerendered to render urls in article before adding to article template
+      articleData.article.body = Mustache.render(articleData.article.body,
+          articleData);
       reply.view('article', articleData);
     } else {
       reply.view('404', {                 // @TODO: update 404 page

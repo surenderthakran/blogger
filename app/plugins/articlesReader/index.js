@@ -11,8 +11,7 @@ exports.register = function(server, options, next) {
     for (let i = 0, len = ArticleStore.length; i < len; i++) {
       let articleBody = Fs.readFileSync(Path.join(server.app.viewsPath,
           Path.join(ArticleStore[i].url, 'index.html')), 'utf8');
-      ArticleStore[i].article.body = Mustache.render(articleBody,
-          ArticleStore[i]);
+      ArticleStore[i].article.body = articleBody;
     }
 
     server.app.articleStore = ArticleStore;
