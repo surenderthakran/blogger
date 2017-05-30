@@ -94,7 +94,7 @@ article.article {
             width: 100%;
         }
 
-        p, ol, em {
+        p, ol, ul, em {
             margin: 0.5em 0;
             line-height: 1.4em;
             font-weight: 400;
@@ -128,14 +128,17 @@ article.article {
             }
         }
 
-        ol {
-            list-style-type: decimal;
-            list-style-position: outside;
+        ol, ul {
             padding-left: 2em;
 
             li {
                 width: 100%;
             }
+        }
+
+        ol {
+            list-style-type: decimal;
+            list-style-position: outside;
         }
 
         em {

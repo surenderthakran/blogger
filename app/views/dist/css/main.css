@@ -593,19 +593,19 @@ article.article {
     article.article div.article-body h2, article.article div.article-body h3 {
       margin: 0.5em 0;
       width: 100%; }
-    article.article div.article-body p, article.article div.article-body ol, article.article div.article-body em {
+    article.article div.article-body p, article.article div.article-body ol, article.article div.article-body ul, article.article div.article-body em {
       margin: 0.5em 0;
       line-height: 1.4em;
       font-weight: 400;
       font-size: 1.1em;
       word-spacing: 0.1em;
       width: 100%; }
-      article.article div.article-body p a, article.article div.article-body ol a, article.article div.article-body em a {
+      article.article div.article-body p a, article.article div.article-body ol a, article.article div.article-body ul a, article.article div.article-body em a {
         float: none;
         color: inherit;
         border-bottom: 1px dotted #444444;
         text-decoration: none; }
-      article.article div.article-body p a:hover, article.article div.article-body ol a:hover, article.article div.article-body em a:hover {
+      article.article div.article-body p a:hover, article.article div.article-body ol a:hover, article.article div.article-body ul a:hover, article.article div.article-body em a:hover {
         color: #000;
         border-bottom: 1px solid #000; }
     article.article div.article-body pre {
@@ -613,12 +613,13 @@ article.article {
       width: 100%; }
       article.article div.article-body pre code span.token.operator {
         background-color: #EFEFEF; }
+    article.article div.article-body ol, article.article div.article-body ul {
+      padding-left: 2em; }
+      article.article div.article-body ol li, article.article div.article-body ul li {
+        width: 100%; }
     article.article div.article-body ol {
       list-style-type: decimal;
-      list-style-position: outside;
-      padding-left: 2em; }
-      article.article div.article-body ol li {
-        width: 100%; }
+      list-style-position: outside; }
     article.article div.article-body em {
       font-weight: 600; }
     article.article div.article-body div.image {
