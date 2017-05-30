@@ -1,0 +1,33 @@
+<h2>Why should we Dockerize?</h2>
+<p>Dockerizing an application is the process of configuring the application and
+  its environment to package in a single
+  <a href="https://www.docker.com/" target="_blank">Docker</a> image and to run
+  it within Docker containers.</p>
+<p>Even though <a href="https://golang.org/" target="_blank">Go (GoLang)</a>
+  applications (mostly) compile to a single binary, applications often depend
+  on other supporting files (templates, configurations, etc). When there are a
+  lot of supporting files in an application, it is common to have problems
+  because of out of sync codebase. Turning your Go application into a Docker
+  image is a great way to distribute & deploy your application and be assured
+  that it will run on other machines exactly like it did on development
+  regardless of any customizations that machine might have.</p>
+
+<h2>How to Dockerize?</h2>
+<p>Here we will learn how to Dockerize a Go web application for development as
+  well as production environments. While dockerizing web applications is a
+  pretty straight-forward task, there are a few challenges unique to every
+  language/technology that needs to be overcome.</p>
+<p>A complete dockerized Go environment needs:</p>
+<p>In Development:</p>
+<ul>
+  <li>test1</li>
+</ul>
+<p>In Production:</p>
+<ul>
+  <li>test2</li>
+</ul>
+<h2>The Solution</h2>
+<p>Let's have a look at
+  <a href="https://github.com/surenderthakran/go_docker_env" target="_blank">
+  surenderthakran/go_docker_env</a> which (IMHO) is a complete Go Docker
+  Environment solution from which all team and project sizes can benefit.</p>
