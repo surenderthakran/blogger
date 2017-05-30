@@ -59,10 +59,10 @@ exports.register = function (server, options, next) {
     console.log('GET ' + request.path);
 
     // const articleStore = request.server.app.articleStore;
-    var articleId = request.params.articleId;
+    let articleId = request.params.articleId;
 
-    var index = -1;
-    for (var i = 0, len = ArticleStore.length; i < len; i++) {
+    let index = -1;
+    for (let i = 0, len = ArticleStore.length; i < len; i++) {
       if (ArticleStore[i].articleId === articleId) {
         index = i;
         break;
@@ -70,7 +70,7 @@ exports.register = function (server, options, next) {
     }
 
     if (index !== -1) {
-      var articleData = ArticleStore[index];
+      let articleData = ArticleStore[index];
       let articleBody = Fs.readFileSync(Path.join(server.app.viewsPath,
           Path.join(articleData.url, 'index.html')), 'utf8');
       // prerendered to render urls in article before adding to article template
