@@ -17,15 +17,23 @@
   well as production environments. While dockerizing web applications is a
   pretty straight-forward task, there are a few challenges unique to every
   language/technology that needs to be overcome.</p>
-<p>A complete dockerized Go environment needs:</p>
-<p>In Development:</p>
+<p>Let's start by creating a simple web application which:</p>
 <ul>
-  <li>test1</li>
+  <li>Listens for HTTP requests on a port. (let's say 18770)</li>
+  <li>Handles a GET request <span class="code">/get</span> with a
+    <span class="code">name</span> parameter.</li>
+  <li>On receiving a request, responds back with a "Hello" message and a lucky
+    number.</li>
 </ul>
-<p>In Production:</p>
-<ul>
-  <li>test2</li>
-</ul>
+<p>Let us start by creating the requisite directory structure first. Let's name
+  our project <span class="code">my_go_project</span> and have the following
+  file and folder structure.</p>
+<pre>
+my_go_project/
+      └── src/
+            └── my_go_project/
+                  └── main.go
+</pre>
 <h2>The Solution</h2>
 <p>Let's have a look at
   <a href="https://github.com/surenderthakran/go_docker_env" target="_blank">
