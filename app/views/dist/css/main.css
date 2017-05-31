@@ -610,6 +610,8 @@ article.article {
         border-bottom: 1px solid #000; }
     article.article div.article-body pre {
       background-color: #efefef;
+      line-height: 1.5em;
+      padding: 1em;
       width: 100%; }
       article.article div.article-body pre code span.token.operator {
         background-color: #EFEFEF; }
@@ -641,6 +643,7 @@ article.article {
     article.article div.article-body span.underline {
       text-decoration: underline; }
     article.article div.article-body span.code {
-      font-family: monospace, monospace;
       background-color: #efefef;
+      border: solid #ddd 1px;
+      font-family: monospace, monospace;
       padding: 0 0.2em; }

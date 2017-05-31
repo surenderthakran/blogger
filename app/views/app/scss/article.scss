@@ -116,9 +116,9 @@ article.article {
         }
 
         pre {
-            // margin: 0.5em 0;
             background-color: #efefef;
-            // padding: 0.5em;
+            line-height: 1.5em;
+            padding: 1em;
             width: 100%;
 
             code {
@@ -174,8 +174,9 @@ article.article {
         }
 
         span.code {
-            font-family: monospace, monospace;
             background-color: #efefef;
+            border: solid #ddd 1px;
+            font-family: monospace, monospace;
             padding: 0 0.2em;
         }
     }
