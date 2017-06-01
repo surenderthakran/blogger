@@ -50,11 +50,11 @@ article.article {
           color: inherit;
           border-bottom: 1px dotted #444444;
           text-decoration: none;
-        }
 
-        a:hover {
-          color: #000;
-          border-bottom: 1px solid #000;
+          &:hover {
+            color: #000;
+            border-bottom: 1px solid #000;
+          }
         }
       }
     }
@@ -76,11 +76,11 @@ article.article {
           color: inherit;
           border-bottom: 1px dotted #444444;
           text-decoration: none;
-        }
 
-        a:hover {
-          color: #000;
-          border-bottom: 1px solid #000;
+          &:hover {
+            color: #000;
+            border-bottom: 1px solid #000;
+          }
         }
       }
     }
@@ -107,11 +107,11 @@ article.article {
                 color: inherit;
                 border-bottom: 1px dotted #444444;
                 text-decoration: none;
-            }
 
-            a:hover {
-                color: #000;
-                border-bottom: 1px solid #000;
+                &:hover {
+                    color: #000;
+                    border-bottom: 1px solid #000;
+                }
             }
         }
 
@@ -169,15 +169,17 @@ article.article {
             }
         }
 
-        span.underline {
-            text-decoration: underline;;
-        }
+        span {
+            &.underline {
+                text-decoration: underline;;
+            }
 
-        span.code {
-            background-color: #efefef;
-            border: solid #ddd 1px;
-            font-family: monospace, monospace;
-            padding: 0 0.2em;
+            &.code {
+                background-color: #efefef;
+                border: solid #ddd 1px;
+                font-family: monospace, monospace;
+                padding: 0 0.2em;
+            }
         }
     }
 }

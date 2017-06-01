@@ -394,28 +394,28 @@ header.page-header {
     width: 33%;
     min-width: 260px;
     line-height: 1.5em; }
+    header.page-header .signature a {
+      text-decoration: none;
+      color: #484871;
+      letter-spacing: 1px;
+      font-size: 1.3em; }
+      @media screen and (max-width: 830px) {
+        header.page-header .signature a {
+          color: #FFFFFF; } }
+    header.page-header .signature p {
+      font-size: 0.9em;
+      color: #484871;
+      letter-spacing: 1px; }
+      @media screen and (max-width: 830px) {
+        header.page-header .signature p {
+          color: #E2E2E2; } }
     header.page-header .signature .external-logos-large {
       padding: 2px 0;
       display: none;
-      /* remove display: none when this construct is needed again */ }
-    header.page-header .signature .external-logos-large > a {
-      text-decoration: none;
-      padding: 0 10px 0 0; }
-  header.page-header .signature > a {
-    text-decoration: none;
-    color: #484871;
-    letter-spacing: 1px;
-    font-size: 1.3em; }
-    @media screen and (max-width: 830px) {
-      header.page-header .signature > a {
-        color: #FFFFFF; } }
-  header.page-header .signature > p {
-    font-size: 0.9em;
-    color: #484871;
-    letter-spacing: 1px; }
-    @media screen and (max-width: 830px) {
-      header.page-header .signature > p {
-        color: #E2E2E2; } }
+      /* TODO(surenderthakran): remove display: none when this construct is needed again */ }
+      header.page-header .signature .external-logos-large a {
+        text-decoration: none;
+        padding: 0 10px 0 0; }
   header.page-header .toggle-bar {
     width: 66%;
     margin: 0.5em 0;
@@ -445,16 +445,16 @@ header.page-header {
         padding: 2px 0;
         display: inline-block;
         float: none; }
-      header.page-header .toggle-bar .centerbar .external-logos-small > a {
-        text-decoration: none;
-        padding: 0 5px;
-        opacity: 0.5;
-        -webkit-filter: grayscale(1);
-        filter: grayscale(1); }
-      header.page-header .toggle-bar .centerbar .external-logos-small > a:hover {
-        opacity: 0.8;
-        -webkit-filter: grayscale(0);
-        filter: grayscale(0); }
+        header.page-header .toggle-bar .centerbar .external-logos-small a {
+          text-decoration: none;
+          padding: 0 5px;
+          opacity: 0.5;
+          -webkit-filter: grayscale(1);
+          filter: grayscale(1); }
+          header.page-header .toggle-bar .centerbar .external-logos-small a:hover {
+            opacity: 0.8;
+            -webkit-filter: grayscale(0);
+            filter: grayscale(0); }
     header.page-header .toggle-bar nav.menu {
       width: 50%; }
       @media screen and (max-width: 830px) {
@@ -473,23 +473,23 @@ header.page-header {
             color: #484871;
             letter-spacing: 1px;
             line-height: 2em; }
-          header.page-header .toggle-bar nav.menu ul li a:before {
-            content: "";
-            position: absolute;
-            width: 100%;
-            height: 2px;
-            bottom: 0;
-            left: 0;
-            background-color: #484871;
-            visibility: hidden;
-            -webkit-transform: scaleX(0);
-            transform: scaleX(0);
-            -webkit-transition: all 0.3s ease-in-out 0s;
-            transition: all 0.3s ease-in-out 0s; }
-          header.page-header .toggle-bar nav.menu ul li a:hover:before {
-            visibility: visible;
-            -webkit-transform: scaleX(1);
-            transform: scaleX(1); }
+            header.page-header .toggle-bar nav.menu ul li a:before {
+              content: "";
+              position: absolute;
+              width: 100%;
+              height: 2px;
+              bottom: 0;
+              left: 0;
+              background-color: #484871;
+              visibility: hidden;
+              -webkit-transform: scaleX(0);
+              transform: scaleX(0);
+              -webkit-transition: all 0.3s ease-in-out 0s;
+              transition: all 0.3s ease-in-out 0s; }
+            header.page-header .toggle-bar nav.menu ul li a:hover:before {
+              visibility: visible;
+              -webkit-transform: scaleX(1);
+              transform: scaleX(1); }
 
 section.article-list {
   max-width: 960px;
@@ -517,7 +517,7 @@ section.article-list {
         width: 100%;
         text-decoration: none;
         color: inherit; }
-        section.article-list ul li a :hover {
+        section.article-list ul li a:hover {
           opacity: 0.8; }
         section.article-list ul li a h1 {
           text-align: left;
@@ -566,9 +566,9 @@ article.article {
         color: inherit;
         border-bottom: 1px dotted #444444;
         text-decoration: none; }
-      article.article div.author-body p a:hover {
-        color: #000;
-        border-bottom: 1px solid #000; }
+        article.article div.author-body p a:hover {
+          color: #000;
+          border-bottom: 1px solid #000; }
   article.article ul.article-index {
     border-bottom: solid 1px #ccc;
     font-size: 1.1em;
@@ -584,9 +584,9 @@ article.article {
         color: inherit;
         border-bottom: 1px dotted #444444;
         text-decoration: none; }
-      article.article ul.article-index li a:hover {
-        color: #000;
-        border-bottom: 1px solid #000; }
+        article.article ul.article-index li a:hover {
+          color: #000;
+          border-bottom: 1px solid #000; }
   article.article div.article-body {
     padding: 2em 0;
     width: 100%; }
@@ -605,9 +605,9 @@ article.article {
         color: inherit;
         border-bottom: 1px dotted #444444;
         text-decoration: none; }
-      article.article div.article-body p a:hover, article.article div.article-body ol a:hover, article.article div.article-body ul a:hover {
-        color: #000;
-        border-bottom: 1px solid #000; }
+        article.article div.article-body p a:hover, article.article div.article-body ol a:hover, article.article div.article-body ul a:hover {
+          color: #000;
+          border-bottom: 1px solid #000; }
     article.article div.article-body pre {
       background-color: #efefef;
       line-height: 1.5em;
