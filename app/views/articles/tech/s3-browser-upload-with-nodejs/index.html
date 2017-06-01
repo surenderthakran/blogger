@@ -3,13 +3,13 @@
 <p>Uploading files to S3 can be done in one of the following techniques:</p>
 <ol>
     <li>Upload files to our own backend server and from there route the upload to S3</li>
-    <li>Directly upload the files to S3 from browser <i>(recommended)</i></li>
+    <li>Directly upload the files to S3 from browser <em>(recommended)</em></li>
 </ol>
 
 <h2>Which technique to choose?</h2>
 <p>Routing our S3 uploads via our own server has its own advantages and disadvantages. While it gives us better control about how, when and what to upload, it has a very noted disadvantage of putting unnecessary load on our servers which can be avoided by directly uploading from the browser.</p>
 <p>Directly uploading to S3 from the browser allows us to keep unnecessary load away from our servers. Also, using <a href="http://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-authenticating-requests.html" target="_blank">AWS Signature Version 4</a>, it allows us to keep our AWS secret key hidden from the browser by <strong>using our server</strong> to generate the upload parameters.</p>
-<em>Direct upload to S3 is almost always the preferred technique.</em>
+<p><em class="bold">Direct upload to S3 is almost always the preferred technique.</em></p>
 
 <h2>How does <span class="underline">secure</span> upload to S3, directly from the browser, works?</h2>
 <p>Uploading files to S3 directly from browser is a 5 step process:</p>
@@ -74,7 +74,7 @@
   &lt;input type="submit" name="btn_submit" id="btn_submit"&gt;
 &lt;/form&gt;</code></pre>
 <p>Notice that the <span class="code">input</span> element of type <span class="code">file</span> is the last element in the form. This is because while uploading the file to S3 in Step 4, S3's API requires the "file" parameter to be the last parameter. While using the formdata method also, we must append the "file" parameter to the formdata parameters in the end.</p>
-<em>Note: The "file" parameter must be the last parameter when sending the upload request to S3</em>
+<p><em class="bold">Note: The "file" parameter must be the last parameter when sending the upload request to S3</em></p>
 
 <h2>Step 2: Sending AJAX request to node.js to fetch upload parameters</h2>
 <p>After the file has been uploaded to the browser, we must fetch upload credentials for the file to upload to S3 from our server running on node.js. For node.js to be able to determine the file's MIME type we can either determine it in the browser itself by using the file's byte or for the sake of simplicity we use the file extension. (Note: A file's type need not be the same as mentioned by its extension).</p>
@@ -218,7 +218,7 @@ xhr.onreadystatechange = function() {
 xhr.open('POST', response.upload_url, true);
 xhr.send(formData);</code></pre>
 <p>Notice that file parameter is appended to the formdata object in the end. Because as explained in Step 1, S3 requires the file parameter to be the last parameter of the request object.</p>
-<em>Note: The "file" parameter must be the last parameter when sending the upload request to S3</em>
+<p><em class="bold">Note: The "file" parameter must be the last parameter when sending the upload request to S3</em></p>
 
 <h2>Step 5: S3 request authentication and response</h2>
 <p>On S3 the request is first authenticated to check for any man in the middle attacks. Since the policy document is signed with the user's secret key, it can be safely assumed that it wasn't tampered with. S3 decrypts the policy document using the same secret key and matches its content with other upload parameters. If the parameters match then the file is successfully uploaded to S3.</p>
