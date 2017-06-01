@@ -21,14 +21,15 @@ header.page-header {
     /* Signature */
 
     .signature {
-        width: 33%;
-        min-width: 260px;
+        color: #484871;
+        letter-spacing: 1px;
         line-height: 1.5em;
+        min-width: 260px;
+        width: 33%;
 
         a {
             text-decoration: none;
             color: #484871;
-            letter-spacing: 1px;
             font-size: 1.3em;
 
             @media screen and (max-width: $responsive-threshold) {
@@ -38,8 +39,6 @@ header.page-header {
 
         p {
             font-size: 0.9em;
-            color: #484871;
-            letter-spacing: 1px;
 
             @media screen and (max-width: $responsive-threshold) {
                 color: #E2E2E2;

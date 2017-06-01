@@ -391,21 +391,20 @@ header.page-header {
       padding: 1em 2em;
       height: 75px; } }
   header.page-header .signature {
-    width: 33%;
+    color: #484871;
+    letter-spacing: 1px;
+    line-height: 1.5em;
     min-width: 260px;
-    line-height: 1.5em; }
+    width: 33%; }
     header.page-header .signature a {
       text-decoration: none;
       color: #484871;
-      letter-spacing: 1px;
       font-size: 1.3em; }
       @media screen and (max-width: 830px) {
         header.page-header .signature a {
           color: #FFFFFF; } }
     header.page-header .signature p {
-      font-size: 0.9em;
-      color: #484871;
-      letter-spacing: 1px; }
+      font-size: 0.9em; }
       @media screen and (max-width: 830px) {
         header.page-header .signature p {
           color: #E2E2E2; } }
@@ -552,15 +551,13 @@ article.article {
     padding: 2em 0;
     width: 100%; }
     article.article div.author-body h2 {
-      margin: 0.5em 0;
-      width: 100%; }
+      margin: 0.5em 0; }
     article.article div.author-body p {
       margin: 0.5em 0;
       line-height: 1.4em;
       font-weight: 400;
       font-size: 1.1em;
-      word-spacing: 0.1em;
-      width: 100%; }
+      word-spacing: 0.1em; }
       article.article div.author-body p a {
         float: none;
         color: inherit;
