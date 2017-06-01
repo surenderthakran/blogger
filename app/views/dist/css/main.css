@@ -593,19 +593,19 @@ article.article {
     article.article div.article-body h2, article.article div.article-body h3 {
       margin: 0.5em 0;
       width: 100%; }
-    article.article div.article-body p, article.article div.article-body ol, article.article div.article-body ul, article.article div.article-body em {
+    article.article div.article-body p, article.article div.article-body ol, article.article div.article-body ul {
       margin: 0.5em 0;
       line-height: 1.4em;
       font-weight: 400;
       font-size: 1.1em;
       word-spacing: 0.1em;
       width: 100%; }
-      article.article div.article-body p a, article.article div.article-body ol a, article.article div.article-body ul a, article.article div.article-body em a {
+      article.article div.article-body p a, article.article div.article-body ol a, article.article div.article-body ul a {
         float: none;
         color: inherit;
         border-bottom: 1px dotted #444444;
         text-decoration: none; }
-      article.article div.article-body p a:hover, article.article div.article-body ol a:hover, article.article div.article-body ul a:hover, article.article div.article-body em a:hover {
+      article.article div.article-body p a:hover, article.article div.article-body ol a:hover, article.article div.article-body ul a:hover {
         color: #000;
         border-bottom: 1px solid #000; }
     article.article div.article-body pre {
@@ -622,8 +622,6 @@ article.article {
     article.article div.article-body ol {
       list-style-type: decimal;
       list-style-position: outside; }
-    article.article div.article-body em {
-      font-weight: 600; }
     article.article div.article-body div.image {
       width: 100%;
       padding: 1em 0.5em;
@@ -638,8 +636,10 @@ article.article {
         font-style: italic;
         color: #777777;
         text-align: right; }
-    article.article div.article-body i, article.article div.article-body span, article.article div.article-body strong {
+    article.article div.article-body span, article.article div.article-body strong, article.article div.article-body em {
       float: none; }
+      article.article div.article-body span.bold, article.article div.article-body strong.bold, article.article div.article-body em.bold {
+        font-weight: 600; }
     article.article div.article-body span.underline {
       text-decoration: underline; }
     article.article div.article-body span.code {

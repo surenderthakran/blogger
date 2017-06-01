@@ -94,7 +94,7 @@ article.article {
             width: 100%;
         }
 
-        p, ol, ul, em {
+        p, ol, ul {
             margin: 0.5em 0;
             line-height: 1.4em;
             font-weight: 400;
@@ -141,10 +141,6 @@ article.article {
             list-style-position: outside;
         }
 
-        em {
-            font-weight: 600;
-        }
-
         div.image {
             width: 100%;
             padding: 1em 0.5em;
@@ -165,8 +161,12 @@ article.article {
             }
         }
 
-        i, span, strong {
+        span, strong, em {
             float: none;
+
+            &.bold {
+              font-weight:600;
+            }
         }
 
         span.underline {
