@@ -21,7 +21,7 @@ const server = new Hapi.Server({
 });
 
 server.connection({
-  host: '0.0.0.0',                        // @TODO: decide between 'localhost' and '0.0.0.0' for docker containers
+  host: '0.0.0.0',                        // @TODO(surenderthakran): decide between 'localhost' and '0.0.0.0' for docker containers
   port: 18660,
   labels: ['webserver'],
 });
@@ -48,5 +48,5 @@ server.register([
   }
 });
 
-// @TODO: in error handling block of a request, use request.getLog() to print request's logs for debugging
-// @TODO: create logging plugin based on 'good' which we implicitly handle multiple good plugins registration and configuration. Use https://github.com/hapijs/good/blob/master/API.md for reference.
+// @TODO(surenderthakran): in error handling block of a request, use request.getLog() to print request's logs for debugging
+// @TODO(surenderthakran): create logging plugin based on 'good' which we implicitly handle multiple good plugins registration and configuration. Use https://github.com/hapijs/good/blob/master/API.md for reference.

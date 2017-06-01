@@ -30,7 +30,7 @@ exports.register = function (server, options, next) {
     partialsPath: '../../views/partials',
   });
 
-  // @TODO: make urls case insensitive
+  // @TODO(surenderthakran): make urls case insensitive
 
   server.route({ method: 'GET', path: '/', handler: function (request, reply) {
     console.log('GET /');
@@ -77,7 +77,7 @@ exports.register = function (server, options, next) {
       articleData.article.body = Mustache.render(articleBody, articleData);
       reply.view('article', articleData);
     } else {
-      reply.view('404', {                 // @TODO: update 404 page
+      reply.view('404', {                 // @TODO(surenderthakran): update 404 page
         head: {
           title: 'Page Not Found | Surender Thakran',
           description: 'The requested page does not exists',
@@ -87,7 +87,7 @@ exports.register = function (server, options, next) {
     }
   }});
 
-  // @TODO: update to redirect all *.html requests to non-html urls
+  // @TODO(surenderthakran): update to redirect all *.html requests to non-html urls
   server.route({
     method: 'GET',
     path: '/{filename*}',
