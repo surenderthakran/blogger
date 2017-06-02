@@ -9,8 +9,8 @@
   lot of supporting files in an application, it is common to have problems
   because of out of sync codebase. Turning your Go application into a Docker
   image is a great way to distribute & deploy your application and be assured
-  that it will run on other machines exactly like it did on development
-  regardless of any customizations that machine might have.</p>
+  that it will run on other machines exactly like it did in development
+  environment regardless of any customizations that machine might have.</p>
 
 <h2>How to Dockerize?</h2>
 <p>Here we will learn how to Dockerize a Go web application for development as
@@ -246,6 +246,75 @@ restart:
   skim over the
   <a href="https://www.gnu.org/software/make/manual/make.html" target="_blank">
     Official GNU Make manual</a>.</p>
+<p>While creating our docker image, we first need to prepare our Go workspace
+  for our application by creating the required <span class="code">/bin</span>
+  and <span class="code">/pkg</span> directories in our
+  <span class="code">$GOPATH</span>. Next we install all our application's
+  dependencies by running <span class="code">go get ./...</span>.</p>
+<p>Finally, we install our application by running <span class="code">
+    go install $(GO_PROJECT_NAME)</span> where
+  <span class="code">GO_PROJECT_NAME=my_go_project</span> as defined at the top
+  of our Makefile.</p>
+<p>Once our application is installed a docker binary image is created in our
+  application's <span class="code">GOPATH</span>'s <span class="code">
+    /bin</span> directory which we can use to launch docker containers running
+  our application. As defined in the Dockerfile, <span class="code">
+    make run</span> is executed when a docker container is being launched which
+  in turn executes our application's Go binary by running
+  <span class="code">$(GOPATH)/bin/$(GO_PROJECT_NAME)</span>.</p>
+<p>We now have a working production environment for our application but we also
+  need to take care of our application in the development environment. We
+  differentiate between development and production environment using the value
+  of <span class="code">CODE_ENV</span> environment variable in the docker
+  container. In a development environment its value would be
+  <span class="code">dev</span>.</p>
+<p>In the development environment, we need to keep track of any code changes,
+  run tests on the changed code, reinstall the application and then re-run it.
+</p>
+<p>After a bit of research I decided on
+  <a href="https://github.com/cespare/reflex" target="_blank">reflex</a> as the
+  <em>current</em> best solution for monitoring file system changes and running
+  reload commands for Go.</p>
+<p>When a docker image is being built we also installed
+  <a href="https://github.com/cespare/reflex" target="_blank">reflex</a> as a
+  dependency using <span class="code">go get github.com/cespare/reflex</span>.
+  When a container is launched in a development environment then on
+  <span class="code">make run</span> it runs reflex which monitors
+  <span class="code">src/$(GO_PROJECT_NAME)</span> directory for any changes in
+  any <span class="code">.go</span> files.</p>
+<p>On any change apart from re-installing and re-running the application it also
+  reformats the application's Go source files and runs tests using
+  <span class="code">gofmt</span> and <span class="code">go test</span>.</p>
+<p>But:</p>
+<ul>
+  <li>How do the code changes occur in a docker container which is suppossed
+    to be completely separated and independent of the host machine?</li>
+  <li>How does an application running inside a container serve requests coming
+    from outside?</li>
+</ul>
+<h2>docker-compose.yml</h2>
+<p>Although, <a href="https://docs.docker.com/compose/" target="_blank">
+  Docker Compose</a> is a docker tool for configuring and running
+  multi-container applications, it can also help us manage our development
+  environment.</p>
+<p>It allows to configure applications in a <span class="code">
+  docker-compose.yml</span> file usually located in the root of your project.
+</p>
+<p>Let's update our docker-compose.yml file to the following:</p>
+<pre><code class="language-yaml">version: '2'
+services:
+  app:
+    build: .
+    command: make --no-print-directory run
+    volumes:
+      - ./src/my_go_project:/workspace/src/my_go_project
+    environment:
+      CODE_ENV: dev
+    ports:
+      - "18770:18770"
+    logging:
+      driver: 'json-file'
+</code></pre>
 <h2>The Final Solution</h2>
 <p>Let's have a look at
   <a href="https://github.com/surenderthakran/go_docker_env" target="_blank">
