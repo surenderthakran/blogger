@@ -169,7 +169,7 @@ article.article {
 
         span {
             &.underline {
-                text-decoration: underline;;
+                text-decoration: underline;
             }
 
             &.code {
@@ -178,6 +178,7 @@ article.article {
                 font-family: monospace, monospace;
                 font-size: 0.9em;
                 padding: 0.1em 0.2em;
+                white-space: nowrap;
             }
         }
     }

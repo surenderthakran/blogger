@@ -644,4 +644,5 @@ article.article {
       border: solid #ddd 1px;
       font-family: monospace, monospace;
       font-size: 0.9em;
-      padding: 0.1em 0.2em; }
+      padding: 0.1em 0.2em;
+      white-space: nowrap; }
