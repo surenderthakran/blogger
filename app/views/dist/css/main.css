@@ -643,4 +643,5 @@ article.article {
       background-color: #efefef;
       border: solid #ddd 1px;
       font-family: monospace, monospace;
-      padding: 0 0.2em; }
+      font-size: 0.9em;
+      padding: 0.1em 0.2em; }
