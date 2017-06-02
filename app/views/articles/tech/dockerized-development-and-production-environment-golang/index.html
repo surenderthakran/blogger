@@ -120,22 +120,28 @@ func generateLuckyNumber(name string) int {
 <p>This concludes our basic web application which we will be dockerizing
   next.</p>
 <h3>Container Directory Structure</h3>
-<p>Before we continue on to dockerizing out application we need to decide on
-  the directory structure we intend inside a docker container.</p>
+<p>Before we continue on to dockerizing our application we need to decide on
+  the directory structure we intend <em>inside</em> a docker container.</p>
 <p>The following directory structure should serve our purposes.</p>
 <pre>
 /workspace/
     ├── src/
-    │     └── my_go_project/
-    │             ├── main.go
-    │             └── main_test.go
+    │     ├── my_go_project/
+    │     │        ├── main.go
+    │     │        └── main_test.go
+    │    ...                            // External dependencies.
     ├── bin/
-    │     ├── my_go_project
-    ├── pkg/
+    │     ├── my_go_project             // Final project binary.
+    │    ...                            // Other binaries (if any).
+    ├── pkg/                            // Go package objects.
     ├── docker-compose.yml
     ├── Dockerfile
     └── Makefile
 </pre>
+<p>Note that we are placing our project in the filesystem root's
+  <span class="code">/workspace</span> directory. It is a personal choice to
+  use any directory you want because we usually load one project in a container.
+</p>
 <h3>Dockerfile</h3>
 <p>Every dockerized application must have a
   <a href="https://docs.docker.com/engine/reference/builder/" target="_blank">
@@ -165,6 +171,81 @@ CMD make run
     surenderthakran/go:1.7.3</a> or choose an
   <a href="https://hub.docker.com/_/golang/" target="_blank">
     Official Docker Image</a>.</p>
+<p>First we need to update a couple of environment variables:
+  <span class="code">$GOPATH</span> and <span class="code">$PATH</span>. We set
+  our <span class="code">$GOPATH</span> as <span class="code">/workspace</span>.
+  This environment variable specifies the location of our workspace and this
+  where Go will look for <span class="code">/src</span>,
+  <span class="code">/bin</span> and <span class="code">/pkg</span> directories.
+</p>
+<p>Next we added our project's code base to our
+  <span class="code">$GOPATH</span> directory inside the container and change
+  the present working directory to it.</p>
+<p>The <span class="code">RUN</span> and <span class="code">CMD</span>
+  instructions in their simpler form are to build our image and to run our
+  containers respectively. <span class="code">RUN</span> instruction is
+  executed while building our docker image and <span class="code">CMD</span>
+  instruction is executed at runtime when we launch the container.</p>
+<h3>Makefile</h3>
+<p>I (and a lot of other developers) prefer to keep the actual image building
+  and run commands out of the Dockerfile for a number of reasons. I personally
+  prefer to use <span class="code">make</span>.</p>
+<p>Update our Makefile to have the following content:</p>
+<pre><code class="language-makefile">GO_PROJECT_NAME := my_go_project
+
+# Go rules
+go_format:
+	@echo "\n....Formatting $(GO_PROJECT_NAME)'s go files...."
+	gofmt -w $(GOPATH)/src/$(GO_PROJECT_NAME)
+
+go_prep_install:
+	@echo "\n....Preparing installation environment for $(GO_PROJECT_NAME)...."
+	mkdir -p $(GOPATH)/bin $(GOPATH)/pkg
+	go get github.com/cespare/reflex
+
+go_dep_install:
+	@echo "\n....Installing dependencies for $(GO_PROJECT_NAME)...."
+	go get ./...
+
+go_install:
+	@echo "\n....Compiling $(GO_PROJECT_NAME)...."
+	go install $(GO_PROJECT_NAME)
+
+go_test:
+	@echo "\n....Running tests for $(GO_PROJECT_NAME)...."
+	go test ./src/$(GO_PROJECT_NAME)/...
+
+go_run:
+	@echo "\n....Running $(GO_PROJECT_NAME)...."
+	$(GOPATH)/bin/$(GO_PROJECT_NAME)
+
+
+# Project rules
+install:
+	$(MAKE) go_prep_install
+	$(MAKE) go_dep_install
+	$(MAKE) go_install
+
+run:
+ifeq ($(CODE_ENV), dev)
+	reflex -s -g 'src/$(GO_PROJECT_NAME)/*.go' make restart
+else
+	$(MAKE) go_run
+endif
+
+restart:
+	@$(MAKE) go_format
+	@$(MAKE) go_install
+	@$(MAKE) go_test
+	@$(MAKE) go_run
+
+.PHONY: go_format go_prep_install go_dep_install go_install go_run install run restart
+</code></pre>
+<p>Most of what is written above should be easy to grasp for someone who has
+  used Makefile's before. If you have not I strongly recommend to atleast
+  skim over the
+  <a href="https://www.gnu.org/software/make/manual/make.html" target="_blank">
+    Official GNU Make manual</a>.</p>
 <h2>The Final Solution</h2>
 <p>Let's have a look at
   <a href="https://github.com/surenderthakran/go_docker_env" target="_blank">
