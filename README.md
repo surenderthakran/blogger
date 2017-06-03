@@ -45,15 +45,15 @@ It will also start a `gulp` watch task to:
 ### Third Party
 #### Prism
 [Prism](https://github.com/PrismJS/prism) is used for syntax-highlighting and other code utilities.
-Prism's default theme is inherited with the `Copy To Clipboard Button` plugin.
-Apart from prism's code language package, syntax-highlighting is supported for:
+Prism's default theme is inherited and apart from prism's code language package, syntax-highlighting is supported for:
 - Bash
 - [Docker](https://www.docker.com/)
 - Git
 - [Go](https://golang.org/)
 - HTTP
-- Json
+- JSON
 - Makefile
+- Markdown
 - [Nginx](https://www.nginx.com/)
 - Python
 - SQL
