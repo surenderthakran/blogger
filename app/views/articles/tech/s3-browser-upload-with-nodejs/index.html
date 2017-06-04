@@ -56,7 +56,7 @@
 <p>Once done, we must generate User Credentials for the user and save them for further use. We can learn from <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey" target="_blank"> here how to create access credentials.</a></p>
 <p>Now that we have properly configured our S3 bucket and our IAM user, lets go through each step one by one.</p>
 
-<h2>Step 1: Uploading file to the browser</h2>
+<h3>Step 1: Uploading file to the browser</h3>
 <p>Uploading file to browser can be achieved simply via an <span class="code">input</span> element of type <span class="code">file</span>:</p>
 <pre><code class="language-html">&lt;input id="file_input" type="file" name="file" /&gt;</code></pre>
 <p>Or, in case we want to use the HTML Forms method, by creating an HTML <span class="code">form</span>:</p>
@@ -76,7 +76,7 @@
 <p>Notice that the <span class="code">input</span> element of type <span class="code">file</span> is the last element in the form. This is because while uploading the file to S3 in Step 4, S3's API requires the "file" parameter to be the last parameter. While using the formdata method also, we must append the "file" parameter to the formdata parameters in the end.</p>
 <p><em class="bold">Note: The "file" parameter must be the last parameter when sending the upload request to S3</em></p>
 
-<h2>Step 2: Sending AJAX request to node.js to fetch upload parameters</h2>
+<h3>Step 2: Sending AJAX request to node.js to fetch upload parameters</h3>
 <p>After the file has been uploaded to the browser, we must fetch upload credentials for the file to upload to S3 from our server running on node.js. For node.js to be able to determine the file's MIME type we can either determine it in the browser itself by using the file's byte or for the sake of simplicity we use the file extension. (Note: A file's type need not be the same as mentioned by its extension).</p>
 <p>First we must fetch the uploaded file's name from the <span class="code">input</span> element.</p>
 <pre><code class="language-js">var fileInput = document.getElementById('file_input');
@@ -95,7 +95,7 @@ xhr.onreadystatechange = function() {
 xhr.open("GET", getS3UploadCredentialsUrl + "?filename=" + filename, true);
 xhr.send();</code></pre>
 
-<h2>Step 3: Generate signature using the S3 policy document by signing it using AWS secret key</h2>
+<h3>Step 3: Generate signature using the S3 policy document by signing it using AWS secret key</h3>
 <p>At node.js, we need to reply with the S3 upload url and the upload paremeters to be sent with the S3 upload request.</p>
 <p>First lets put all the required information in a configuration object.</p>
 <pre><code class="language-json">var config = {
@@ -165,7 +165,7 @@ var xAmzSignature = createHmacDigest(signingKey, policyBase64).toString("hex");<
   "x-amz-signature": xAmzSignature
 }</code></pre>
 
-<h2>Step 4: Upload file to S3 with upload parameters</h2>
+<h3>Step 4: Upload file to S3 with upload parameters</h3>
 <p>Now that we have all the necessary parameters, it is time to send an upload POST request to S3 alongwith the file and at upload parameters. This can be done in two ways as discussed in Step 1. We can use HTML forms to collate all the parameters in a formdata object and submit the form to send the POST request to necessary S3 url. Or we can create our own formdata object using javascript, append necessary parameters to it in the order we want and send the request. Let's look at both the methods.</p>
 <p>While using HTML Forms method recall the HTML form element we created in Step 1. Now that we have all the parameters we first need to add values of those parameters to the form elements and then send the extracted formdata object of the form to S3.</p>
 <pre><code class="language-js">// response is the JSON response object containing the upload parameters
@@ -220,7 +220,7 @@ xhr.send(formData);</code></pre>
 <p>Notice that file parameter is appended to the formdata object in the end. Because as explained in Step 1, S3 requires the file parameter to be the last parameter of the request object.</p>
 <p><em class="bold">Note: The "file" parameter must be the last parameter when sending the upload request to S3</em></p>
 
-<h2>Step 5: S3 request authentication and response</h2>
+<h3>Step 5: S3 request authentication and response</h3>
 <p>On S3 the request is first authenticated to check for any man in the middle attacks. Since the policy document is signed with the user's secret key, it can be safely assumed that it wasn't tampered with. S3 decrypts the policy document using the same secret key and matches its content with other upload parameters. If the parameters match then the file is successfully uploaded to S3.</p>
 <p>After upload, S3 replies back to the request based on the parameters. Since our <span class="code">success_action_status</span> parameters has a value of <span class="code">201</span>, Amazon S3 returns an XML document with a 201 status code. Other response code values can be <a href="http://docs.aws.amazon.com/AmazonS3/latest/API/RESTObjectPOST.html" target="_blank">found here.</a></p>
 <pre><code class="language-xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
