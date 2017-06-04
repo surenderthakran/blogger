@@ -391,31 +391,30 @@ header.page-header {
       padding: 1em 2em;
       height: 75px; } }
   header.page-header .signature {
-    width: 33%;
+    color: #484871;
+    letter-spacing: 1px;
+    line-height: 1.5em;
     min-width: 260px;
-    line-height: 1.5em; }
+    width: 33%; }
+    header.page-header .signature a {
+      text-decoration: none;
+      color: #484871;
+      font-size: 1.3em; }
+      @media screen and (max-width: 830px) {
+        header.page-header .signature a {
+          color: #FFFFFF; } }
+    header.page-header .signature p {
+      font-size: 0.9em; }
+      @media screen and (max-width: 830px) {
+        header.page-header .signature p {
+          color: #E2E2E2; } }
     header.page-header .signature .external-logos-large {
       padding: 2px 0;
       display: none;
-      /* remove display: none when this construct is needed again */ }
-    header.page-header .signature .external-logos-large > a {
-      text-decoration: none;
-      padding: 0 10px 0 0; }
-  header.page-header .signature > a {
-    text-decoration: none;
-    color: #484871;
-    letter-spacing: 1px;
-    font-size: 1.3em; }
-    @media screen and (max-width: 830px) {
-      header.page-header .signature > a {
-        color: #FFFFFF; } }
-  header.page-header .signature > p {
-    font-size: 0.9em;
-    color: #484871;
-    letter-spacing: 1px; }
-    @media screen and (max-width: 830px) {
-      header.page-header .signature > p {
-        color: #E2E2E2; } }
+      /* TODO(surenderthakran): remove display: none when this construct is needed again */ }
+      header.page-header .signature .external-logos-large a {
+        text-decoration: none;
+        padding: 0 10px 0 0; }
   header.page-header .toggle-bar {
     width: 66%;
     margin: 0.5em 0;
@@ -445,16 +444,16 @@ header.page-header {
         padding: 2px 0;
         display: inline-block;
         float: none; }
-      header.page-header .toggle-bar .centerbar .external-logos-small > a {
-        text-decoration: none;
-        padding: 0 5px;
-        opacity: 0.5;
-        -webkit-filter: grayscale(1);
-        filter: grayscale(1); }
-      header.page-header .toggle-bar .centerbar .external-logos-small > a:hover {
-        opacity: 0.8;
-        -webkit-filter: grayscale(0);
-        filter: grayscale(0); }
+        header.page-header .toggle-bar .centerbar .external-logos-small a {
+          text-decoration: none;
+          padding: 0 5px;
+          opacity: 0.5;
+          -webkit-filter: grayscale(1);
+          filter: grayscale(1); }
+          header.page-header .toggle-bar .centerbar .external-logos-small a:hover {
+            opacity: 0.8;
+            -webkit-filter: grayscale(0);
+            filter: grayscale(0); }
     header.page-header .toggle-bar nav.menu {
       width: 50%; }
       @media screen and (max-width: 830px) {
@@ -473,23 +472,23 @@ header.page-header {
             color: #484871;
             letter-spacing: 1px;
             line-height: 2em; }
-          header.page-header .toggle-bar nav.menu ul li a:before {
-            content: "";
-            position: absolute;
-            width: 100%;
-            height: 2px;
-            bottom: 0;
-            left: 0;
-            background-color: #484871;
-            visibility: hidden;
-            -webkit-transform: scaleX(0);
-            transform: scaleX(0);
-            -webkit-transition: all 0.3s ease-in-out 0s;
-            transition: all 0.3s ease-in-out 0s; }
-          header.page-header .toggle-bar nav.menu ul li a:hover:before {
-            visibility: visible;
-            -webkit-transform: scaleX(1);
-            transform: scaleX(1); }
+            header.page-header .toggle-bar nav.menu ul li a:before {
+              content: "";
+              position: absolute;
+              width: 100%;
+              height: 2px;
+              bottom: 0;
+              left: 0;
+              background-color: #484871;
+              visibility: hidden;
+              -webkit-transform: scaleX(0);
+              transform: scaleX(0);
+              -webkit-transition: all 0.3s ease-in-out 0s;
+              transition: all 0.3s ease-in-out 0s; }
+            header.page-header .toggle-bar nav.menu ul li a:hover:before {
+              visibility: visible;
+              -webkit-transform: scaleX(1);
+              transform: scaleX(1); }
 
 section.article-list {
   max-width: 960px;
@@ -517,7 +516,7 @@ section.article-list {
         width: 100%;
         text-decoration: none;
         color: inherit; }
-        section.article-list ul li a :hover {
+        section.article-list ul li a:hover {
           opacity: 0.8; }
         section.article-list ul li a h1 {
           text-align: left;
@@ -552,23 +551,21 @@ article.article {
     padding: 2em 0;
     width: 100%; }
     article.article div.author-body h2 {
-      margin: 0.5em 0;
-      width: 100%; }
+      margin: 0.5em 0; }
     article.article div.author-body p {
       margin: 0.5em 0;
       line-height: 1.4em;
       font-weight: 400;
       font-size: 1.1em;
-      word-spacing: 0.1em;
-      width: 100%; }
+      word-spacing: 0.1em; }
       article.article div.author-body p a {
         float: none;
         color: inherit;
         border-bottom: 1px dotted #444444;
         text-decoration: none; }
-      article.article div.author-body p a:hover {
-        color: #000;
-        border-bottom: 1px solid #000; }
+        article.article div.author-body p a:hover {
+          color: #000;
+          border-bottom: 1px solid #000; }
   article.article ul.article-index {
     border-bottom: solid 1px #ccc;
     font-size: 1.1em;
@@ -584,43 +581,44 @@ article.article {
         color: inherit;
         border-bottom: 1px dotted #444444;
         text-decoration: none; }
-      article.article ul.article-index li a:hover {
-        color: #000;
-        border-bottom: 1px solid #000; }
+        article.article ul.article-index li a:hover {
+          color: #000;
+          border-bottom: 1px solid #000; }
   article.article div.article-body {
     padding: 2em 0;
     width: 100%; }
     article.article div.article-body h2, article.article div.article-body h3 {
       margin: 0.5em 0;
       width: 100%; }
-    article.article div.article-body p, article.article div.article-body ol, article.article div.article-body em {
+    article.article div.article-body p, article.article div.article-body ol, article.article div.article-body ul {
       margin: 0.5em 0;
       line-height: 1.4em;
       font-weight: 400;
       font-size: 1.1em;
       word-spacing: 0.1em;
       width: 100%; }
-      article.article div.article-body p a, article.article div.article-body ol a, article.article div.article-body em a {
+      article.article div.article-body p a, article.article div.article-body ol a, article.article div.article-body ul a {
         float: none;
         color: inherit;
         border-bottom: 1px dotted #444444;
         text-decoration: none; }
-      article.article div.article-body p a:hover, article.article div.article-body ol a:hover, article.article div.article-body em a:hover {
-        color: #000;
-        border-bottom: 1px solid #000; }
+        article.article div.article-body p a:hover, article.article div.article-body ol a:hover, article.article div.article-body ul a:hover {
+          color: #000;
+          border-bottom: 1px solid #000; }
     article.article div.article-body pre {
       background-color: #efefef;
+      line-height: 1.5em;
+      padding: 1em;
       width: 100%; }
       article.article div.article-body pre code span.token.operator {
         background-color: #EFEFEF; }
+    article.article div.article-body ol, article.article div.article-body ul {
+      padding-left: 2em; }
+      article.article div.article-body ol li, article.article div.article-body ul li {
+        width: 100%; }
     article.article div.article-body ol {
       list-style-type: decimal;
-      list-style-position: outside;
-      padding-left: 2em; }
-      article.article div.article-body ol li {
-        width: 100%; }
-    article.article div.article-body em {
-      font-weight: 600; }
+      list-style-position: outside; }
     article.article div.article-body div.image {
       width: 100%;
       padding: 1em 0.5em;
@@ -635,11 +633,16 @@ article.article {
         font-style: italic;
         color: #777777;
         text-align: right; }
-    article.article div.article-body i, article.article div.article-body span, article.article div.article-body strong {
+    article.article div.article-body span, article.article div.article-body strong, article.article div.article-body em {
       float: none; }
+      article.article div.article-body span.bold, article.article div.article-body strong.bold, article.article div.article-body em.bold {
+        font-weight: 600; }
     article.article div.article-body span.underline {
       text-decoration: underline; }
     article.article div.article-body span.code {
-      font-family: monospace, monospace;
       background-color: #efefef;
-      padding: 0 0.2em; }
+      border: solid #ddd 1px;
+      font-family: monospace, monospace;
+      font-size: 0.9em;
+      padding: 0.1em 0.2em;
+      white-space: nowrap; }

@@ -1,0 +1,372 @@
+<h2>Why should we Dockerize?</h2>
+<p>Dockerizing an application is the process of configuring the application and
+  its environment to package in a single
+  <a href="https://www.docker.com/" target="_blank">Docker</a> image and to run
+  it within Docker containers.</p>
+<p>Even though <a href="https://golang.org/" target="_blank">Go (GoLang)</a>
+  applications (mostly) compile to a single binary, applications often depend
+  on other supporting files (templates, configurations, etc). When there are a
+  lot of supporting files in an application, it is common to have problems
+  because of out of sync codebase. Turning your Go application into a Docker
+  image is a great way to distribute & deploy your application and be assured
+  that it will run on other machines exactly like it did in development
+  environment regardless of any customizations that machine might have.</p>
+
+<h2>How to Dockerize?</h2>
+<p>Here we will learn how to Dockerize a Go web application for development as
+  well as production environments. While dockerizing web applications is a
+  pretty straight-forward task, there are a few challenges unique to every
+  language/technology that needs to be overcome.</p>
+<p>Let's start by creating a simple web application which:</p>
+<ul>
+  <li>Listens for HTTP requests on a port. (let's say 18770)</li>
+  <li>Handles a GET request <span class="code">/get</span> with a
+    <span class="code">name</span> parameter.</li>
+  <li>On receiving a request, responds back with a "Hello" message and a lucky
+    number.</li>
+</ul>
+<p><em class="bold">Before we begin, it is imperative to have a working
+  knowledge of Go (its build, test and run processes) and Docker.
+  <a href="https://golang.org/doc/" target="_blank">https://golang.org/doc/</a>
+  and <a href="https://docs.docker.com/" target="_blank">
+    https://docs.docker.com/</a> can be good places to begin.</em></p>
+<h3>Project Directory Structure</h3>
+<p>Let us start by creating the requisite directory structure first. Let's name
+  our project <span class="code">my_go_project</span> and have the following
+  file and folder structure.</p>
+<pre>
+my_go_project/
+    ├── src/
+    │     └── my_go_project/
+    │             ├── main.go
+    │             └── main_test.go
+    ├── docker-compose.yml
+    ├── Dockerfile
+    └── Makefile
+</pre>
+<h3>main.go</h3>
+<p>In <span class="code">main.go</span>, lets write our simple web application
+  as follows:</p>
+<pre><code class="language-go">package main
+
+import (
+	"flag"
+	"fmt"
+	"log"
+	"net/http"
+)
+
+func main() {
+	http.HandleFunc("/get", func(w http.ResponseWriter, r *http.Request) {
+
+		name := r.URL.Query()["name"][0]
+		fmt.Fprintf(w, "Hello, %q\nYour lucky number is: %d", name, generateLuckyNumber(name))
+	})
+
+	err := http.ListenAndServe(":18770", nil) // Note: Not "localhost:18770" but ":18770"
+	log.Fatal(err)
+}
+
+// Function to return a lucky number for a given name.
+func generateLuckyNumber(name string) int {
+	// Not really generating a lucky number here, just returning length of the string.
+	return len(name)
+}</code></pre>
+<p>Here we have written a simple HTTP server which listens on port
+  <span class="code">18770</span> for a <span class="code">/get</span> GET
+  request and expects a parameter <span class="code">name</span>. We are
+  generating a lucky number (not really :p) and returning it in the response
+  text.</p>
+<p>Note: In the above code, we are only making use of Go's internal packages.
+  In the final solution, we will also be using an external package
+  <a href="https://github.com/golang/glog" target="_blank">glog</a> to
+  demonstrate external dependencies management.</p>
+<h3>main_test.go</h3>
+<p>Even the most brilliant coders are incapable of writing codes that always
+  work exactly as intended. Therefore testing is an important part of the
+  software development process. Test-driven development helps in keeping the
+  quality of your code high and protects from regressions.</p>
+<p>Let's update our <span class="code">main_test.go</span> to contain our
+  test cases as follows:</p>
+  <pre><code class="language-go">package main
+
+  import (
+  	"testing"
+  )
+
+  // Unit test for generateLuckyNumber() using test tables.
+  func TestGenerateLuckyNumber(t *testing.T) {
+  	testCases := []struct {
+  		name string
+  		want int
+  	}{
+  		{
+  			name: "surender",
+  			want: 8,
+  		},
+  		{
+  			name: "thakran",
+  			want: 7,
+  		},
+  	}
+  	for _, test := range testCases {
+  		result := generateLuckyNumber(test.name)
+
+  		if result != test.want {
+  			t.Errorf("generateLuckyNumber(%s) -> %d want %d", test.name, result, test.want)
+  		}
+  	}
+  }
+</code></pre>
+<p>This concludes our basic web application which we will now be dockerizing.</p>
+<h3>Container Directory Structure</h3>
+<p>Before we continue on to dockerizing our application we need to decide on
+  the directory structure we intend <em>inside</em> a docker container.</p>
+<p>The following directory structure should serve our purposes.</p>
+<pre>
+/workspace/
+    ├── src/
+    │     ├── my_go_project/
+    │     │        ├── main.go
+    │     │        └── main_test.go
+    │    ...                            // External dependencies.
+    ├── bin/
+    │     ├── my_go_project             // Final project binary.
+    │    ...                            // Other binaries (if any).
+    ├── pkg/                            // Go package objects.
+    ├── docker-compose.yml
+    ├── Dockerfile
+    └── Makefile
+</pre>
+<p>Note that we are placing our project in the filesystem root's
+  <span class="code">/workspace</span> directory. It is a personal choice to
+  use any directory you want because we usually load only one project in a
+  container.
+</p>
+<h3>Dockerfile</h3>
+<p>Every dockerized application must have a
+  <a href="https://docs.docker.com/engine/reference/builder/" target="_blank">
+    Dockerfile</a> which is usually located in the root of the application. A
+  Dockerfile is a text document that contains all the commands a user could
+  call on the command line to assemble an image.</p>
+<p>Let's create a Dockerfile which has the following content:</p>
+<pre><code class="language-docker">FROM surenderthakran/go:1.7.3
+
+MAINTAINER https://github.com/surenderthakran
+
+ENV GOPATH /workspace
+ENV PATH "$PATH:$GOPATH/bin"
+
+ADD ./ $GOPATH
+
+WORKDIR $GOPATH
+
+RUN make install
+
+CMD make run
+</code></pre>
+<p>I usually prefer to use my own base images while dockerizing my applications
+  so that I have more control over what goes into my projects (just because I
+  can :p). We are free to use
+  <a href="https://hub.docker.com/r/surenderthakran/go/" target="_blank">
+    surenderthakran/go:1.7.3</a> or choose an
+  <a href="https://hub.docker.com/_/golang/" target="_blank">
+    Official Docker Image</a>.</p>
+<p>First we need to update a couple of environment variables:
+  <span class="code">$GOPATH</span> and <span class="code">$PATH</span>. We set
+  our <span class="code">$GOPATH</span> as <span class="code">/workspace</span>.
+  This environment variable specifies the location of our workspace and this
+  where Go will look for <span class="code">/src</span>,
+  <span class="code">/bin</span> and <span class="code">/pkg</span> directories.
+</p>
+<p>We also added our <span class="code">$GOPATH/bin</span> directory to the
+  <span class="code">$PATH</span> environment variable.</p>
+<p>Next we added our project's code base to our
+  <span class="code">$GOPATH</span> directory inside the container and change
+  the present working directory to it.</p>
+<p>The <span class="code">RUN</span> and <span class="code">CMD</span>
+  instructions, in their simplest form, are used to build our image and to run
+  our containers respectively. <span class="code">RUN</span> instruction is
+  executed while building our docker image and <span class="code">CMD</span>
+  instruction is executed at runtime when we launch the container.</p>
+<h3>Makefile</h3>
+<p>I (and a lot of other developers) prefer to keep the actual image building
+  and run commands out of the Dockerfile because it provides much more scripting
+  liberty than using the Dockerfile. I personally prefer to use
+  <span class="code">make</span>.</p>
+<p>Let's update our Makefile to have the following content:</p>
+<pre><code class="language-makefile">GO_PROJECT_NAME := my_go_project
+
+# Go rules
+go_format:
+	@echo "\n....Formatting $(GO_PROJECT_NAME)'s go files...."
+	gofmt -w $(GOPATH)/src/$(GO_PROJECT_NAME)
+
+go_prep_install:
+	@echo "\n....Preparing installation environment for $(GO_PROJECT_NAME)...."
+	mkdir -p $(GOPATH)/bin $(GOPATH)/pkg
+	go get github.com/cespare/reflex
+
+go_dep_install:
+	@echo "\n....Installing dependencies for $(GO_PROJECT_NAME)...."
+	go get ./...
+
+go_install:
+	@echo "\n....Compiling $(GO_PROJECT_NAME)...."
+	go install $(GO_PROJECT_NAME)
+
+go_test:
+	@echo "\n....Running tests for $(GO_PROJECT_NAME)...."
+	go test ./src/$(GO_PROJECT_NAME)/...
+
+go_run:
+	@echo "\n....Running $(GO_PROJECT_NAME)...."
+	$(GOPATH)/bin/$(GO_PROJECT_NAME)
+
+
+# Project rules
+install:
+	$(MAKE) go_prep_install
+	$(MAKE) go_dep_install
+	$(MAKE) go_install
+
+run:
+ifeq ($(CODE_ENV), dev)
+	reflex -s -g 'src/$(GO_PROJECT_NAME)/*.go' make restart
+else
+	$(MAKE) go_run
+endif
+
+restart:
+	@$(MAKE) go_format
+	@$(MAKE) go_install
+	@$(MAKE) go_test
+	@$(MAKE) go_run
+
+.PHONY: go_format go_prep_install go_dep_install go_install go_run install run restart
+</code></pre>
+<p>Most of what is written above should be easy to grasp for someone who has
+  used Makefile's before. If you have not I strongly recommend to atleast
+  skim over the
+  <a href="https://www.gnu.org/software/make/manual/make.html" target="_blank">
+    Official GNU Make manual</a>.</p>
+<p>While creating our docker image, we first need to prepare our Go workspace
+  for our application by creating the required <span class="code">/bin</span>
+  and <span class="code">/pkg</span> directories in our
+  <span class="code">$GOPATH</span>. Next we install all our application's
+  external dependencies by running <span class="code">go get ./...</span>.</p>
+<p>Finally, we install our application by running <span class="code">
+    go install $(GO_PROJECT_NAME)</span> where
+  <span class="code">GO_PROJECT_NAME=my_go_project</span> as defined at the top
+  of our Makefile.</p>
+<p>Once our application is installed, a Go binary called
+  <span class="code">$GO_PROJECT_NAME</span> is created in our application's
+  <span class="code">$GOPATH/bin</span> directory which we will be using to run
+  our application. Once done, a docker image is also created on the host machine
+  which we can use to launch docker containers running our application. As
+  defined in the Dockerfile, <span class="code">make run</span> is executed when
+  a docker container is being launched which in turn executes our application's
+  Go binary by running <span class="code">
+    $(GOPATH)/bin/$(GO_PROJECT_NAME)</span>.</p>
+<p>We now have a working production environment for our application but we also
+  need to take care of our application in the development environment. We
+  differentiate between development and production environment using the value
+  of <span class="code">CODE_ENV</span> environment variable in the docker
+  container. In a development environment its value would be
+  <span class="code">dev</span>.</p>
+<p>In the development environment, we need to keep track of any code changes,
+  run tests on the changed code, reinstall the application and then re-run it.
+</p>
+<p>After a bit of research I decided on
+  <a href="https://github.com/cespare/reflex" target="_blank">reflex</a> as the
+  <em>current</em> best solution for monitoring file system changes and running
+  reload commands for Go.</p>
+<p>When a docker image is being built we also installed
+  <a href="https://github.com/cespare/reflex" target="_blank">reflex</a> as a
+  dependency using <span class="code">go get github.com/cespare/reflex</span>.
+  When a container is launched in a development environment then on
+  <span class="code">make run</span> it runs <span class="code">reflex</span>
+  which monitors <span class="code">src/$(GO_PROJECT_NAME)</span> directory for
+  any changes in any <span class="code">.go</span> files.</p>
+<p>On any change in the codebase, apart from re-installing and re-running the
+  application it also reformats the application's Go source files and runs tests
+  using <span class="code">gofmt</span> and <span class="code">go test</span>.
+</p>
+<p>But there are still a few unanswered questions:</p>
+<ul>
+  <li>How do the code changes occur in a docker container which is suppossed
+    to be completely separated and independent of the host machine?</li>
+  <li>How does an application running inside a container serve requests coming
+    from outside?</li>
+</ul>
+<h2>docker-compose.yml</h2>
+<p>Although, <a href="https://docs.docker.com/compose/" target="_blank">
+  Docker Compose</a> is a docker tool for configuring and running
+  multi-container applications, it can also help us manage our development
+  environment.</p>
+<p>It allows us to configure applications in a <span class="code">
+  docker-compose.yml</span> file usually located in the root of our project.
+</p>
+<p>Let's update our docker-compose.yml file to the following:</p>
+<pre><code class="language-yaml">version: '2'
+services:
+  app:
+    build: .
+    command: make --no-print-directory run
+    volumes:
+      - ./src/my_go_project:/workspace/src/my_go_project
+    environment:
+      CODE_ENV: dev
+    ports:
+      - "18770:18770"
+    logging:
+      driver: 'json-file'
+</code></pre>
+<p>We are using version 2 of the Compose file format and you can refer to
+  <a href="https://docs.docker.com/compose/compose-file/compose-file-v2/"
+     target="_blank">
+     Compose file version 2 reference</a> to grasp most of the above code. I
+     would however like to draw attention to few points in the above file:</p>
+<p>For a running docker container to receive code changes from  the host
+  machine, we <em>mount</em> our project's Go source directory over the
+  project's source directory inside the container. We do this with the
+  <span class="code">volumes</span> option by specifying the mount paths like
+  this: <span class="code">
+    ./src/my_go_project:/workspace/src/my_go_project</span>.</p>
+<p>As I mentioned earlier, we differentiate between the development and
+  production environments using the <span class="code">CODE_ENV</span>
+  environment variable whose value is <span class="code">dev</span> in
+  development environment. We can set environment variables inside docker
+  container using the <span class="code">environment</span> option like we did
+  above.</p>
+<p>Also for our application, which runs on port <span class="code">18770</span>,
+  to be accessible outside the container we need to expose the port outside the
+  container and map it to an unused port on the host machine. We are free to
+  choose any <em>ephemeral port</em> on the host machine. In our example, I
+  choose to use the same port in container and on host machine.</p>
+<h2>How to use?</h2>
+<h3>In Production</h3>
+<p>We can build a docker image for our go application by running:</p>
+<pre><code class="language-bash">docker build -t go_app .</code></pre>
+<p>And to launch a docker container for the image created above we run:</p>
+<pre><code class="language-bash">docker run -it -d --name go_app_1 --net=host go_app
+</code></pre>
+<p>With <span class="code">--net=host</span> the container's port
+  <span class="code">18770</span> is mapped to host's port
+  <span class="code">18770</span>. We can also map our application's port inside
+  the container to a different port (ex: 80) by launching our container like
+  this:</p>
+<pre><code class="language-bash">docker run -it -d --name go_app_1 -p 80:18770 go_app
+</code></pre>
+<h3>In Development</h3>
+<p>Running our application in development is a very easy process thanks to the
+  <span class="code">docker-compose</span> command. To build our application's
+  docker image we run:</p>
+<pre><code class="language-bash">docker-compose build</code></pre>
+<p>And to launch a docker container, we run:</p>
+<pre><code class="language-bash">docker-compose up</code></pre>
+<h2>The Final Solution</h2>
+<p>Find the complete Go dockerized solution which we discussed in the article at
+  <a href="https://github.com/surenderthakran/go_docker_env" target="_blank">
+  surenderthakran/go_docker_env</a> from which I believe all team and project
+  sizes can benefit.</p>

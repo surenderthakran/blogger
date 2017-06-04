@@ -34,7 +34,6 @@ article.article {
 
       h2 {
         margin: 0.5em 0;
-        width: 100%;
       }
 
       p {
@@ -43,18 +42,17 @@ article.article {
         font-weight: 400;
         font-size: 1.1em;
         word-spacing: 0.1em;
-        width: 100%;
 
         a {
           float: none;
           color: inherit;
           border-bottom: 1px dotted #444444;
           text-decoration: none;
-        }
 
-        a:hover {
-          color: #000;
-          border-bottom: 1px solid #000;
+          &:hover {
+            color: #000;
+            border-bottom: 1px solid #000;
+          }
         }
       }
     }
@@ -76,11 +74,11 @@ article.article {
           color: inherit;
           border-bottom: 1px dotted #444444;
           text-decoration: none;
-        }
 
-        a:hover {
-          color: #000;
-          border-bottom: 1px solid #000;
+          &:hover {
+            color: #000;
+            border-bottom: 1px solid #000;
+          }
         }
       }
     }
@@ -94,7 +92,7 @@ article.article {
             width: 100%;
         }
 
-        p, ol, em {
+        p, ol, ul {
             margin: 0.5em 0;
             line-height: 1.4em;
             font-weight: 400;
@@ -107,18 +105,18 @@ article.article {
                 color: inherit;
                 border-bottom: 1px dotted #444444;
                 text-decoration: none;
-            }
 
-            a:hover {
-                color: #000;
-                border-bottom: 1px solid #000;
+                &:hover {
+                    color: #000;
+                    border-bottom: 1px solid #000;
+                }
             }
         }
 
         pre {
-            // margin: 0.5em 0;
             background-color: #efefef;
-            // padding: 0.5em;
+            line-height: 1.5em;
+            padding: 1em;
             width: 100%;
 
             code {
@@ -128,9 +126,7 @@ article.article {
             }
         }
 
-        ol {
-            list-style-type: decimal;
-            list-style-position: outside;
+        ol, ul {
             padding-left: 2em;
 
             li {
@@ -138,8 +134,9 @@ article.article {
             }
         }
 
-        em {
-            font-weight: 600;
+        ol {
+            list-style-type: decimal;
+            list-style-position: outside;
         }
 
         div.image {
@@ -162,18 +159,27 @@ article.article {
             }
         }
 
-        i, span, strong {
+        span, strong, em {
             float: none;
+
+            &.bold {
+              font-weight:600;
+            }
         }
 
-        span.underline {
-            text-decoration: underline;;
-        }
+        span {
+            &.underline {
+                text-decoration: underline;
+            }
 
-        span.code {
-            font-family: monospace, monospace;
-            background-color: #efefef;
-            padding: 0 0.2em;
+            &.code {
+                background-color: #efefef;
+                border: solid #ddd 1px;
+                font-family: monospace, monospace;
+                font-size: 0.9em;
+                padding: 0.1em 0.2em;
+                white-space: nowrap;
+            }
         }
     }
 }

@@ -21,39 +21,38 @@ header.page-header {
     /* Signature */
 
     .signature {
-        width: 33%;
-        min-width: 260px;
+        color: #484871;
+        letter-spacing: 1px;
         line-height: 1.5em;
+        min-width: 260px;
+        width: 33%;
+
+        a {
+            text-decoration: none;
+            color: #484871;
+            font-size: 1.3em;
+
+            @media screen and (max-width: $responsive-threshold) {
+                color: #FFFFFF;
+            }
+        }
+
+        p {
+            font-size: 0.9em;
+
+            @media screen and (max-width: $responsive-threshold) {
+                color: #E2E2E2;
+            }
+        }
 
         .external-logos-large {
             padding: 2px 0;
-            display: none;              /* remove display: none when this construct is needed again */
-        }
+            display: none;              /* TODO(surenderthakran): remove display: none when this construct is needed again */
 
-        .external-logos-large > a {
-            text-decoration: none;
-            padding: 0 10px 0 0;
-        }
-    }
-
-    .signature > a {
-        text-decoration: none;
-        color: #484871;
-        letter-spacing: 1px;
-        font-size: 1.3em;
-
-        @media screen and (max-width: $responsive-threshold) {
-            color: #FFFFFF;
-        }
-    }
-
-    .signature > p {
-        font-size: 0.9em;
-        color: #484871;
-        letter-spacing: 1px;
-
-        @media screen and (max-width: $responsive-threshold) {
-            color: #E2E2E2;
+            a {
+                text-decoration: none;
+                padding: 0 10px 0 0;
+            }
         }
     }
 
@@ -91,20 +90,20 @@ header.page-header {
                 padding: 2px 0;
                 display: inline-block;
                 float: none;
-            }
 
-            .external-logos-small > a {
-                text-decoration: none;
-                padding: 0 5px;
-                opacity: 0.5;
-                -webkit-filter: grayscale(1);
-                filter: grayscale(1);
-            }
+                a {
+                    text-decoration: none;
+                    padding: 0 5px;
+                    opacity: 0.5;
+                    -webkit-filter: grayscale(1);
+                    filter: grayscale(1);
 
-            .external-logos-small > a:hover {
-                opacity: 0.8;
-                -webkit-filter: grayscale(0);
-                filter: grayscale(0);
+                    &:hover {
+                        opacity: 0.8;
+                        -webkit-filter: grayscale(0);
+                        filter: grayscale(0);
+                    }
+                }
             }
         }
 
@@ -132,27 +131,27 @@ header.page-header {
                         color: #484871;
                         letter-spacing: 1px;
                         line-height: 2em;
-                    }
 
-                    a:before {
-                        content: "";
-                        position: absolute;
-                        width: 100%;
-                        height: 2px;
-                        bottom: 0;
-                        left: 0;
-                        background-color: #484871;
-                        visibility: hidden;
-                        -webkit-transform: scaleX(0);
-                        transform: scaleX(0);
-                        -webkit-transition: all 0.3s ease-in-out 0s;
-                        transition: all 0.3s ease-in-out 0s;
-                    }
+                        &:before {
+                            content: "";
+                            position: absolute;
+                            width: 100%;
+                            height: 2px;
+                            bottom: 0;
+                            left: 0;
+                            background-color: #484871;
+                            visibility: hidden;
+                            -webkit-transform: scaleX(0);
+                            transform: scaleX(0);
+                            -webkit-transition: all 0.3s ease-in-out 0s;
+                            transition: all 0.3s ease-in-out 0s;
+                        }
 
-                    a:hover:before {
-                        visibility: visible;
-                        -webkit-transform: scaleX(1);
-                        transform: scaleX(1);
+                        &:hover:before {
+                            visibility: visible;
+                            -webkit-transform: scaleX(1);
+                            transform: scaleX(1);
+                        }
                     }
                 }
             }
