@@ -531,7 +531,8 @@ article.article {
   float: none;
   padding: 2em;
   overflow: hidden;
-  font-family: Open Sans,Helvetica Neue,sans-serif; }
+  font-family: Open Sans,Helvetica Neue,sans-serif;
+  /* For author information page */ }
   article.article header {
     padding: 2em 0;
     border-bottom: solid 1px #CCC;
@@ -584,6 +585,11 @@ article.article {
         article.article ul.article-index li a:hover {
           color: #000;
           border-bottom: 1px solid #000; }
+      article.article ul.article-index li.child-list-item {
+        list-style-type: none; }
+        article.article ul.article-index li.child-list-item ul.child-list {
+          padding-left: 2em;
+          width: 100%; }
   article.article div.article-body {
     padding: 2em 0;
     width: 100%; }
