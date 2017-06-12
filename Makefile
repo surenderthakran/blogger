@@ -10,7 +10,7 @@ help:
 install:
 	@echo Running make install...
 	@npm config set unsafe-perm true
-	@npm install --prefix ./ app/
+	@npm install
 
 run:
 	@echo Running make run...
