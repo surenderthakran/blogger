@@ -1,5 +1,8 @@
 DOCKER:=$(shell grep docker /proc/self/cgroup)
 
+GULP = ./node_modules/gulp/bin/gulp.js
+NODEMON = ./node_modules/nodemon/bin/nodemon.js
+
 help:
 	@echo "=============== BLOGGER ================="
 	@echo "help ................ Show Help"
@@ -20,9 +23,9 @@ ifeq ($(NODE_ENV), dev)
 	@echo Setting up development environment...
 	@sleep 10
 	@echo Starting gulp watch in background...
-	@nohup ./node_modules/gulp/bin/gulp.js watch &
+	@nohup $(GULP) watch &
 	@echo Starting server via nodemon...
-	@./node_modules/nodemon/bin/nodemon.js -e js,html app/index.js
+	@$(NODEMON) -e js,html -i 'app/views/*' app/index.js
 else
 	@echo Starting nodejs...
 	@node app/index.js
