@@ -65,6 +65,7 @@ function TableOfContent() {
   * TableOfContent object.
   */
 TableOfContent.prototype.GenerateIndexObject = function() {
+  var self = this;
   var articleBody = document.getElementsByClassName('article-body')[0];
   var childs = articleBody.children;
 
@@ -79,7 +80,7 @@ TableOfContent.prototype.GenerateIndexObject = function() {
       if (seniorityComparison === 0) {
         // When the new and the last header have the same tag.
         if (currentLevel === 0) {
-          this.index.push(indexElement);
+          self.index.push(indexElement);
         } else {
           indexElement.parent = currentParent;
           currentParent.children.push(indexElement);
@@ -95,11 +96,11 @@ TableOfContent.prototype.GenerateIndexObject = function() {
         if (currentLevel === 0) {
           // Header element higher than the first header will be treated as on
           // the same level.
-          this.index.push(indexElement);
+          self.index.push(indexElement);
         } else {
           if (currentLevel - 1 === 0) {
             currentParent = null;
-            this.index.push(indexElement);
+            self.index.push(indexElement);
           } else {
             currentParent = lastHeader.parent.parent;
             indexElement.parent = currentParent;
@@ -118,12 +119,16 @@ TableOfContent.prototype.GenerateIndexObject = function() {
   * TableOfContent object.
   */
 TableOfContent.prototype.CreateIndexList = function() {
-  var indexList = createListForArray(this.index);
-  indexList.className = 'article-index';
+  var self = this;
 
   var article = document.getElementsByTagName('article')[0];
-  var articleBody = document.getElementsByClassName('article-body')[0];
-  article.insertBefore(indexList, articleBody);
+  if (article.getElementsByClassName('article-index').length === 0) {
+    var indexList = createListForArray(self.index);
+    indexList.className = 'article-index';
+    
+    var articleBody = document.getElementsByClassName('article-body')[0];
+    article.insertBefore(indexList, articleBody);
+  }
 };
 
 /**
