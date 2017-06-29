@@ -37,7 +37,10 @@ gulp.task('js-lint', function() {
 gulp.task('js-pack', function(cb) {
   console.log('inside js-pack');
   pump([
-    gulp.src(__dirname + '/app/views/app/js/*.js'),
+    gulp.src([
+      __dirname + '/app/views/app/js/*.js',
+      '!' + __dirname + '/app/views/app/js/*_test.js'
+    ]),
     concat('main.js'),
     gulp.dest(__dirname + '/app/views/dist/js'),
     uglify(),

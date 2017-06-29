@@ -5,6 +5,7 @@ services:
     command: make run
     volumes:
       - ./app:/blogger/app
+      - ./package.json:/blogger/package.json
     environment:
       NODE_ENV: dev
     ports:
