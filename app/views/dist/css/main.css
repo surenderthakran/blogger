@@ -547,6 +547,7 @@ article.article {
     article.article header time {
       width: 100%;
       font-size: 1em;
+      line-height: 1.5em;
       opacity: 0.8; }
   article.article div.author-body {
     padding: 2em 0;
