@@ -8,7 +8,10 @@
         <article class="article">
             <header>
                 <h1>{{ article.title }}</h1>
-                <time datetime="{{ article.datetime }}">{{ article.date }}</time>
+                <time datetime="{{ article.datetime }}">Published On: {{ article.date }}</time>
+                {{#article.update_date}}
+                    <time datetime="{{ article.update_datetime }}">Last Updated: {{ article.update_date }}</time>
+                {{/article.update_date}}
             </header>
             <div class="article-body">
               {{{ article.body }}}
