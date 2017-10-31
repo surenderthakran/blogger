@@ -1,8 +1,6 @@
 'use strict';
 
-const Fs = require('fs');
 const Mustache = require('mustache');
-const Path = require('path');
 
 const ArticleStore = require('../../articlestore');
 
@@ -33,7 +31,7 @@ exports.register = function (server, options, next) {
   // @TODO(surenderthakran): make urls case insensitive
 
   server.route({ method: 'GET', path: '/', handler: function (request, reply) {
-    console.log('GET /');
+    console.log(request.method.toUpperCase() + ' ' + request.path);
     reply.view('index', {
       head: {
         title: 'Home | Surender Thakran',
@@ -45,7 +43,7 @@ exports.register = function (server, options, next) {
   } });
 
   server.route({ method: 'GET', path: '/about', handler: function (request, reply) {
-    console.log('GET /about');
+    console.log(request.method.toUpperCase() + ' ' + request.path);
     reply.view('about', {
       head: {
         title: 'About | Surender Thakran',
@@ -55,36 +53,7 @@ exports.register = function (server, options, next) {
     });
   } });
 
-  server.route({ method: 'GET', path: '/articles/tech/{articleId}', handler: function (request, reply) {
-    console.log('GET ' + request.path);
-
-    let articleId = request.params.articleId;
-
-    let index = -1;
-    for (let i = 0, len = ArticleStore.length; i < len; i++) {
-      if (ArticleStore[i].articleId === articleId) {
-        index = i;
-        break;
-      }
-    }
-
-    if (index !== -1) {
-      let articleData = ArticleStore[index];
-      let articleBody = Fs.readFileSync(Path.join(server.app.viewsPath,
-          Path.join(articleData.url, 'index.html')), 'utf8');
-      // prerendered to render urls in article before adding to article template
-      articleData.article.body = Mustache.render(articleBody, articleData);
-      reply.view('article', articleData);
-    } else {
-      reply.view('404', {                 // @TODO(surenderthakran): update 404 page
-        head: {
-          title: 'Page Not Found | Surender Thakran',
-          description: 'The requested page does not exists',
-          keywords: '404',
-        },
-      });
-    }
-  }});
+  server.route({ method: 'GET', path: '/articles/tech/{articleId}', handler: require('./handlers/article')});
 
   // @TODO(surenderthakran): update to redirect all *.html requests to non-html urls
   server.route({
