@@ -1,0 +1,28 @@
+div.not-found {
+  max-width: 960px;
+  margin: 0 auto;
+  float: none;
+  padding: 3em;
+  overflow: hidden;
+  font-family: Open Sans,Helvetica Neue,sans-serif;
+  text-align: center;
+
+  h2 {
+    font-size: 2em;
+    margin: 1em 0;
+    width: 100%;
+
+    @media screen and (max-width: $responsive-threshold) {
+        font-size: 1.5em;
+    }
+  }
+
+  p {
+    font-size: 1.5em;
+    width: 100%;
+
+    @media screen and (max-width: $responsive-threshold) {
+        font-size: 1em;
+    }
+  }
+}

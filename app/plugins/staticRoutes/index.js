@@ -58,7 +58,6 @@ exports.register = function (server, options, next) {
   server.route({ method: 'GET', path: '/articles/tech/{articleId}', handler: function (request, reply) {
     console.log('GET ' + request.path);
 
-    // const articleStore = request.server.app.articleStore;
     let articleId = request.params.articleId;
 
     let index = -1;

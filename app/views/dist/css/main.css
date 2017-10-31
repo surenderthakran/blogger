@@ -653,3 +653,25 @@ article.article {
       font-size: 0.9em;
       padding: 0.1em 0.2em;
       white-space: nowrap; }
+
+div.not-found {
+  max-width: 960px;
+  margin: 0 auto;
+  float: none;
+  padding: 3em;
+  overflow: hidden;
+  font-family: Open Sans,Helvetica Neue,sans-serif;
+  text-align: center; }
+  div.not-found h2 {
+    font-size: 2em;
+    margin: 1em 0;
+    width: 100%; }
+    @media screen and (max-width: 830px) {
+      div.not-found h2 {
+        font-size: 1.5em; } }
+  div.not-found p {
+    font-size: 1.5em;
+    width: 100%; }
+    @media screen and (max-width: 830px) {
+      div.not-found p {
+        font-size: 1em; } }
