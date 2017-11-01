@@ -635,11 +635,12 @@ article.article {
         max-width: 100%;
         float: none; }
       article.article div.article-body div.image a {
-        width: 100%;
-        padding: 1em 0;
-        font-style: italic;
         color: #777777;
-        text-align: right; }
+        font-size: 0.8em;
+        font-style: italic;
+        padding: 1em 0;
+        text-align: right;
+        width: 100%; }
     article.article div.article-body span, article.article div.article-body strong, article.article div.article-body em {
       float: none; }
       article.article div.article-body span.bold, article.article div.article-body strong.bold, article.article div.article-body em.bold {
