@@ -5,7 +5,7 @@
 <p>In its simplest form a brain is a huge collection of neurons. Each neuron
   takes electrical and chemical signals as inputs through its many dentrites and
   transmits its output signals through its axon (in a more specialized context,
-  there are exceptions to this behavior). Axons make contact with other neurons
+  there are exceptions to this behavior like with multipolar neurons). Axons make contact with other neurons
   at specialized junctions called synapses.</p>
 <div class="image">
   <img alt="image illustrating a biological neuron" src="/images/{{ url }}/biological-neuron.png" width="500" />
@@ -18,15 +18,45 @@
 <p>They are <strong>universal function approximators</strong> who at there very essence
   approximate a function/relation between the input data and the output
   data.<p>
-<h3>Topology Of an Artificial Neural Network</h3>
-<p>The simplest form of neural network is a single layer feed forward neural network.</p>
-<h2>Learning History</h2>
-<h2>Perceptrons vs Neurons</h2>
+<h2>Neurons</h2>
+<p>Neurons are the basic building blocks of ANNs. An artificial neuron receives
+  one or more inputs and performs computational operations on them to produce
+  one or more outputs. This is similar to dentrites in a biological neuron
+  receiving input signals and sending out an output signal through its axon.</p>
+<p>Each input to an artificial neuron is individually weighted to determine the
+  <em>strength</em> of each input. A weighted summation of all the inputs
+  forms the total net input to a neuron.</p>
+<div class="image">
+  <img alt="image illustrating an equation to calculate total net input for a neuron" src="/images/{{ url }}/total-net-input.png" width="250" />
+</div>
+<p>Consider the following diagram of an artificial neuron.</p>
+<div class="image">
+  <img alt="image illustrating a simple artificial neuron" src="/images/{{ url }}/neuron.png" width="300" />
+</div>
+<p>In the above neuron, <span class="code">i1</span> and <span class="code">i2</span> are the inputs to the neuron with
+  each input having weights <span class="code">w2</span> and <span class="code">w2</span> respectively.
+  Hence, the <span class="code">Total Net Input</span> for the neuron would be:</p>
+<div class="image">
+  <img alt="image illustrating an equation to calculate total net input for the example neuron" src="/images/{{ url }}/example-total-net-input.png" width="250" />
+</div>
+<p>The type of computations happening inside a neuron heavily influences the
+  learning techniques employed on the network and vice versa.</p>
+<h3>Activation Functions</h3>
+<p>Sigmoid, ReLU etc are non-linear activation functions.</p>
+<h3>Perceptrons vs Neurons</h3>
 <p>Perceptron. The simplest and oldest model of Neuron, as we know it. Takes
   some inputs, sums them up, applies activation function and passes them to
   output layer.</p>
-<h3>Activation Functions</h3>
-<p>Sigmoid, ReLU etc are non-linear activation functions.</p>
+<h2>Topology Of an Artificial Neural Network</h2>
+<p>The neurons in an ANN are arranged in two categories called layers vis hidden layer and output layer.
+  In addition to these two layers, there is also a third layer called the input layer which
+  doesn't has any neurons but instead just acts as a matrix for the input data.
+</p>
+<p>One of the simplest form of neural networks is a single hidden layer feed forward neural network.</p>
+<div class="image">
+  <img alt="image illustrating a basic single hidden layer neural network" src="/images/{{ url }}/basic-neural-network.png" width="600" />
+</div>
+<h2>Learning History</h2>
 <h2>Multi Layer Perceptrons (MLP)</h2>
 <h3>Back Propagation Algorithm</h3>
 <p>Backpropagation, short for "backward propagation of errors," is an algorithm
