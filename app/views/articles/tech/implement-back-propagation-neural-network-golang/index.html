@@ -20,7 +20,7 @@
   data.<p>
 <h2>Neurons</h2>
 <p>Neurons are the basic building blocks of ANNs. An artificial neuron receives
-  one or more inputs and performs computational operations on them to produce
+  one or more inputs and operates on them to produce
   one or more outputs. This is similar to dentrites in a biological neuron
   receiving input signals and sending out an output signal through its axon.</p>
 <p>Each input to an artificial neuron is individually weighted to determine the
@@ -39,14 +39,44 @@
 <div class="image">
   <img alt="image illustrating an equation to calculate total net input for the example neuron" src="/images/{{ url }}/example-total-net-input.png" width="250" />
 </div>
-<p>The type of computations happening inside a neuron heavily influences the
-  learning techniques employed on the network and vice versa.</p>
+<p>The neuron then computes the output using an activation function on the Total Net Input.
+  The result of the activation function is the output of the neuron.</p>
+<div class="image">
+  <img alt="image illustrating an equation to calculate output of a neuron" src="/images/{{ url }}/activation.png" width="250" />
+</div>
+<p>The output of a neuron is forwarded to the next neuron in line as input. In an ANN, the
+  results from one layer of neurons are progressively forwarded to the neurons in the next
+  layer until they exit from the output layer which forms the output of the
+  network.</p>
 <h3>Activation Functions</h3>
-<p>Sigmoid, ReLU etc are non-linear activation functions.</p>
-<h3>Perceptrons vs Neurons</h3>
-<p>Perceptron. The simplest and oldest model of Neuron, as we know it. Takes
-  some inputs, sums them up, applies activation function and passes them to
-  output layer.</p>
+<p>The Total Net Input to a neuron could be anywhere between <em>+Infinity</em> to <em>-Infinity</em>.
+  To decide whether the neuron should fire/activate (i.e. generate an output)
+  researchers introduced activation functions inside neurons. Activation
+  functions provide complex non-linear functional mapping between the net input
+  and output of a neuron.</p>
+<p>Without the activation functions, the output of a neuron will just be a
+  <a href="https://en.wikipedia.org/wiki/Linear_function" target="_blank">linear function</a>
+  of the input. An ANN without a activation function would simply be a
+  <a href="https://en.wikipedia.org/wiki/Linear_regression" target="_blank">Linear Regression Model</a>.
+  Although, it would be much easier to train such an ANN, they would be limited
+  in their complexity and have less capability to learn complex functional
+  mappings from complex non-linear data sets like images, audio, video etc.</p>
+<p>Unlike linear functions, non-linear functions are polynomials functions of a
+  <em>degree more than one</em> and their plottings on a map are curved. For an ANN
+  to be able to create non-linear arbitrary and complex mappings between the input and output, we need
+  non-linear activation functions.</p>
+<p>Another important requirement for an activation function is that it should be
+  differentiable so that we can calculate <em>error gradient</em> of the network with respect to its weights.
+  This gradient is needed to perform backpropagation optimization strategy.</p>
+<p>There are several different activation functions and the choice of activation
+  function inside a neuron heavily influences the learning techniques employed
+  on the network and vice versa.</p>
+<p>Some of the most popular activation functions are:</p>
+<ul>
+  <li><a href="https://en.wikipedia.org/wiki/Sigmoid_function" target="_blank">Sigmoid (Logistic)</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Hyperbolic_function" target="_blank">Tanh (Hyperbolic)</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Rectifier_(neural_networks)" target="_blank">ReLU (Rectified Linear Unit)</a> etc</li>
+</ul>
 <h2>Topology Of an Artificial Neural Network</h2>
 <p>The neurons in an ANN are arranged in two categories called layers vis hidden layer and output layer.
   In addition to these two layers, there is also a third layer called the input layer which
