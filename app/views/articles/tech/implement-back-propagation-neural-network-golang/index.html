@@ -24,8 +24,10 @@
   one or more outputs. This is similar to dentrites in a biological neuron
   receiving input signals and sending out an output signal through its axon.</p>
 <p>Each input to an artificial neuron is individually weighted to determine the
-  <em>strength</em> of each input. A weighted summation of all the inputs
-  forms the total net input to a neuron.</p>
+  <em>strength</em> of each input. A weighted summation of all the inputs with
+  the same number of weights forms the total net input to a neuron. For a neuron
+  with <span class="code">n</span> inputs and the same number of corresponding
+  weights, the Total Net Input would be:</p>
 <div class="image">
   <img alt="image illustrating an equation to calculate total net input for a neuron" src="/images/{{ url }}/total-net-input.png" width="250" />
 </div>
@@ -37,12 +39,12 @@
   each input having weights <span class="code">w2</span> and <span class="code">w2</span> respectively.
   Hence, the <span class="code">Total Net Input</span> for the neuron would be:</p>
 <div class="image">
-  <img alt="image illustrating an equation to calculate total net input for the example neuron" src="/images/{{ url }}/example-total-net-input.png" width="250" />
+  <img alt="image illustrating an equation to calculate total net input for the example neuron" src="/images/{{ url }}/example-total-net-input.png" width="280" />
 </div>
 <p>The neuron then computes the output using an activation function on the Total Net Input.
   The result of the activation function is the output of the neuron.</p>
 <div class="image">
-  <img alt="image illustrating an equation to calculate output of a neuron" src="/images/{{ url }}/activation.png" width="250" />
+  <img alt="image illustrating an equation to calculate output of a neuron" src="/images/{{ url }}/activation.png" width="280" />
 </div>
 <p>The output of a neuron is forwarded to the next neuron in line as input. In an ANN, the
   results from one layer of neurons are progressively forwarded to the neurons in the next
@@ -66,18 +68,25 @@
   to be able to create non-linear arbitrary and complex mappings between the input and output, we need
   non-linear activation functions.</p>
 <p>Another important requirement for an activation function is that it should be
-  differentiable so that we can calculate <em>error gradient</em> of the network with respect to its weights.
-  This gradient is needed to perform backpropagation optimization strategy.</p>
-<p>There are several different activation functions and the choice of activation
-  function inside a neuron heavily influences the learning techniques employed
-  on the network and vice versa.</p>
+  differentiable so that we can calculate the <em>error gradient</em> of the
+  network with respect to its weights. This gradient is needed to perform
+  backpropagation optimization strategy as we will soon see.</p>
 <p>Some of the most popular activation functions are:</p>
 <ul>
   <li><a href="https://en.wikipedia.org/wiki/Sigmoid_function" target="_blank">Sigmoid (Logistic)</a></li>
   <li><a href="https://en.wikipedia.org/wiki/Hyperbolic_function" target="_blank">Tanh (Hyperbolic)</a></li>
   <li><a href="https://en.wikipedia.org/wiki/Rectifier_(neural_networks)" target="_blank">ReLU (Rectified Linear Unit)</a> etc</li>
 </ul>
-<p>In the current implementation we would only be using Sigmoid functions.</p>
+<p>Every activation function has its own characteristics, for example ReLU helps in
+  solving the <a href="https://en.wikipedia.org/wiki/Vanishing_gradient_problem" target="_blank">vanishing gradient problem</a>.</p>
+<p>The choice of activation function inside a neuron heavily influences the learning techniques employed
+  on the network and vice versa.</p>
+<p>In the current implementation we would only be using the Sigmoid activation function.</p>
+<div class="image">
+  <img alt="image illustrating an equation for the sigmoid function" src="/images/{{ url }}/sigmoid-function.png" width="180" />
+</div>
+<p>The sigmoid function non-linearly <em>squashes</em> or <em>normalizes</em>
+  the input to produce an output in a range of 0 to 1.</p>
 <h2>Topology Of an Artificial Neural Network</h2>
 <p>The neurons in an ANN are arranged in two categories called layers vis hidden layer and output layer.
   In addition to these two layers, there is also a third layer called the input layer which
@@ -87,15 +96,68 @@
 <div class="image">
   <img alt="image illustrating a basic single hidden layer neural network" src="/images/{{ url }}/basic-neural-network.png" width="600" />
 </div>
-<h2>Learning History</h2>
+<p>All the directed connections in a neural network are meant to carry output
+  from a neuron to the neuron in the next layer as input. All these connections
+  are weighted to determine the strength of the data they are carrying.</p>
 <h2>Multi Layer Perceptrons (MLP)</h2>
-<h3>Back Propagation Algorithm</h3>
+<p>MLPs are the most popular type of neural networks being used nowadays. MLPs
+  have only one input and output layer but can have more than one hidden layers.
+  Each layer in MLPs can have numerous nodes.</p>
+<div class="image">
+  <img alt="image illustrating a basic single hidden layer neural network with bias nodes" src="/images/{{ url }}/bias-neural-network.png" width="600" />
+</div>
+<p>In addition to the neurons, each layer except the output layer also has
+  a <em>bias</em> node. The bias node in a layer also has weighted connections
+  with neurons of the next layer but its input value is always <span class="code">1</span>,
+  hence the <em>weight</em> of the connection is the effective input from the bias to the neuron.
+  The total net input to a neuron with <span class="code">n</span> inputs and a bias is:</p>
+<div class="image">
+  <img alt="image illustrating an equation to calculate total net input for a neuron with bias" src="/images/{{ url }}/total-net-input-bias.png" width="300" />
+</div>
+<p>All inputs from the input layer and the bias are forwarded to each neuron in
+  the hidden layer where each neuron performs a weighted summation of all the inputs
+  and sends the activation results as output to the output layer. At the output layer
+  a similar weighted summation and activation takes place whose outputs become the
+  output of the network.</p>
+<h3>Why do we need bias nodes?</h3>
+<p>As mentioned before, neural networks are <strong>universal function approximators</strong>
+  and they assist us in finding a function between the input and the output. In
+  a neural network without bias nodes, the output is the result of a direct
+  function of the inputs of the network without any <em>constant</em> to adjust the
+  <em>shift</em> in the output.</p>
+<p>To understand better, consider the geometric equation of a line passing
+  through the origin on a 2D cartesian plane:</p>
+<div class="image">
+  <img alt="image illustrating an equation for a line passing through origin" src="/images/{{ url }}/line-origin-equation.png" width="90" />
+</div>
+<p>Here, <span class="code">m</span> is the slope of the line and
+  <span class="code">x</span> & <span class="code">y</span> hold the coordinates
+  of the points on the line.</p>
+<p>For a line not passing through the origin, a new constant <span class="code">c</span>
+  (also called the y-intercept) is introduced in the equation to quantify the shift in the line away from the origin.</p>
+<div class="image">
+  <img alt="image illustrating an equation for a line" src="/images/{{ url }}/line-equation.png" width="120" />
+</div>
+<p>For the line <em>passing through the origin</em>, we can train a neural network
+  <strong>without</strong> bias nodes to estimate the <span class="code">y</span>
+  coordinate of a point if the <span class="code">x</span> coordinate is given.
+  Here the weights in the neural network will get adjusted with training to
+  emulate the behavior of the slope <span class="code">m</span>. But such a
+  network will not be able to learn, with reasonable accuracy, from a dataset of
+  coordinate's of a line <em>not passing through the origin</em> because there are no
+  weights unrelated to the input to emulate the behavior of the constant
+  <span class="code">c</span>. Each weight in the network is an attached
+  constant to the input of the network.</p>
+<p>A neural network <strong>with</strong> bias nodes however can learn to predict
+  the coordinates of a line not passing through the origin. With learning the
+  weights of the bias nodes will get adjusted to emulate the behavior of the
+  y-intercept.</p>
+<h2>Back Propagation Algorithm</h2>
 <p>Backpropagation, short for "backward propagation of errors," is an algorithm
   for supervised learning of artificial neural networks using gradient descent.
   Given an artificial neural network and an error function, the method
   calculates the gradient of the error function with respect to the neural
   network's weights.</p>
-<p>ReLU helps in solving the vanishing gradient problem.</p>
 <h2>Neural Network Implementation</h2>
 <h3>Feed Forward</h3>
 <h3>Back propagation</h3>
