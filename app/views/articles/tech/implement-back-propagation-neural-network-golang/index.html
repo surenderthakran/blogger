@@ -141,23 +141,37 @@
 <p>For the line <em>passing through the origin</em>, we can train a neural network
   <strong>without</strong> bias nodes to estimate the <span class="code">y</span>
   coordinate of a point if the <span class="code">x</span> coordinate is given.
-  Here the weights in the neural network will get adjusted with training to
+  Here, after training the weights in the neural network will get adjusted to
   emulate the behavior of the slope <span class="code">m</span>. But such a
-  network will not be able to learn, with reasonable accuracy, from a dataset of
+  network will not be able to learn, <em>with reasonable accuracy</em>, from a dataset of
   coordinate's of a line <em>not passing through the origin</em> because there are no
   weights unrelated to the input to emulate the behavior of the constant
   <span class="code">c</span>. Each weight in the network is an attached
   constant to the input of the network.</p>
 <p>A neural network <strong>with</strong> bias nodes however can learn to predict
-  the coordinates of a line not passing through the origin. With learning the
+  the coordinates of a line not passing through the origin. With learning, the
   weights of the bias nodes will get adjusted to emulate the behavior of the
   y-intercept.</p>
 <h2>Back Propagation Algorithm</h2>
-<p>Backpropagation, short for "backward propagation of errors," is an algorithm
-  for supervised learning of artificial neural networks using gradient descent.
-  Given an artificial neural network and an error function, the method
-  calculates the gradient of the error function with respect to the neural
-  network's weights.</p>
+<p>Backpropagation algorithm is a <em>supervised</em> learning algorithm which
+  uses <a href="https://en.wikipedia.org/wiki/Gradient_descent" target="_blank">gradient descent</a>
+  to train multi-layer feed forward neural networks. Feed forward neural
+  networks are those networks where each layer of neurons processes on the data
+  and forwards it to the next layer until it finally leaves the network as
+  output.</p>
+<p>The backpropagation algorithm involves calculating the <em>error value</em>
+  of the network's output, calculating its <em>gradient</em> against each of the
+  network's weights and adjusting the weights to reduce the error value.</p>
+<p>The error value indicates how much the network's output (actual) is off the mark from the expected output (target).
+  We use the <a href="https://en.wikipedia.org/wiki/Mean_squared_error" target="_blank">mean squared error function</a>
+  to calculate the error. The error value of a single output neuron is a function of its actual value and its target value.</p>
+<div class="image">
+  <img alt="image illustrating an equation for mean square error of an output neuron" src="/images/{{ url }}/mean-square-error.png" width="280" />
+</div>
+<p>The total error of the network is a sum of all the error values of all <span class="code">n</span> output neurons.</p>
+<div class="image">
+  <img alt="image illustrating an equation for mean square error of a neural network" src="/images/{{ url }}/total-mean-square-error.png" width="380" />
+</div>
 <h2>Neural Network Implementation</h2>
 <h3>Feed Forward</h3>
 <h3>Back propagation</h3>
