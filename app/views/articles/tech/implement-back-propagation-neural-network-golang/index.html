@@ -20,9 +20,9 @@
   data.<p>
 <h2>Neurons</h2>
 <p>Neurons are the basic building blocks of ANNs. An artificial neuron receives
-  one or more inputs and operates on them to produce
-  one or more outputs. This is similar to dentrites in a biological neuron
-  receiving input signals and sending out an output signal through its axon.</p>
+  vectorized input and operates on them to produce vectorized output. This is
+  similar to dentrites in a biological neuron receiving input signals and
+  sending out an output signal through its axon.</p>
 <p>Each input to an artificial neuron is individually weighted to determine the
   <em>strength</em> of each input. A weighted summation of all the inputs with
   the same number of weights forms the total net input to a neuron. For a neuron
@@ -58,11 +58,15 @@
   and output of a neuron.</p>
 <p>Without the activation functions, the output of a neuron will just be a
   <a href="https://en.wikipedia.org/wiki/Linear_function" target="_blank">linear function</a>
-  of the input. An ANN without a activation function would simply be a
-  <a href="https://en.wikipedia.org/wiki/Linear_regression" target="_blank">Linear Regression Model</a>.
-  Although, it would be much easier to train such an ANN, they would be limited
-  in their complexity and have less capability to learn complex functional
-  mappings from complex non-linear data sets like images, audio, video etc.</p>
+  of the input parameters. An ANN without an activation function would simply be a
+  <a href="https://en.wikipedia.org/wiki/Linear_regression" target="_blank">Linear Regression Model</a>
+  i.e. polynomial function of just one degree. Although, it would be much easier
+  to train such an ANN, they would be limited in their complexity and have less
+  capability to learn complex functional mappings from complex non-linear data
+  sets like images, audio, video etc.</p>
+<p>Similary, having linear activation functions would also give us a linear
+  neural network of input parameters regardless of how many hidden layers we
+  add in the network.</p>
 <p>Unlike linear functions, non-linear functions are polynomials functions of a
   <em>degree more than one</em> and their plottings on a map are curved. For an ANN
   to be able to create non-linear arbitrary and complex mappings between the input and output, we need
@@ -75,15 +79,23 @@
 <ul>
   <li><a href="https://en.wikipedia.org/wiki/Sigmoid_function" target="_blank">Sigmoid (Logistic)</a></li>
   <li><a href="https://en.wikipedia.org/wiki/Hyperbolic_function" target="_blank">Tanh (Hyperbolic)</a></li>
-  <li><a href="https://en.wikipedia.org/wiki/Rectifier_(neural_networks)" target="_blank">ReLU (Rectified Linear Unit)</a> etc</li>
+  <li><a href="https://en.wikipedia.org/wiki/Rectifier_(neural_networks)" target="_blank">ReLU (Rectified Linear Unit)</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Softmax_function" target="_blank">Softmax</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Rectifier_(neural_networks)#Leaky_ReLUs" target="_blank">Leaky ReLU</a> etc</li>
 </ul>
-<p>Every activation function has its own characteristics, for example ReLU helps in
-  solving the <a href="https://en.wikipedia.org/wiki/Vanishing_gradient_problem" target="_blank">vanishing gradient problem</a>.</p>
+<p>Every activation function has its own characteristics, for example Sigmoid
+  suffers from the <a href="https://en.wikipedia.org/wiki/Vanishing_gradient_problem" target="_blank">vanishing gradient problem</a>
+  and the zero-centered problem. Tanh solves the zero-centered problem but also
+  suffers from the vanishing gradient problem. ReLU helps in solving the
+  vanishing gradient problem it too suffers from the zero-centered problem.</p>
+<p>Recently, ReLU has become the popular choice as activation function for
+  hidden layer neurons.</p>
 <p>The choice of activation function inside a neuron heavily influences the learning techniques employed
   on the network and vice versa.</p>
-<p>In the current implementation we would only be using the Sigmoid activation function.</p>
+<p>Though Sigmoid has fallen out of favour with neural network designers
+  nowadays, we would be using it in the current implementation.</p>
 <div class="image">
-  <img alt="image illustrating an equation for the sigmoid function" src="/images/{{ url }}/sigmoid-function.png" width="180" />
+  <img alt="image illustrating an equation for the sigmoid function" src="/images/{{ url }}/sigmoid-function.png" width="150" />
 </div>
 <p>The sigmoid function non-linearly <em>squashes</em> or <em>normalizes</em>
   the input to produce an output in a range of 0 to 1.</p>
@@ -159,18 +171,76 @@
   networks are those networks where each layer of neurons processes on the data
   and forwards it to the next layer until it finally leaves the network as
   output.</p>
-<p>The backpropagation algorithm involves calculating the <em>error value</em>
-  of the network's output, calculating its <em>gradient</em> against each of the
-  network's weights and adjusting the weights to reduce the error value.</p>
+<p>The backpropagation algorithm involves calculating the <em>gradient</em> of
+  the <em>error value</em> of the network's output against each of the
+  network's weights and adjusting the weights to reduce the error value. In
+  simpler words, it involves calculating how much effect each weight in the
+  network has on the network's error and adjusting every weight in such a way
+  that the error gets reduced.</p>
 <p>The error value indicates how much the network's output (actual) is off the mark from the expected output (target).
   We use the <a href="https://en.wikipedia.org/wiki/Mean_squared_error" target="_blank">mean squared error function</a>
-  to calculate the error. The error value of a single output neuron is a function of its actual value and its target value.</p>
+  to calculate the error.</p>
+<p>The error value of a single output neuron is a function of its actual value and the target value.</p>
 <div class="image">
   <img alt="image illustrating an equation for mean square error of an output neuron" src="/images/{{ url }}/mean-square-error.png" width="280" />
 </div>
 <p>The total error of the network is a sum of all the error values of all <span class="code">n</span> output neurons.</p>
 <div class="image">
   <img alt="image illustrating an equation for mean square error of a neural network" src="/images/{{ url }}/total-mean-square-error.png" width="380" />
+</div>
+<p>Consider a single output neuron with only one input connection. The input
+  data would follow the following flow to give us the total network error.</p>
+<div class="image">
+  <img alt="image illustrating the data flow in an output neuron" src="/images/{{ url }}/output-neuron-data-flow.png" width="700" />
+</div>
+<p>To calculate the gradient of the total error against a weight, we calculate
+  the <strong>partial differential</strong> of the total error with respect to
+  the weight.</p>
+<div class="image">
+  <img alt="image illustrating an equation for calculating partial differential of error with respect to weight" src="/images/{{ url }}/error-gradient-wrt-weight.png" width="320" />
+</div>
+<p>We now employ the <a href="https://en.wikipedia.org/wiki/Chain_rule" target="_blank">chain rule</a>
+  to simplify the above equation by splitting it into smaller equations. For the
+  above data flow the equation would simplify into:</p>
+<div class="image">
+  <img alt="image illustrating an equation for applying chain rule on partial differential of error with respect to weight" src="/images/{{ url }}/pd-chain-rule-error-wrt-weight.png" width="800" />
+</div>
+<p>Let's look into solving each of the individual differentials.</p>
+<p>The <span class="code">TotalError</span> of a network is the sum of errors in
+  all its output neuron's. Since we are calculating the partial differential
+  with respect to only one neuron's error, all the other errors from other
+  neurons are treated as constants because they are not a function of the
+  selected neuron's error and hence they don't effect the partial differential.
+  Hence, the partial differential of <span class="code">TotalError</span> with
+  respect to one neuron's error is <span class="code">1</span>.</p>
+<div class="image">
+  <img alt="image illustrating an equation for partial differential of total error with respect to error" src="/images/{{ url }}/pd-total-error-wrt-error.png" width="180" />
+</div>
+<p>As mentioned earlier, we use the mean squared error function to calculate the
+  error in an outout neuron's output(actual).</p>
+<div class="image">
+  <img alt="image illustrating an equation for mean square error of an output neuron" src="/images/{{ url }}/mean-square-error.png" width="280" />
+</div>
+<p>Since, actual is the output of the neuron, the derivative of the error with
+  respect to the output would be:</p>
+<div class="image">
+  <img alt="image illustrating an equation for partial derivative of error with respect to output" src="/images/{{ url }}/pd-error-wrt-output.png" width="600" />
+</div>
+<p>Since we are using the Sigmoid activation function to calculate output from
+  the total net input, we will use the partial
+  <a href="https://en.wikipedia.org/wiki/Logistic_function#Derivative" target="_blank">derivative
+  of the sigmoid function with respect to its input</a> to calculate the partial
+  derivative of a neuron's output with respect to its input.</p>
+<div class="image">
+  <img alt="image illustrating an equation for partial derivative of output with respect to the total net input" src="/images/{{ url }}/pd-output-wrt-total-net-input.png" width="400" />
+</div>
+<p>As we already know, the total net input of a neuron is a weighted summation
+  of all its inputs and the bias. The derivative of the total net input with
+  respect to one of its weights is the corresponding input factor of that
+  particular weight since all other weighted sums and bias would be treated as
+  constants.</p>
+<div class="image">
+  <img alt="image illustrating an equation for partial derivative of total net input with respect to the weight" src="/images/{{ url }}/pd-total-net-input-wrt-weight.png" width="250" />
 </div>
 <h2>Neural Network Implementation</h2>
 <h3>Feed Forward</h3>
