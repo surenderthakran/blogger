@@ -242,6 +242,33 @@
 <div class="image">
   <img alt="image illustrating an equation for partial derivative of total net input with respect to the weight" src="/images/{{ url }}/pd-total-net-input-wrt-weight.png" width="250" />
 </div>
+<p>After solving for each of the individual differentials, we can easily calculate
+  the partial differential of the total error with respect to the weight. Once we have
+  that, we adjust our weight in proportion to the <em>learning rate</em>.</p>
+<div class="image">
+  <img alt="image illustrating an equation for adjusting the weight based on the learning rate and error differential" src="/images/{{ url }}/weight-adjust.png" width="600" />
+</div>
+<p>The learning rate determines how drastically do the weights in a network get adjusted based on
+  the error differential. In other words, how quickly will the neural network adapt
+  to reduce the error in the network. The learning rate's value spans between
+  0 and 1. There are caveats for using both high or low learning rates.</p>
+<p>If a neural network's learning rate is too high then it will quickly adjust
+  it weights for any errors in the output. As a consequence, the latest data set
+  in the training data set will have a much higher bearing on the network's
+  inclinations than the earlier data sets. In simpler words, the network will
+  readily learn from the latest data but will keep forgetting <em>lessons</em>
+  from the older data.</p>
+<p>On the other hand, having a very low learning rate is also fraught with
+  consequences. The network will have a higher <em>inertia</em> against learning
+  i.e. it will be very slow to responding to any erros in the output. As a result,
+  it will either only learn in the beginning and become prejudiced against the
+  later training data sets or it will not learn at all and will remain stuck
+  with the initial weights it was initialized with.</p>
+<p>We just saw how back propagation of errors is used in MLP neural networks to
+  adjust weights for the output layer to train the network. We use a similar
+  process to adjust weights in the hidden layers of the network which we would
+  see next with a real neural network's implementation since it will be easier to
+  explain it with an example.</p>
 <h2>Neural Network Implementation</h2>
 <h3>Feed Forward</h3>
 <h3>Back propagation</h3>
