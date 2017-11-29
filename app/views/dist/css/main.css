@@ -654,6 +654,30 @@ article.article {
       font-size: 0.9em;
       padding: 0.1em 0.2em;
       white-space: nowrap; }
+    article.article div.article-body table {
+      border: 1px solid #cacaca;
+      float: none;
+      margin: auto; }
+      article.article div.article-body table thead {
+        background-color: #cacaca;
+        float: none; }
+        article.article div.article-body table thead tr {
+          float: none; }
+          article.article div.article-body table thead tr th {
+            float: none;
+            padding: 1em;
+            text-align: center; }
+      article.article div.article-body table tbody {
+        float: none; }
+        article.article div.article-body table tbody tr {
+          border-bottom: 1px solid #cacaca;
+          float: none; }
+          article.article div.article-body table tbody tr td {
+            float: none;
+            padding: 1em;
+            text-align: center; }
+        article.article div.article-body table tbody tr:nth-child(even) {
+          background-color: #eee; }
 
 div.not-found {
   max-width: 960px;

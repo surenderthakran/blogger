@@ -270,6 +270,67 @@
   see next with a real neural network's implementation since it will be easier to
   explain it with an example.</p>
 <h2>Neural Network Implementation</h2>
+<p>Let's build a neural network and train it to approximate the function for a
+  XOR gate. The following are the I/O sets for a XOR gate:</p>
+<table>
+  <thead>
+    <tr>
+      <th>A</th>
+      <th>B</th>
+      <th>A XOR B</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+<p>As we can see a XOR gate accepts two inputs and returns a single output.
+  Hence we need a neural network with two input nodes and one output neuron.
+  We will also opt to use two neurons in the hidden layer of our neural network.
+  Determining the number of neurons needed in the hidden layer depends on a wide
+  variety of variables and there are a number of hidden layer configuration
+  designs to choose from. The general consensus is that the number of neurons
+  in the hidden layer should be between the number of nodes in the input and
+  the output layer.</p>
+<p>Apart from the neuron nodes we will also add one bias node in the input and
+  the hidden layer each.</p>
+<div class="image">
+  <img alt="image illustrating an artifical neural network for a xor gate" src="/images/{{ url }}/xor-neural-network.png" width="600" />
+</div>
+<p>The next step is to initialize all the connections between the neurons of
+  different layers with weights. Initially these weights are just random decimal
+  point numbers between 0 and 1.</p>
+<p>Let us start training our network with the second row in the above table. The
+  input nodes will have the values 0 & 1. </p>
+<div class="image">
+  <img alt="image illustrating an artifical neural network for a xor gate with random initial weights" src="/images/{{ url }}/xor-neural-network-weights.png" width="550" />
+</div>
+<p>Notice that we have labeled all the nodes in the network for easy of
+  explanation.</p>
+<p>Now that we have initialized our network let us see what output it spews out
+  for the selected input data set.</p>
 <h3>Feed Forward</h3>
 <h3>Back propagation</h3>
+<p>We will be using a relatively higher learning rate of 0.8 so that we can
+  observe definite updates in weights after learning from just one row of the
+  XOR gate's I/O table.</p>
 <h2>Example</h2>

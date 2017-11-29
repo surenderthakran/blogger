@@ -193,5 +193,45 @@ article.article {
                 white-space: nowrap;
             }
         }
+
+        table {
+          border: 1px solid #cacaca;
+          float: none;
+          margin: auto;
+
+          thead {
+            background-color: #cacaca;
+            float: none;
+
+            tr {
+              float: none;
+
+              th {
+                float: none;
+                padding: 1em;
+                text-align: center;
+              }
+            }
+          }
+
+          tbody {
+            float: none;
+
+            tr {
+              border-bottom: 1px solid #cacaca;
+              float: none;
+
+              td {
+                float: none;
+                padding: 1em;
+                text-align: center;
+              }
+            }
+
+            tr:nth-child(even) {
+              background-color: #eee;
+            }
+          }
+        }
     }
 }
