@@ -547,6 +547,7 @@ article.article {
     article.article header time {
       width: 100%;
       font-size: 1em;
+      line-height: 1.5em;
       opacity: 0.8; }
   article.article div.author-body {
     padding: 2em 0;
@@ -634,11 +635,12 @@ article.article {
         max-width: 100%;
         float: none; }
       article.article div.article-body div.image a {
-        width: 100%;
-        padding: 1em 0;
-        font-style: italic;
         color: #777777;
-        text-align: right; }
+        font-size: 0.8em;
+        font-style: italic;
+        padding: 1em 0;
+        text-align: right;
+        width: 100%; }
     article.article div.article-body span, article.article div.article-body strong, article.article div.article-body em {
       float: none; }
       article.article div.article-body span.bold, article.article div.article-body strong.bold, article.article div.article-body em.bold {
@@ -652,3 +654,49 @@ article.article {
       font-size: 0.9em;
       padding: 0.1em 0.2em;
       white-space: nowrap; }
+    article.article div.article-body table {
+      border: 1px solid #cacaca;
+      float: none;
+      margin: auto; }
+      article.article div.article-body table thead {
+        background-color: #cacaca;
+        float: none; }
+        article.article div.article-body table thead tr {
+          float: none; }
+          article.article div.article-body table thead tr th {
+            float: none;
+            padding: 1em;
+            text-align: center; }
+      article.article div.article-body table tbody {
+        float: none; }
+        article.article div.article-body table tbody tr {
+          border-bottom: 1px solid #cacaca;
+          float: none; }
+          article.article div.article-body table tbody tr td {
+            float: none;
+            padding: 1em;
+            text-align: center; }
+        article.article div.article-body table tbody tr:nth-child(even) {
+          background-color: #eee; }
+
+div.not-found {
+  max-width: 960px;
+  margin: 0 auto;
+  float: none;
+  padding: 3em;
+  overflow: hidden;
+  font-family: Open Sans,Helvetica Neue,sans-serif;
+  text-align: center; }
+  div.not-found h2 {
+    font-size: 2em;
+    margin: 1em 0;
+    width: 100%; }
+    @media screen and (max-width: 830px) {
+      div.not-found h2 {
+        font-size: 1.5em; } }
+  div.not-found p {
+    font-size: 1.5em;
+    width: 100%; }
+    @media screen and (max-width: 830px) {
+      div.not-found p {
+        font-size: 1em; } }

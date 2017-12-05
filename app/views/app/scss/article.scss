@@ -24,6 +24,7 @@ article.article {
         time {
             width: 100%;
             font-size: 1em;
+            line-height: 1.5em;
             opacity: 0.8;
         }
     }
@@ -161,11 +162,12 @@ article.article {
             }
 
             a {
-                width: 100%;
-                padding: 1em 0;
-                font-style: italic;
                 color: #777777;
+                font-size: 0.8em;
+                font-style: italic;
+                padding: 1em 0;
                 text-align: right;
+                width: 100%;
             }
         }
 
@@ -190,6 +192,46 @@ article.article {
                 padding: 0.1em 0.2em;
                 white-space: nowrap;
             }
+        }
+
+        table {
+          border: 1px solid #cacaca;
+          float: none;
+          margin: auto;
+
+          thead {
+            background-color: #cacaca;
+            float: none;
+
+            tr {
+              float: none;
+
+              th {
+                float: none;
+                padding: 1em;
+                text-align: center;
+              }
+            }
+          }
+
+          tbody {
+            float: none;
+
+            tr {
+              border-bottom: 1px solid #cacaca;
+              float: none;
+
+              td {
+                float: none;
+                padding: 1em;
+                text-align: center;
+              }
+            }
+
+            tr:nth-child(even) {
+              background-color: #eee;
+            }
+          }
         }
     }
 }

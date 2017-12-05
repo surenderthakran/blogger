@@ -21,21 +21,29 @@ docker build -t blogger_app .
 
 #### To run docker container:
 ```
-docker run -it -d --name blogger_app_1 --net=host blogger_app
+docker run --rm -it -d --name blogger_app_1 --net=host blogger_app
 ```
 With `--net=host` the container will listen for requests on port `18660`.
 
 To listen on a different port (ex: `80`) run:
 ```
-docker run -it -d --name blogger_app_1 -p 80:18660 blogger_app
+docker run --rm -it -d --name blogger_app_1 -p 80:18660 blogger_app
 ```
 
 #### To set up development environment:
+##### With Docker Compose:
 ```
 docker-compose build
 docker-compose up
 ```
-Above commands will run the blogger docker container with the `blogger/app/` folder volume mounted.
+
+##### Without Docker Compose:
+```
+docker build -t blogger_app .
+docker run --rm -it -d -v $(pwd)/app/:/blogger/app/ --name blogger_app_1 --net=host --env NODE_ENV=dev blogger_app
+```
+
+Above commands (with and without `docker-compose`) will run the blogger docker container with the `blogger/app/` folder volume mounted.
 
 It will also start a `gulp` watch task to:
 - Create a single minified `js` file from all `.js` files on change.

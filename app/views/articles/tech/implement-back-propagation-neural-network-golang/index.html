@@ -1,0 +1,341 @@
+<h2>What is a Neural Network?</h2>
+<p>Neural Networks, more appropriately referred to as an 'Artificial Neural
+  Networks' (ANN), are information processing systems that are inspired by the
+  biological neural networks such as the brain.
+<p>In its simplest form a biological brain is a huge collection of neurons. Each neuron
+  takes electrical and chemical signals as inputs through its many dentrites and
+  transmits its output signals through its axon (in a more specialized context,
+  there are exceptions to this behavior like with multipolar neurons). Axons make contact with other neurons
+  at specialized junctions called synapses.</p>
+<div class="image">
+  <img alt="image illustrating a biological neuron" src="/images/{{ url }}/biological-neuron.png" width="500" />
+  <a href="https://en.wikipedia.org/wiki/Neuron" target="_blank">Image source</a>
+</div>
+<p>Taking inspiration from the brain, an artificial neural network is a
+  collection of connected units, also called neurons. The connection between the
+  neurons can carry signals between them. Each connection carries a real number
+  value which determines the weightage/strength of the signal.</p>
+<p>They are <strong>universal function approximators</strong> who at there very essence
+  approximate a function/relation between the input data and the output
+  data.<p>
+<h2>Neurons</h2>
+<p>Neurons are the basic building blocks of ANNs. An artificial neuron receives
+  vectorized input and operates on them to produce vectorized output. This is
+  similar to dentrites in a biological neuron receiving input signals and
+  sending out an output signal through its axon.</p>
+<p>Each input to an artificial neuron is individually weighted to determine the
+  <em>strength</em> of each input. A weighted summation of all the inputs with
+  the same number of weights forms the total net input to a neuron. For a neuron
+  with <span class="code">n</span> inputs and the same number of corresponding
+  weights, the Total Net Input would be:</p>
+<div class="image">
+  <img alt="image illustrating an equation to calculate total net input for a neuron" src="/images/{{ url }}/total-net-input.png" width="250" />
+</div>
+<p>Consider the following diagram of an artificial neuron.</p>
+<div class="image">
+  <img alt="image illustrating a simple artificial neuron" src="/images/{{ url }}/neuron.png" width="300" />
+</div>
+<p>In the above neuron, <span class="code">i1</span> and <span class="code">i2</span> are the inputs to the neuron with
+  each input having weights <span class="code">w2</span> and <span class="code">w2</span> respectively.
+  Hence, the <span class="code">Total Net Input</span> for the neuron would be:</p>
+<div class="image">
+  <img alt="image illustrating an equation to calculate total net input for the example neuron" src="/images/{{ url }}/example-total-net-input.png" width="280" />
+</div>
+<p>The neuron then computes the output using an activation function on the Total Net Input.
+  The result of the activation function is the output of the neuron.</p>
+<div class="image">
+  <img alt="image illustrating an equation to calculate output of a neuron" src="/images/{{ url }}/activation.png" width="280" />
+</div>
+<p>The output of a neuron is forwarded to the next neuron in line as input. In an ANN, the
+  results from one layer of neurons are progressively forwarded to the neurons in the next
+  layer until they exit from the output layer which forms the output of the
+  network.</p>
+<h3>Activation Functions</h3>
+<p>The Total Net Input to a neuron could be anywhere between <em>+Infinity</em> to <em>-Infinity</em>.
+  To decide whether the neuron should fire/activate (i.e. generate an output)
+  researchers introduced activation functions inside neurons. Activation
+  functions provide complex non-linear functional mapping between the net input
+  and output of a neuron.</p>
+<p>Without the activation functions, the output of a neuron will just be a
+  <a href="https://en.wikipedia.org/wiki/Linear_function" target="_blank">linear function</a>
+  of the input parameters. An ANN without an activation function would simply be a
+  <a href="https://en.wikipedia.org/wiki/Linear_regression" target="_blank">Linear Regression Model</a>
+  i.e. polynomial function of just one degree. Although, it would be much easier
+  to train such an ANN, they would be limited in their complexity and have less
+  capability to learn complex functional mappings from complex non-linear data
+  sets like images, audio, video etc.</p>
+<p>Similary, having linear activation functions would also give us a linear
+  neural network of input parameters regardless of how many hidden layers we
+  add in the network.</p>
+<p>Unlike linear functions, non-linear functions are polynomials functions of a
+  <em>degree more than one</em> and their plottings on a map are curved. For an ANN
+  to be able to create non-linear arbitrary and complex mappings between the input and output, we need
+  non-linear activation functions.</p>
+<p>Another important requirement for an activation function is that it should be
+  differentiable so that we can calculate the <em>error gradient</em> of the
+  network with respect to its weights. This gradient is needed to perform
+  backpropagation optimization strategy as we will soon see.</p>
+<p>Some of the most popular activation functions are:</p>
+<ul>
+  <li><a href="https://en.wikipedia.org/wiki/Sigmoid_function" target="_blank">Sigmoid (Logistic)</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Hyperbolic_function" target="_blank">Tanh (Hyperbolic)</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Rectifier_(neural_networks)" target="_blank">ReLU (Rectified Linear Unit)</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Softmax_function" target="_blank">Softmax</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Rectifier_(neural_networks)#Leaky_ReLUs" target="_blank">Leaky ReLU</a> etc</li>
+</ul>
+<p>Every activation function has its own characteristics, for example Sigmoid
+  suffers from the <a href="https://en.wikipedia.org/wiki/Vanishing_gradient_problem" target="_blank">vanishing gradient problem</a>
+  and the zero-centered problem. Tanh solves the zero-centered problem but also
+  suffers from the vanishing gradient problem. ReLU helps in solving the
+  vanishing gradient problem it too suffers from the zero-centered problem.</p>
+<p>Recently, ReLU has become the popular choice as activation function for
+  hidden layer neurons.</p>
+<p>The choice of activation function inside a neuron heavily influences the learning techniques employed
+  on the network and vice versa.</p>
+<p>Though Sigmoid has fallen out of favour with neural network designers
+  nowadays, we would be using it in the current implementation.</p>
+<div class="image">
+  <img alt="image illustrating an equation for the sigmoid function" src="/images/{{ url }}/sigmoid-function.png" width="150" />
+</div>
+<p>The sigmoid function non-linearly <em>squashes</em> or <em>normalizes</em>
+  the input to produce an output in a range of 0 to 1.</p>
+<h2>Topology Of an Artificial Neural Network</h2>
+<p>The neurons in an ANN are arranged in two categories called layers vis hidden layer and output layer.
+  In addition to these two layers, there is also a third layer called the input layer which
+  doesn't has any neurons but instead just acts as a matrix for the input data.
+</p>
+<p>One of the simplest form of neural networks is a single hidden layer feed forward neural network.</p>
+<div class="image">
+  <img alt="image illustrating a basic single hidden layer neural network" src="/images/{{ url }}/basic-neural-network.png" width="600" />
+</div>
+<p>All the directed connections in a neural network are meant to carry output
+  from a neuron to the neuron in the next layer as input. All these connections
+  are weighted to determine the strength of the data they are carrying.</p>
+<h2>Multi Layer Perceptrons (MLP)</h2>
+<p>MLPs are the most popular type of neural networks being used nowadays. MLPs
+  have only one input and output layer but can have more than one hidden layers.
+  Each layer in MLPs can have numerous nodes.</p>
+<div class="image">
+  <img alt="image illustrating a basic single hidden layer neural network with bias nodes" src="/images/{{ url }}/bias-neural-network.png" width="600" />
+</div>
+<p>In addition to the neurons, each layer except the output layer also has
+  a <em>bias</em> node. The bias node in a layer also has weighted connections
+  with neurons of the next layer but its input value is always <span class="code">1</span>,
+  hence the <em>weight</em> of the connection is the effective input from the bias to the neuron.
+  The total net input to a neuron with <span class="code">n</span> inputs and a bias is:</p>
+<div class="image">
+  <img alt="image illustrating an equation to calculate total net input for a neuron with bias" src="/images/{{ url }}/total-net-input-bias.png" width="300" />
+</div>
+<p>All inputs from the input layer and the bias are forwarded to each neuron in
+  the hidden layer where each neuron performs a weighted summation of all the inputs
+  and sends the activation results as output to the output layer. At the output layer
+  a similar weighted summation and activation takes place whose outputs become the
+  output of the network.</p>
+<h3>Why do we need bias nodes?</h3>
+<p>As mentioned before, neural networks are <strong>universal function approximators</strong>
+  and they assist us in finding a function between the input and the output. In
+  a neural network without bias nodes, the output is the result of a direct
+  function of the inputs of the network without any <em>constant</em> to adjust the
+  <em>shift</em> in the output.</p>
+<p>To understand better, consider the geometric equation of a line passing
+  through the origin on a 2D cartesian plane:</p>
+<div class="image">
+  <img alt="image illustrating an equation for a line passing through origin" src="/images/{{ url }}/line-origin-equation.png" width="90" />
+</div>
+<p>Here, <span class="code">m</span> is the slope of the line and
+  <span class="code">x</span> & <span class="code">y</span> hold the coordinates
+  of the points on the line.</p>
+<p>For a line not passing through the origin, a new constant <span class="code">c</span>
+  (also called the y-intercept) is introduced in the equation to quantify the shift in the line away from the origin.</p>
+<div class="image">
+  <img alt="image illustrating an equation for a line" src="/images/{{ url }}/line-equation.png" width="120" />
+</div>
+<p>For the line <em>passing through the origin</em>, we can train a neural network
+  <strong>without</strong> bias nodes to estimate the <span class="code">y</span>
+  coordinate of a point if the <span class="code">x</span> coordinate is given.
+  Here, after training the weights in the neural network will get adjusted to
+  emulate the behavior of the slope <span class="code">m</span>. But such a
+  network will not be able to learn, <em>with reasonable accuracy</em>, from a dataset of
+  coordinate's of a line <em>not passing through the origin</em> because there are no
+  weights unrelated to the input to emulate the behavior of the constant
+  <span class="code">c</span>. Each weight in the network is an attached
+  constant to the input of the network.</p>
+<p>A neural network <strong>with</strong> bias nodes however can learn to predict
+  the coordinates of a line not passing through the origin. With learning, the
+  weights of the bias nodes will get adjusted to emulate the behavior of the
+  y-intercept.</p>
+<h2>Back Propagation Algorithm</h2>
+<p>Backpropagation algorithm is a <em>supervised</em> learning algorithm which
+  uses <a href="https://en.wikipedia.org/wiki/Gradient_descent" target="_blank">gradient descent</a>
+  to train multi-layer feed forward neural networks. Feed forward neural
+  networks are those networks where each layer of neurons processes on the data
+  and forwards it to the next layer until it finally leaves the network as
+  output.</p>
+<p>The backpropagation algorithm involves calculating the <em>gradient</em> of
+  the <em>error value</em> of the network's output against each of the
+  network's weights and adjusting the weights to reduce the error value. In
+  simpler words, it involves calculating how much effect each weight in the
+  network has on the network's error and adjusting every weight in such a way
+  that the error gets reduced.</p>
+<p>The error value indicates how much the network's output (actual) is off the mark from the expected output (target).
+  We use the <a href="https://en.wikipedia.org/wiki/Mean_squared_error" target="_blank">mean squared error function</a>
+  to calculate the error.</p>
+<p>The error value of a single output neuron is a function of its actual value and the target value.</p>
+<div class="image">
+  <img alt="image illustrating an equation for mean square error of an output neuron" src="/images/{{ url }}/mean-square-error.png" width="280" />
+</div>
+<p>The total error of the network is a sum of all the error values of all <span class="code">n</span> output neurons.</p>
+<div class="image">
+  <img alt="image illustrating an equation for mean square error of a neural network" src="/images/{{ url }}/total-mean-square-error.png" width="380" />
+</div>
+<p>Consider a single output neuron with only one input connection. The input
+  data would follow the following flow to give us the total network error.</p>
+<div class="image">
+  <img alt="image illustrating the data flow in an output neuron" src="/images/{{ url }}/output-neuron-data-flow.png" width="700" />
+</div>
+<p>To calculate the gradient of the total error against a weight, we calculate
+  the <strong>partial differential</strong> of the total error with respect to
+  the weight.</p>
+<div class="image">
+  <img alt="image illustrating an equation for calculating partial differential of error with respect to weight" src="/images/{{ url }}/error-gradient-wrt-weight.png" width="320" />
+</div>
+<p>We now employ the <a href="https://en.wikipedia.org/wiki/Chain_rule" target="_blank">chain rule</a>
+  to simplify the above equation by splitting it into smaller equations. For the
+  above data flow the equation would simplify into:</p>
+<div class="image">
+  <img alt="image illustrating an equation for applying chain rule on partial differential of error with respect to weight" src="/images/{{ url }}/pd-chain-rule-error-wrt-weight.png" width="800" />
+</div>
+<p>Let's look into solving each of the individual differentials.</p>
+<p>The <span class="code">TotalError</span> of a network is the sum of errors in
+  all its output neuron's. Since we are calculating the partial differential
+  with respect to only one neuron's error, all the other errors from other
+  neurons are treated as constants because they are not a function of the
+  selected neuron's error and hence they don't effect the partial differential.
+  Hence, the partial differential of <span class="code">TotalError</span> with
+  respect to one neuron's error is <span class="code">1</span>.</p>
+<div class="image">
+  <img alt="image illustrating an equation for partial differential of total error with respect to error" src="/images/{{ url }}/pd-total-error-wrt-error.png" width="180" />
+</div>
+<p>As mentioned earlier, we use the mean squared error function to calculate the
+  error in an outout neuron's output(actual).</p>
+<div class="image">
+  <img alt="image illustrating an equation for mean square error of an output neuron" src="/images/{{ url }}/mean-square-error.png" width="280" />
+</div>
+<p>Since, actual is the output of the neuron, the derivative of the error with
+  respect to the output would be:</p>
+<div class="image">
+  <img alt="image illustrating an equation for partial derivative of error with respect to output" src="/images/{{ url }}/pd-error-wrt-output.png" width="600" />
+</div>
+<p>Since we are using the Sigmoid activation function to calculate output from
+  the total net input, we will use the partial
+  <a href="https://en.wikipedia.org/wiki/Logistic_function#Derivative" target="_blank">derivative
+  of the sigmoid function with respect to its input</a> to calculate the partial
+  derivative of a neuron's output with respect to its input.</p>
+<div class="image">
+  <img alt="image illustrating an equation for partial derivative of output with respect to the total net input" src="/images/{{ url }}/pd-output-wrt-total-net-input.png" width="400" />
+</div>
+<p>As we already know, the total net input of a neuron is a weighted summation
+  of all its inputs and the bias. The derivative of the total net input with
+  respect to one of its weights is the corresponding input factor of that
+  particular weight since all other weighted sums and bias would be treated as
+  constants.</p>
+<div class="image">
+  <img alt="image illustrating an equation for partial derivative of total net input with respect to the weight" src="/images/{{ url }}/pd-total-net-input-wrt-weight.png" width="250" />
+</div>
+<p>After solving for each of the individual differentials, we can easily calculate
+  the partial differential of the total error with respect to the weight. Once we have
+  that, we adjust our weight in proportion to the <em>learning rate</em>.</p>
+<div class="image">
+  <img alt="image illustrating an equation for adjusting the weight based on the learning rate and error differential" src="/images/{{ url }}/weight-adjust.png" width="600" />
+</div>
+<p>The learning rate determines how drastically do the weights in a network get adjusted based on
+  the error differential. In other words, how quickly will the neural network adapt
+  to reduce the error in the network. The learning rate's value spans between
+  0 and 1. There are caveats for using both high or low learning rates.</p>
+<p>If a neural network's learning rate is too high then it will quickly adjust
+  it weights for any errors in the output. As a consequence, the latest data set
+  in the training data set will have a much higher bearing on the network's
+  inclinations than the earlier data sets. In simpler words, the network will
+  readily learn from the latest data but will keep forgetting <em>lessons</em>
+  from the older data.</p>
+<p>On the other hand, having a very low learning rate is also fraught with
+  consequences. The network will have a higher <em>inertia</em> against learning
+  i.e. it will be very slow to responding to any erros in the output. As a result,
+  it will either only learn in the beginning and become prejudiced against the
+  later training data sets or it will not learn at all and will remain stuck
+  with the initial weights it was initialized with.</p>
+<p>We just saw how back propagation of errors is used in MLP neural networks to
+  adjust weights for the output layer to train the network. We use a similar
+  process to adjust weights in the hidden layers of the network which we would
+  see next with a real neural network's implementation since it will be easier to
+  explain it with an example.</p>
+<h2>Neural Network Implementation</h2>
+<p>Let's build a neural network and train it to approximate the function for a
+  XOR gate. The following are the I/O sets for a XOR gate:</p>
+<table>
+  <thead>
+    <tr>
+      <th>A</th>
+      <th>B</th>
+      <th>A XOR B</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+<p>As we can see a XOR gate accepts two inputs and returns a single output.
+  Hence we need a neural network with two input nodes and one output neuron.
+  We will also opt to use two neurons in the hidden layer of our neural network.
+  Determining the number of neurons needed in the hidden layer depends on a wide
+  variety of variables and there are a number of hidden layer configuration
+  designs to choose from. The general consensus is that the number of neurons
+  in the hidden layer should be between the number of nodes in the input and
+  the output layer.</p>
+<p>Apart from the neuron nodes we will also add one bias node in the input and
+  the hidden layer each.</p>
+<div class="image">
+  <img alt="image illustrating an artifical neural network for a xor gate" src="/images/{{ url }}/xor-neural-network.png" width="600" />
+</div>
+<p>The next step is to initialize all the connections between the neurons of
+  different layers with weights. Initially these weights are just random decimal
+  point numbers between 0 and 1.</p>
+<p>Let us start training our network with the second row in the above table. The
+  input nodes will have the values 0 & 1. </p>
+<div class="image">
+  <img alt="image illustrating an artifical neural network for a xor gate with random initial weights" src="/images/{{ url }}/xor-neural-network-weights.png" width="550" />
+</div>
+<p>Notice that we have labeled all the nodes in the network for easy of
+  explanation.</p>
+<p>Now that we have initialized our network let us see what output it spews out
+  for the selected input data set.</p>
+<h3>Feed Forward</h3>
+<p>We need to calculate the total net input to each hidden layer neuron, squash
+  it using the activation function and then repeat the same process for the
+  output layer.</p>
+<p>First let's calculate the total net input to the first hidden layer neuron,
+  h1.</p>
+<h3>Back propagation</h3>
+<p>We will be using a relatively higher learning rate of 0.8 so that we can
+  observe definite updates in weights after learning from just one row of the
+  XOR gate's I/O table.</p>
+<h2>Example</h2>

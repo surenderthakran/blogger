@@ -161,9 +161,9 @@ ADD ./ $GOPATH
 
 WORKDIR $GOPATH
 
-RUN make install
+RUN make --no-print-directory install
 
-CMD make run
+CMD make --no-print-directory run
 </code></pre>
 <p>I usually prefer to use my own base images while dockerizing my applications
   so that I have more control over what goes into my projects (just because I
@@ -189,6 +189,9 @@ CMD make run
   our containers respectively. <span class="code">RUN</span> instruction is
   executed while building our docker image and <span class="code">CMD</span>
   instruction is executed at runtime when we launch the container.</p>
+<p>The <span class="code">--no-print-directory</span> option in the
+  <span class="code">make</span> commands is to prevent make from printing
+  directory change messages and cluttering our log screen.</p>
 <h3>Makefile</h3>
 <p>I (and a lot of other developers) prefer to keep the actual image building
   and run commands out of the Dockerfile because it provides much more scripting
@@ -232,7 +235,7 @@ install:
 
 run:
 ifeq ($(CODE_ENV), dev)
-	reflex -s -g 'src/$(GO_PROJECT_NAME)/*.go' make restart
+	reflex -r '\.go$\' -s make restart
 else
 	$(MAKE) go_run
 endif
@@ -286,8 +289,8 @@ restart:
   dependency using <span class="code">go get github.com/cespare/reflex</span>.
   When a container is launched in a development environment then on
   <span class="code">make run</span> it runs <span class="code">reflex</span>
-  which monitors <span class="code">src/$(GO_PROJECT_NAME)</span> directory for
-  any changes in any <span class="code">.go</span> files.</p>
+  which recursively checks for any changes in any <span class="code">.go</span>
+  files.</p>
 <p>On any change in the codebase, apart from re-installing and re-running the
   application it also reformats the application's Go source files and runs tests
   using <span class="code">gofmt</span> and <span class="code">go test</span>.
