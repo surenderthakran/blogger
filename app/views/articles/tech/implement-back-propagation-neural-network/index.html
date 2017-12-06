@@ -316,6 +316,8 @@
 <div class="image">
   <img alt="image illustrating an artifical neural network for a xor gate" src="/images/{{ url }}/xor-neural-network.png" width="600" />
 </div>
+<p>Notice that we have labeled all the nodes in the network for easy of
+  explanation.</p>
 <p>The next step is to initialize all the connections between the neurons of
   different layers with weights. Initially these weights are just random decimal
   point numbers between 0 and 1.</p>
@@ -324,18 +326,75 @@
 <div class="image">
   <img alt="image illustrating an artifical neural network for a xor gate with random initial weights" src="/images/{{ url }}/xor-neural-network-weights.png" width="550" />
 </div>
-<p>Notice that we have labeled all the nodes in the network for easy of
-  explanation.</p>
 <p>Now that we have initialized our network let us see what output it spews out
   for the selected input data set.</p>
 <h3>Feed Forward</h3>
+<h4>Hidden Layer</h4>
 <p>We need to calculate the total net input to each hidden layer neuron, squash
   it using the activation function and then repeat the same process for the
   output layer.</p>
 <p>First let's calculate the total net input to the first hidden layer neuron,
   h1.</p>
+<p>As described earlier, the total net input to a neuron is a weighted summation
+  of all of its inputs and its bias. Hence, the total net input to h1 is:</p>
+<pre><code>TotalNetInput to h1 = w1 * i1 + w3 * i2 + w5 * b1
+TotalNetInput to h1 = 0.604 * 0 + 0.940 * 1 + 0.664 * 1
+TotalNetInput to h1 = 1.604</code></pre>
+<p>Now that we have the total net input to h1 we can calculate the output from h1
+  using the sigmoid function:</p>
+<pre><code>output from h1 = 1/ (1 + e^(-neth1))
+output from h1 = 1/ (1 + e^(-1.604))
+output from h1 = 0.8325766980765932</code></pre>
+<p>Similarly, the total net input to the second hidden layer neuron, h2 will be:</p>
+<pre><code>TotalNetInput to h1 = w2 * i1 + w4 * i2 + w6 * b1
+TotalNetInput to h1 = 0.437 * 0 + 0.424 * 1 + 0.686 * 1
+TotalNetInput to h1 = 1.11</code></pre>
+<p>And the output from h2 is::</p>
+<pre><code>output from h2 = 1/ (1 + e^(-neth2))
+output from h2 = 1/ (1 + e^(-1.11))
+output from h2 = 0.7521291114395702</code></pre>
+<p>Now as we know, in neural network feed forward, output from one layer is input
+  to the next layer. So now let's input our hidden layer outputs in the output
+  layer.</p>
+<h4>Output Layer</h4>
+<p>First we calculate the total net input to the output layer's neuron:</p>
+<pre><code>TotalNetInput to o1 = w7 * outputh1 + w8 * outputh2 + w9 * b2
+TotalNetInput to o1 = 0.065 * 0.8325766980765932 + 0.156 * 0.7521291114395702 + 0.096 * 1
+TotalNetInput to o1 = 0.5664666852388589</code></pre>
+<p><span class="code">0.5664666852388589</span> is the output from the neural
+  network for the given input <span class="code">0</span> and
+  <span class="code">1</span> while the expected output is
+  <span class="code">1</span>.</p>
 <h3>Back propagation</h3>
+<p>Now we will employ back propagation strategy to adjust weights of the network
+  to get closer to the required output.</p>
 <p>We will be using a relatively higher learning rate of 0.8 so that we can
   observe definite updates in weights after learning from just one row of the
-  XOR gate's I/O table.</p>
+  XOR gate's I/O table. Generally a <em>starting</em> learning rate of 0.5 is
+  used in most applications. I say starting rate because many back propagation
+  techniques nowadays also update the learning rate as the training progresses.
+  Another interesting concept is to use a variable learning rate based on the
+  actual output's deviation from the target output instead of a fixed learning
+  rate. For the sake of simplicity we will only be using a fixed learning rate
+  in our implementation.</p>
+<p>As we know, the total error from a neural network is simply a sum of errors
+  from all the output neurons, and since we have only one output neuron in our
+  network, the total error is simply the error from output neuron o1. Let us
+  begin with updating weights to the output layer.</p>
+<h4>Output Layer</h4>
+<p>First we calculate the partial differential of total error from the network
+  with respect to the output of output layers only neuron o1. As we discussed
+  earlier, the partial differential of total error with respect to output is:</p>
+<pre><code>pd(Error)/pd(output) = actual output - target output
+pd(Error)/pd(output) = 0.5664666852388589 - 1
+pd(Error)/pd(output) = -0.4335333147611411</code></pre>
+<p>Next we need a derivative of output with respect to the total net input to
+  o1. From what we earlier discussed:</p>
+<pre><code>d(Output)/d(TotalNetInput) = outputo1 * (1 - outputo1)
+d(Output)/d(TotalNetInput) = 0.5664666852388589 * (1 - 0.5664666852388589)
+d(Output)/d(TotalNetInput) = 0.24558217975335844</code></pre>
+<p>Now from our understaing of chain rule:</p>
+<pre><code>pd(Error)/pd(TotalNetInput) = pd(Error)/pd(output) * d(Output)/d(TotalNetInput)
+pd(Error)/pd(TotalNetInput) = -0.4335333147611411 * 0.24558217975335844
+pd(Error)/pd(TotalNetInput) = -0.10646805643473987</code></pre>
 <h2>Example</h2>

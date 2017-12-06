@@ -1,20 +1,20 @@
 'use strict';
 
 module.exports = [
-  // {
-  //   articleId: 'implement-back-propagation-neural-network-golang',
-  //   url: 'articles/tech/implement-back-propagation-neural-network-golang',
-  //   head: {
-  //     title: 'Implement A Simple Back Propagation Neural Network In Go (GoLang) | Surender Thakran',
-  //     description: 'Implement A Simple Back Propagation Neural Network In Go (GoLang)',
-  //     keywords: 'neural-network,back-propagation,deep-learning,go,golang',
-  //   },
-  //   article: {
-  //     title: 'Implement A Simple Back Propagation Neural Network In Go (GoLang)',
-  //     datetime: '2017-10-31',
-  //     date: '31st October 2017',
-  //   },
-  // },
+  {
+    articleId: 'implement-back-propagation-neural-network',
+    url: 'articles/tech/implement-back-propagation-neural-network',
+    head: {
+      title: 'Implement A Simple Back Propagation Neural Network | Surender Thakran',
+      description: 'Implement A Simple Back Propagation Neural Network',
+      keywords: 'neural-network,back-propagation,deep-learning',
+    },
+    article: {
+      title: 'Implement A Simple Back Propagation Neural Network',
+      datetime: '2017-10-31',
+      date: '31st October 2017',
+    },
+  },
   {
     articleId: 'dockerized-development-and-production-environment-golang',
     url: 'articles/tech/dockerized-development-and-production-environment-golang',
