@@ -9,9 +9,9 @@
             <header>
                 <h1>{{ article.title }}</h1>
                 <time datetime="{{ article.datetime }}">Published On: {{ article.date }}</time>
-                {{#article.update_date}}
-                    <time datetime="{{ article.update_datetime }}">Last Updated: {{ article.update_date }}</time>
-                {{/article.update_date}}
+                {{#article.updateDate}}
+                    <time datetime="{{ article.updateDatetime }}">Last Updated: {{ article.updateDate }}</time>
+                {{/article.updateDate}}
             </header>
             <div class="article-body">
               {{{ article.body }}}
