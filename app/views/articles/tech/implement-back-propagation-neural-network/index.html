@@ -381,20 +381,73 @@ TotalNetInput to o1 = 0.5664666852388589</code></pre>
   from all the output neurons, and since we have only one output neuron in our
   network, the total error is simply the error from output neuron o1. Let us
   begin with updating weights to the output layer.</p>
+<pre><code>Total Error = Erroro1</code></pre>
 <h4>Output Layer</h4>
 <p>First we calculate the partial differential of total error from the network
   with respect to the output of output layers only neuron o1. As we discussed
   earlier, the partial differential of total error with respect to output is:</p>
-<pre><code>pd(Error)/pd(output) = actual output - target output
-pd(Error)/pd(output) = 0.5664666852388589 - 1
-pd(Error)/pd(output) = -0.4335333147611411</code></pre>
+<pre><code>pd(TotalError)/pd(output) = pd(Erroro1)/pd(output)
+pd(TotalError)/pd(output) = actual output - target output
+pd(TotalError)/pd(output) = 0.5664666852388589 - 1
+pd(TotalError)/pd(output) = -0.4335333147611411</code></pre>
 <p>Next we need a derivative of output with respect to the total net input to
   o1. From what we earlier discussed:</p>
 <pre><code>d(Output)/d(TotalNetInput) = outputo1 * (1 - outputo1)
 d(Output)/d(TotalNetInput) = 0.5664666852388589 * (1 - 0.5664666852388589)
 d(Output)/d(TotalNetInput) = 0.24558217975335844</code></pre>
 <p>Now from our understanding of chain rule:</p>
-<pre><code>pd(Error)/pd(TotalNetInput) = pd(Error)/pd(output) * d(Output)/d(TotalNetInput)
-pd(Error)/pd(TotalNetInput) = -0.4335333147611411 * 0.24558217975335844
-pd(Error)/pd(TotalNetInput) = -0.10646805643473987</code></pre>
+<pre><code>pd(TotalError)/pd(TotalNetInput) = pd(Error)/pd(output) * d(Output)/d(TotalNetInput)
+pd(TotalError)/pd(TotalNetInput) = -0.4335333147611411 * 0.24558217975335844
+pd(TotalError)/pd(TotalNetInput) = -0.10646805643473987</code></pre>
+<p>We now have the partial differential of total error with respect to the total
+  net input to the output neuron. To adjust the weights from the hidden layer to
+  the output layer we need to find partial differential of total error with
+  respect to each of those individual weights and update them proportional to
+  the learning rate.</p>
+<p>We next calculate the partial differential of total net input with respect to
+  each of the weights (viz w7, w8 and w9). As we know from earlier explanations,
+  partial differential of total net input with respect to the weight is simply
+  the input associated with that weight when calculating the total net input.
+  i.e.</p>
+<pre><code>pd(TotalNetInput)/pd(w7) = outputh1
+pd(TotalNetInput)/pd(w7) = 0.8325766980765932</code></pre>
+<p>And according to the chain rule, we can express partial differential of total
+  error with respect to weight as:</p>
+<pre><code>pd(TotalError)/pd(weight) = pd(TotalError)/pd(TotalNetInput) * pd(TotalNetInput)/pd(weight)</code></pre>
+<p>Building on the above equation,</p>
+<pre><code>pd(TotalError)/pd(w7) = pd(TotalError)/pd(TotalNetInput) * pd(TotalNetInput)/pd(w7)
+pd(TotalError)/pd(w7) = -0.10646805643473987 * 0.8325766980765932
+pd(TotalError)/pd(w7) = -0.08864282287706811</code></pre>
+<p>Now that we know how much the total error of the network is affected by the
+  weight w7, we can use this to set a new value for w7:</p>
+<pre><code>new w7 = w7 - (learning rate * pd(TotalError)/pd(w7))
+new w7 = 0.065 - (0.8 * -0.08864282287706811)
+new w7 = 0.1359142583016545</code></pre>
+<p>Similarly,</p>
+<pre><code>pd(TotalError)/pd(w8) = pd(TotalError)/pd(TotalNetInput) * pd(TotalNetInput)/pd(w8)
+pd(TotalError)/pd(w8) = -0.10646805643473987 * outputh2
+pd(TotalError)/pd(w8) = -0.10646805643473987 * 0.7521291114395702
+pd(TotalError)/pd(w8) = -0.08007772468295891</code></pre>
+<p>We can now update w8 as:</p>
+<pre><code>new w8 = w8 - (learning rate * pd(TotalError)/pd(w8))
+new w8 = 0.156 - (0.8 * -0.08007772468295891)
+new w8 = 0.22006217974636713</code></pre>
+<p>There is also a third weight from the hidden layer to the output layer, w9.
+  But unlike the above weights, this is not on a connection from a hidden layer
+  neuron but instead from a bias node. Fortunately, updating this weight is also
+  very much like updating the previous weights. First we try to find the partial
+  differential of total error with respect to this weight, which as per the
+  chain rule can be expressed as:</p>
+<pre><code>pd(TotalError)/pd(w9) = pd(TotalError)/pd(TotalNetInput) * pd(TotalNetInput)/pd(w9)</code></pre>
+<p>The partial differential of total error with respect to the total net input
+  remains the same. As we discussed earlier, the partial differential of total
+  net input with respect to a weight is simply the corresponding input
+  associated with that weight. Since, the output from a bias node is always 1.</p>
+<pre><code>pd(TotalNetInput)/pd(w9) = 1</code></pre>
+<pre><code>pd(TotalError)/pd(w9) = -0.10646805643473987 * 1
+pd(TotalError)/pd(w9) = -0.10646805643473987</code></pre>
+<p>Hence we can adjust the weight on the connection from the bias node as:</p>
+<pre><code>new w9 = w9 - (learning rate * pd(TotalError)/pd(w9))
+new w9 = 0.096 - (0.8 * -0.10646805643473987)
+new w9 = 0.1811744451477919</code></pre>
 <h2>Example</h2>
