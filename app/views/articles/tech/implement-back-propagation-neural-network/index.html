@@ -499,4 +499,64 @@ pd(output h1)/pd(totalnetinput h1) = 0.13939273989647058</code></pre>
 <pre><code>pd(total error)/pd(totalnetinput h1) = pd(TotalError)/pd(output h1) * pd(output h1)/pd(totalnetinput h1)
 pd(total error)/pd(totalnetinput h1) = -0.006920423668258092 * 0.13939273989647058
 pd(total error)/pd(totalnetinput h1) = -0.000964656816362879</code></pre>
+<p>Now, the total net input to h1 is a function of inputs from i1, i2 and b1
+  with w1, w3 and w5 as the corresponding weights respectively. We will now
+  proceed to find new values for weights w1 and w3 from input nodes and w5 from
+  the bias node.</p>
+<p>As we know, the partial differential of total input input with respect to a
+  weight is simply the input value corresponding to the weight. Therefore,</p>
+<pre><code>pd(totalnetinput h1)/pd(w1) = i1
+pd(totalnetinput h1)/pd(w1) = 0</code></pre>
+<p>Again applying the chain rule,</p>
+<pre><code>pd(TotalError)/pd(w1) = pd(total error)/pd(totalnetinput h1) * pd(totalnetinput h1)/pd(w1)
+pd(TotalError)/pd(w1) = -0.000964656816362879 * 0
+pd(TotalError)/pd(w1) = 0</code></pre>
+<p>Now that we know how much the weight w1 affects the total error, we can
+  adjust it to minimize the total error. Since the affect of w1 on the total
+  error is zero the new weight should remain unchanged which is validated by
+  applying the below equation.</p>
+<pre><code>new w1 = w1 - (learning rate * pd(TotalError)/pd(w1))
+new w1 = 0.604 - (0.8 * 0)
+new w1 = 0.604</code></pre>
+<p>We can use similar approach to calculate how much the partial differential
+  of total net input to h1 with respect to w3,</p>
+<pre><code>pd(totalnetinput h1)/pd(w3) = i2
+pd(totalnetinput h1)/pd(w3) = 1</code></pre>
+<p>Hence,</p>
+<pre><code>pd(TotalError)/pd(w3) = pd(total error)/pd(totalnetinput h1) * pd(totalnetinput h1)/pd(w3)
+pd(TotalError)/pd(w1) = -0.000964656816362879 * 1
+pd(TotalError)/pd(w1) = -0.000964656816362879</code></pre>
+<p>Now similar to w1 we can calculate new weight for w3 as:</p>
+<pre><code>new w3 = w3 - (learning rate * pd(TotalError)/pd(w3))
+new w3 = 0.94 - (0.8 * -0.000964656816362879)
+new w3 = 0.94 - (-0.0007717254530903032)
+new w3 = 0.9407717254530903</code></pre>
+<p>As with weights from the input nodes, we also need to update weight w5 from
+  the bias node b1. First we find out how much the weight w5 affects the total
+  net input to h1. Since the corresponding input for the w5 in equation for
+  calculating the total net input is 1,</p>
+<pre><code>pd(totalnetinput h1)/pd(w5) = 1</code></pre>
+<p>Hence,</p>
+<pre><code>pd(TotalError)/pd(w5) = pd(total error)/pd(totalnetinput h1) * pd(totalnetinput h1)/pd(w5)
+pd(TotalError)/pd(w5) = -0.000964656816362879 * 1
+pd(TotalError)/pd(w5) = -0.000964656816362879</code></pre>
+<p>Calculating the new value for weight w5:</p>
+<pre><code>new w5 = w5 - (learning rate * pd(TotalError)/pd(w5))
+new w5 = 0.664 - (0.8 * -0.000964656816362879)
+new w5 = 0.664 - (-0.0007717254530903032)
+new w5 = 0.6647717254530904</code></pre>
+<p>Using the above techniques to calculate new values for weights from input
+  layer to h2, we get the following values:</p>
+<pre><code>new w2 = 0.437
+new w4 = 0.4264771473090286
+new w6 = 0.6884771473090286</code></pre>
+<h3>Conclusion</h3>
+<p>If we again employ the feed forward technique to the neural network for the
+  same input but with the new weights, we get 0.6130333654357785 as output.
+  Which is slightly closer to the target output of 1 compared to the earlier
+  output 0.5664666852388589. This is essentially how a neural network training
+  works, over several iterations with randomly selected input data the network
+  gradually updates its weight to reduce the total error. The choice of
+  learning rate, number of hidden neurons, activation functions etc, dictate the
+  speed and accuracy of the network's training life cycle.</p>
 <h2>Example</h2>
