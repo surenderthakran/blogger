@@ -308,9 +308,16 @@
   We will also opt to use two neurons in the hidden layer of our neural network.
   Determining the number of neurons needed in the hidden layer depends on a wide
   variety of variables and there are a number of hidden layer configuration
-  designs to choose from. The general consensus is that the number of neurons
+  designs to choose from.</p>
+<p>The general consensus is that the number of neurons
   in the hidden layer should be between the number of nodes in the input and
-  the output layer.</p>
+  the output layer but almost never greater than the number of input nodes. The
+  last bit exists so that the network can generalize better instead of
+  overfitting/memorizing the training data.</p>
+<p>Since we also know the expected output for our inputs in the training data,
+  this will be called <em>supervised learning</em>. Also, since we will be
+  predicting the output value for the input set, we are creating a
+  <em>regression</em> neural network model.</p>
 <p>Apart from the neuron nodes we will also add one bias node in the input and
   the hidden layer each.</p>
 <div class="image">
@@ -560,3 +567,6 @@ new w6 = 0.6884771473090286</code></pre>
   learning rate, number of hidden neurons, activation functions etc, dictate the
   speed and accuracy of the network's training life cycle.</p>
 <h2>Example</h2>
+<p>You can experiment with a basic GoLang back propagation implementation I have
+  on github: <a href="https://github.com/surenderthakran/back-propagation-demo" target="_blank">surenderthakran/back-propagation-demo</a>
+  where I train a neural network to learn the AND gate.</p>
