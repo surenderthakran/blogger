@@ -1,274 +1,365 @@
 <h2>What is a Neural Network?</h2>
-<p>Neural Networks, more appropriately referred to as an 'Artificial Neural
-  Networks' (ANN), are information processing systems that are inspired by the
-  biological neural networks such as the brain.
-<p>In its simplest form a biological brain is a huge collection of neurons. Each neuron
-  takes electrical and chemical signals as inputs through its many dentrites and
-  transmits its output signals through its axon (in a more specialized context,
-  there are exceptions to this behavior like with multipolar neurons). Axons make contact with other neurons
-  at specialized junctions called synapses.</p>
+<p>Artificial Neural Networks (ANNs) are information processing systems that
+  are inspired by the biological neural networks like a brain. They are a chain
+  of algorithms which attempt to identify relationships between data sets.
+<p>In its simplest form, a biological brain is a huge collection of neurons.
+  Each neuron takes electrical and chemical signals as inputs through its many
+  dendrites and transmits the output signals through its axon (in a more
+  specialized context, there are exceptions to this behavior like with
+  multipolar neurons). Axons make contact with other neurons at specialized
+  junctions called synapses where they pass on their output signals to other
+  neurons to repeat the same process over and over millions and millions of
+  times.</p>
 <div class="image">
-  <img alt="image illustrating a biological neuron" src="/images/{{ url }}/biological-neuron.png" width="500" />
-  <a href="https://en.wikipedia.org/wiki/Neuron" target="_blank">Image source</a>
+  <img alt="image illustrating a biological neuron"
+       src="/images/{{ url }}/biological-neuron.png"
+       width="500"/>
+  <a href="https://en.wikipedia.org/wiki/Neuron"
+     target="_blank">Image source</a>
 </div>
 <p>Taking inspiration from the brain, an artificial neural network is a
   collection of connected units, also called neurons. The connection between the
   neurons can carry signals between them. Each connection carries a real number
-  value which determines the weightage/strength of the signal.</p>
-<p>They are <strong>universal function approximators</strong> who at there very essence
-  approximate a function/relation between the input data and the output
-  data.<p>
+  value which determines the weight/strength of the signal.</p>
+<p>ANNs are <strong>universal function approximators</strong> who at there very
+  essence attempt to approximate a function/relation between the input data and
+  the output data.</p>
 <h2>Neurons</h2>
 <p>Neurons are the basic building blocks of ANNs. An artificial neuron receives
   vectorized input and operates on them to produce vectorized output. This is
-  similar to dentrites in a biological neuron receiving input signals and
+  similar to dendrites in a biological neuron receiving input signals and
   sending out an output signal through its axon.</p>
 <p>Each input to an artificial neuron is individually weighted to determine the
   <em>strength</em> of each input. A weighted summation of all the inputs with
-  the same number of weights forms the total net input to a neuron. For a neuron
-  with <span class="code">n</span> inputs and the same number of corresponding
-  weights, the Total Net Input would be:</p>
+  their weights forms the total net input to a neuron. For a neuron with
+  <span class="code">n</span> inputs <span class="code">i</span> and the same
+  number of corresponding weights <span class="code">w</span>, the Total Net
+  Input would be:</p>
 <div class="image">
-  <img alt="image illustrating an equation to calculate total net input for a neuron" src="/images/{{ url }}/total-net-input.png" width="250" />
+  <img alt="image illustrating an equation to calculate total net input for a neuron"
+       src="/images/{{ url }}/total-net-input.png"
+       width="250"/>
 </div>
 <p>Consider the following diagram of an artificial neuron.</p>
 <div class="image">
-  <img alt="image illustrating a simple artificial neuron" src="/images/{{ url }}/neuron.png" width="300" />
+  <img alt="image illustrating a simple artificial neuron"
+       src="/images/{{ url }}/neuron.png"
+       width="300"/>
 </div>
-<p>In the above neuron, <span class="code">i1</span> and <span class="code">i2</span> are the inputs to the neuron with
-  each input having weights <span class="code">w2</span> and <span class="code">w2</span> respectively.
-  Hence, the <span class="code">Total Net Input</span> for the neuron would be:</p>
+<p>In the above artificial neuron, <span class="code">i1</span> and
+  <span class="code">i2</span> are the inputs to the neuron where each input
+  has weights <span class="code">w1</span> and <span class="code">w2</span>
+  respectively. Hence, the <span class="code">Total Net Input</span> for the
+  neuron would be:</p>
 <div class="image">
-  <img alt="image illustrating an equation to calculate total net input for the example neuron" src="/images/{{ url }}/example-total-net-input.png" width="280" />
+  <img alt="image illustrating an equation to calculate total net input for the example neuron"
+       src="/images/{{ url }}/example-total-net-input.png"
+       width="280"/>
 </div>
-<p>The neuron then computes the output using an activation function on the Total Net Input.
-  The result of the activation function is the output of the neuron.</p>
+<p>The neuron then computes the output using an activation function on the
+  <em>Total Net Input</em>. The result of the activation function is the output
+  of the neuron.</p>
 <div class="image">
-  <img alt="image illustrating an equation to calculate output of a neuron" src="/images/{{ url }}/activation.png" width="280" />
+  <img alt="image illustrating an equation to calculate output of a neuron"
+  src="/images/{{ url }}/activation.png"
+  width="280"/>
 </div>
-<p>The output of a neuron is forwarded to the next neuron in line as input. In an ANN, the
-  results from one layer of neurons are progressively forwarded to the neurons in the next
-  layer until they exit from the output layer which forms the output of the
-  network.</p>
+<p>The output of a neuron is forwarded to the next neuron in line as input. In
+  an ANN, the results from one layer of neurons are progressively forwarded to
+  the neurons in the next layer until they exit from the output layer as the
+  output of the network.</p>
 <h3>Activation Functions</h3>
-<p>The Total Net Input to a neuron could be anywhere between <em>+Infinity</em> to <em>-Infinity</em>.
-  To decide whether the neuron should fire/activate (i.e. generate an output)
-  researchers introduced activation functions inside neurons. Activation
-  functions provide complex non-linear functional mapping between the net input
-  and output of a neuron.</p>
+<p>The <em>Total Net Input</em> to a neuron could be anywhere between
+  <em>+Infinity</em> to <em>-Infinity</em>. To decide whether the neuron should
+  fire/activate (i.e. generate an output) researchers introduced activation
+  functions inside neurons. Activation functions provide complex non-linear
+  functional mapping between the net inputs and output of a neuron.</p>
 <p>Without the activation functions, the output of a neuron will just be a
-  <a href="https://en.wikipedia.org/wiki/Linear_function" target="_blank">linear function</a>
-  of the input parameters. An ANN without an activation function would simply be a
-  <a href="https://en.wikipedia.org/wiki/Linear_regression" target="_blank">Linear Regression Model</a>
-  i.e. polynomial function of just one degree. Although, it would be much easier
-  to train such an ANN, they would be limited in their complexity and have less
+  <a href="https://en.wikipedia.org/wiki/Linear_function"
+     target="_blank">linear function</a>
+  of the input parameters. An ANN without an activation function is a
+  <a href="https://en.wikipedia.org/wiki/Linear_regression"
+     target="_blank">Linear Regression Model</a>
+  i.e. polynomial function of degree one. Though, it would be much easier to
+  train such an ANN, they would be limited in their complexity and have less
   capability to learn complex functional mappings from complex non-linear data
   sets like images, audio, video etc.</p>
-<p>Similary, having linear activation functions would also give us a linear
+<p>Similarly, having linear activation functions would also give us a linear
   neural network of input parameters regardless of how many hidden layers we
   add in the network.</p>
 <p>Unlike linear functions, non-linear functions are polynomials functions of a
-  <em>degree more than one</em> and their plottings on a map are curved. For an ANN
-  to be able to create non-linear arbitrary and complex mappings between the input and output, we need
-  non-linear activation functions.</p>
+  <em>degree more than one</em> and their plottings on a map are curved. For an
+  ANN to be able to create non-linear arbitrary and complex mappings between the
+  input and output, we need non-linear activation functions.</p>
 <p>Another important requirement for an activation function is that it should be
   differentiable so that we can calculate the <em>error gradient</em> of the
   network with respect to its weights. This gradient is needed to perform
-  backpropagation optimization strategy as we will soon see.</p>
+  back propagation optimization strategy as we will soon see.</p>
 <p>Some of the most popular activation functions are:</p>
 <ul>
-  <li><a href="https://en.wikipedia.org/wiki/Sigmoid_function" target="_blank">Sigmoid (Logistic)</a></li>
-  <li><a href="https://en.wikipedia.org/wiki/Hyperbolic_function" target="_blank">Tanh (Hyperbolic)</a></li>
-  <li><a href="https://en.wikipedia.org/wiki/Rectifier_(neural_networks)" target="_blank">ReLU (Rectified Linear Unit)</a></li>
-  <li><a href="https://en.wikipedia.org/wiki/Softmax_function" target="_blank">Softmax</a></li>
-  <li><a href="https://en.wikipedia.org/wiki/Rectifier_(neural_networks)#Leaky_ReLUs" target="_blank">Leaky ReLU</a> etc</li>
+  <li>
+    <a href="https://en.wikipedia.org/wiki/Sigmoid_function"
+       target="_blank">Sigmoid (Logistic)</a>
+  </li>
+  <li>
+    <a href="https://en.wikipedia.org/wiki/Hyperbolic_function"
+       target="_blank">Tanh (Hyperbolic)</a>
+  </li>
+  <li>
+    <a href="https://en.wikipedia.org/wiki/Rectifier_(neural_networks)"
+       target="_blank">ReLU (Rectified Linear Unit)</a>
+  </li>
+  <li>
+    <a href="https://en.wikipedia.org/wiki/Softmax_function"
+       target="_blank">Softmax</a>
+  </li>
+  <li>
+    <a href="https://en.wikipedia.org/wiki/Rectifier_(neural_networks)#Leaky_ReLUs"
+       target="_blank">Leaky ReLU</a> etc
+  </li>
 </ul>
 <p>Every activation function has its own characteristics, for example Sigmoid
-  suffers from the <a href="https://en.wikipedia.org/wiki/Vanishing_gradient_problem" target="_blank">vanishing gradient problem</a>
-  and the zero-centered problem. Tanh solves the zero-centered problem but also
+  suffers from the
+  <a href="https://en.wikipedia.org/wiki/Vanishing_gradient_problem"
+     target="_blank">vanishing gradient problem</a>
+  and the zero-centered problem. Tanh solves the zero-centered problem but
   suffers from the vanishing gradient problem. ReLU helps in solving the
-  vanishing gradient problem it too suffers from the zero-centered problem.</p>
+  vanishing gradient problem but it too suffers from the zero-centered problem.
+</p>
 <p>Recently, ReLU has become the popular choice as activation function for
   hidden layer neurons.</p>
-<p>The choice of activation function inside a neuron heavily influences the learning techniques employed
-  on the network and vice versa.</p>
-<p>Though Sigmoid has fallen out of favour with neural network designers
+<p>The choice of activation function inside a neuron heavily influences the
+  learning techniques employed on the network and vice versa.</p>
+<p>Though Sigmoid has fallen out of favor with neural network designers
   nowadays, we would be using it in the current implementation.</p>
 <div class="image">
-  <img alt="image illustrating an equation for the sigmoid function" src="/images/{{ url }}/sigmoid-function.png" width="150" />
+  <img alt="image illustrating an equation for the sigmoid function"
+       src="/images/{{ url }}/sigmoid-function.png"
+       width="150"/>
 </div>
 <p>The sigmoid function non-linearly <em>squashes</em> or <em>normalizes</em>
   the input to produce an output in a range of 0 to 1.</p>
 <h2>Topology Of an Artificial Neural Network</h2>
-<p>The neurons in an ANN are arranged in two categories called layers vis hidden layer and output layer.
-  In addition to these two layers, there is also a third layer called the input layer which
-  doesn't has any neurons but instead just acts as a matrix for the input data.
+<p>The neurons in an ANN are arranged in two layers vis hidden layer and output
+  layer. In addition to these two layers, there is also a third layer called the
+  input layer which doesn't has any neurons but instead just acts as a vector or
+  matrix for the input data.
 </p>
-<p>One of the simplest form of neural networks is a single hidden layer feed forward neural network.</p>
+<p>One of the simplest form of neural networks is a single hidden layer feed
+  forward neural network.</p>
 <div class="image">
-  <img alt="image illustrating a basic single hidden layer neural network" src="/images/{{ url }}/basic-neural-network.png" width="600" />
+  <img alt="image illustrating a basic single hidden layer neural network"
+       src="/images/{{ url }}/basic-neural-network.png"
+       width="600"/>
 </div>
 <p>All the directed connections in a neural network are meant to carry output
-  from a neuron to the neuron in the next layer as input. All these connections
-  are weighted to determine the strength of the data they are carrying.</p>
+  from one neuron to the next neuron as input. All these connections are
+  weighted to determine the strength of the data they are carrying.</p>
 <h2>Multi Layer Perceptrons (MLP)</h2>
-<p>MLPs are the most popular type of neural networks being used nowadays. MLPs
-  have only one input and output layer but can have more than one hidden layers.
-  Each layer in MLPs can have numerous nodes.</p>
+<p>MLPs are one of the most popular topologies of neural networks being used
+  today. MLPs have only one input and output layer but can have more than one
+  hidden layers. Each layer in MLPs can have numerous nodes.</p>
 <div class="image">
-  <img alt="image illustrating a basic single hidden layer neural network with bias nodes" src="/images/{{ url }}/bias-neural-network.png" width="600" />
+  <img alt="image illustrating a basic single hidden layer neural network with bias nodes"
+       src="/images/{{ url }}/bias-neural-network.png"
+       width="600"/>
 </div>
 <p>In addition to the neurons, each layer except the output layer also has
   a <em>bias</em> node. The bias node in a layer also has weighted connections
-  with neurons of the next layer but its input value is always <span class="code">1</span>,
-  hence the <em>weight</em> of the connection is the effective input from the bias to the neuron.
-  The total net input to a neuron with <span class="code">n</span> inputs and a bias is:</p>
+  with neurons of the next layer but its input value is always
+  <span class="code">1</span>, hence the <em>weight</em> of the connection is
+  the effective input from the bias to the neuron. The <em>Total Net Input</em>
+  to a neuron with <span class="code">n</span> inputs and a bias is:</p>
 <div class="image">
-  <img alt="image illustrating an equation to calculate total net input for a neuron with bias" src="/images/{{ url }}/total-net-input-bias.png" width="300" />
+  <img alt="image illustrating an equation to calculate total net input for a neuron with bias"
+       src="/images/{{ url }}/total-net-input-bias.png"
+       width="300"/>
 </div>
-<p>All inputs from the input layer and the bias are forwarded to each neuron in
-  the hidden layer where each neuron performs a weighted summation of all the inputs
-  and sends the activation results as output to the output layer. At the output layer
-  a similar weighted summation and activation takes place whose outputs become the
-  output of the network.</p>
+<p>Where <span class="code">w</span> and <span class="code">i</span> are the
+  weight and input respectively while <span class="code">b</span> is the weight
+  from the bias node to the neuron.</p>
+<p>All inputs from the input layer along with the bias are forwarded to each
+  neuron in the hidden layer where each neuron performs a weighted summation of
+  the input and sends the activation results as output to the next layer. The
+  process repeats until the data final exits form the network through the output
+  layer. This process is called the <strong>feed forward process</strong>.</p>
 <h3>Why do we need bias nodes?</h3>
-<p>As mentioned before, neural networks are <strong>universal function approximators</strong>
-  and they assist us in finding a function between the input and the output. In
-  a neural network without bias nodes, the output is the result of a direct
-  function of the inputs of the network without any <em>constant</em> to adjust the
-  <em>shift</em> in the output.</p>
+<p>As mentioned before, neural networks are <em>universal function approximators
+  </em> and they assist us in finding a function/relationship between the input
+  and the output data sets. In a neural network without bias nodes, the output
+  is the result of a direct function of the inputs of the network without any
+  <em>constant</em> to adjust the <em>shift</em> in the output.</p>
 <p>To understand better, consider the geometric equation of a line passing
-  through the origin on a 2D cartesian plane:</p>
+  through the <strong>origin</strong> on a 2D cartesian plane:</p>
 <div class="image">
-  <img alt="image illustrating an equation for a line passing through origin" src="/images/{{ url }}/line-origin-equation.png" width="90" />
+  <img alt="image illustrating an equation for a line passing through origin"
+       src="/images/{{ url }}/line-origin-equation.png"
+       width="90"/>
 </div>
 <p>Here, <span class="code">m</span> is the slope of the line and
   <span class="code">x</span> & <span class="code">y</span> hold the coordinates
   of the points on the line.</p>
-<p>For a line not passing through the origin, a new constant <span class="code">c</span>
-  (also called the y-intercept) is introduced in the equation to quantify the shift in the line away from the origin.</p>
+<p>For a line not passing through the origin, a new constant
+  <span class="code">c</span> (also called the y-intercept) is introduced in the
+  equation to quantify the shift in the line away from the origin. The
+  y-intercept is not related to any of the coordinates.</p>
 <div class="image">
-  <img alt="image illustrating an equation for a line" src="/images/{{ url }}/line-equation.png" width="120" />
+  <img alt="image illustrating an equation for a line"
+       src="/images/{{ url }}/line-equation.png"
+       width="120"/>
 </div>
 <p>For the line <em>passing through the origin</em>, we can train a neural network
-  <strong>without</strong> bias nodes to estimate the <span class="code">y</span>
-  coordinate of a point if the <span class="code">x</span> coordinate is given.
-  Here, after training the weights in the neural network will get adjusted to
-  emulate the behavior of the slope <span class="code">m</span>. But such a
-  network will not be able to learn, <em>with reasonable accuracy</em>, from a dataset of
-  coordinate's of a line <em>not passing through the origin</em> because there are no
-  weights unrelated to the input to emulate the behavior of the constant
-  <span class="code">c</span>. Each weight in the network is an attached
-  constant to the input of the network.</p>
-<p>A neural network <strong>with</strong> bias nodes however can learn to predict
-  the coordinates of a line not passing through the origin. With learning, the
-  weights of the bias nodes will get adjusted to emulate the behavior of the
-  y-intercept.</p>
+  <strong>without</strong> bias nodes to estimate the <span class="code">y
+  </span> coordinate of a point if the <span class="code">x</span> coordinate is
+  given. After training, the weights in the neural network will get adjusted to
+  emulate the value of the slope <span class="code">m</span>. But such a network
+  will not be able to learn, <em>with reasonable accuracy</em>, from a
+  coordinates set of a line <em>not passing through the origin</em> because
+  there are no weights unrelated to the input to emulate the behavior of the
+  constant <span class="code">c</span>. Each weight in the network is directly
+  or indirectly related to the input of the network.</p>
+<p>A neural network <strong>with</strong> bias nodes however can learn to
+  predict the coordinates of a line not passing through the origin. With
+  training, the weights of the bias nodes will also get adjusted to emulate the
+  behavior of the y-intercept <span class="code">c</span>.</p>
 <h2>Back Propagation Algorithm</h2>
-<p>Backpropagation algorithm is a <em>supervised</em> learning algorithm which
-  uses <a href="https://en.wikipedia.org/wiki/Gradient_descent" target="_blank">gradient descent</a>
-  to train multi-layer feed forward neural networks. Feed forward neural
-  networks are those networks where each layer of neurons processes on the data
-  and forwards it to the next layer until it finally leaves the network as
-  output.</p>
-<p>The backpropagation algorithm involves calculating the <em>gradient</em> of
-  the <em>error value</em> of the network's output against each of the
-  network's weights and adjusting the weights to reduce the error value. In
-  simpler words, it involves calculating how much effect each weight in the
-  network has on the network's error and adjusting every weight in such a way
-  that the error gets reduced.</p>
-<p>The error value indicates how much the network's output (actual) is off the mark from the expected output (target).
-  We use the <a href="https://en.wikipedia.org/wiki/Mean_squared_error" target="_blank">mean squared error function</a>
+<p>Back propagation algorithm is a <em>supervised</em> learning algorithm which
+  uses <a href="https://en.wikipedia.org/wiki/Gradient_descent"
+          target="_blank">gradient descent</a>
+  to train multi-layer feed forward neural networks.</p>
+<p>The back propagation algorithm involves calculating the <em>gradient</em> of
+  the <em>error</em> in the network's output against each of the network's
+  weights and adjusting the weights to reduce the error. In simpler words, it
+  calculates how much effect each weight in the network has on the network's
+  error and adjusts every weight to reduce the error.</p>
+<p>The error value indicates how much the network's output (actual) is off the
+  mark from the expected output (target). We use the
+  <a href="https://en.wikipedia.org/wiki/Mean_squared_error"
+     target="_blank">Mean Squared Error function</a>
   to calculate the error.</p>
-<p>The error value of a single output neuron is a function of its actual value and the target value.</p>
+<p>The error value of a single output neuron is a function of its actual value
+  and the target value.</p>
 <div class="image">
-  <img alt="image illustrating an equation for mean square error of an output neuron" src="/images/{{ url }}/mean-square-error.png" width="280" />
+  <img alt="image illustrating an equation for mean square error of an output neuron"
+       src="/images/{{ url }}/mean-square-error.png"
+       width="280"/>
 </div>
-<p>The total error of the network is a sum of all the error values of all <span class="code">n</span> output neurons.</p>
+<p>The total error of the network is a sum of all error values from all output
+  neurons. For a network with <span class="code">n</span> neurons in the output
+  layer, the <em>Total Error</em> is:</p>
 <div class="image">
-  <img alt="image illustrating an equation for mean square error of a neural network" src="/images/{{ url }}/total-mean-square-error.png" width="380" />
+  <img alt="image illustrating an equation for mean square error of a neural network"
+       src="/images/{{ url }}/total-mean-square-error.png"
+       width="380"/>
 </div>
-<p>Consider a single output neuron with only one input connection. The input
-  data would follow the following flow to give us the total network error.</p>
+<p>To understand the back propagation algorithm, consider a single output neuron
+  with only one input connection. The input data would follow the following flow
+  to give us the total network error.</p>
 <div class="image">
-  <img alt="image illustrating the data flow in an output neuron" src="/images/{{ url }}/output-neuron-data-flow.png" width="700" />
+  <img alt="image illustrating the data flow in an output neuron"
+       src="/images/{{ url }}/output-neuron-data-flow.png"
+       width="700"/>
 </div>
-<p>To calculate the gradient of the total error against a weight, we calculate
-  the <strong>partial differential</strong> of the total error with respect to
-  the weight.</p>
+<p>To calculate the <em>gradient</em> of the <em>Total Error</em> against a
+  weight, we calculate the <strong>partial differential</strong> of the
+  <em>Total Error</em> with respect to the <em>weight</em>.</p>
 <div class="image">
-  <img alt="image illustrating an equation for calculating partial differential of error with respect to weight" src="/images/{{ url }}/error-gradient-wrt-weight.png" width="320" />
+  <img alt="image illustrating an equation for calculating partial differential of error with respect to weight"
+       src="/images/{{ url }}/error-gradient-wrt-weight.png"
+       width="320"/>
 </div>
-<p>We now employ the <a href="https://en.wikipedia.org/wiki/Chain_rule" target="_blank">chain rule</a>
-  to simplify the above equation by splitting it into smaller equations. For the
-  above data flow the equation would simplify into:</p>
+<p>We employ the
+  <a href="https://en.wikipedia.org/wiki/Chain_rule"
+     target="_blank">chain rule</a>
+  to simplify the above equation by splitting it into smaller equations.</p>
 <div class="image">
-  <img alt="image illustrating an equation for applying chain rule on partial differential of error with respect to weight" src="/images/{{ url }}/pd-chain-rule-error-wrt-weight.png" width="800" />
+  <img alt="image illustrating an equation for applying chain rule on partial differential of error with respect to weight"
+       src="/images/{{ url }}/pd-chain-rule-error-wrt-weight.png"
+       width="800"/>
 </div>
-<p>Let's look into solving each of the individual differentials.</p>
-<p>The <span class="code">TotalError</span> of a network is the sum of errors in
-  all its output neuron's. Since we are calculating the partial differential
-  with respect to only one neuron's error, all the other errors from other
-  neurons are treated as constants because they are not a function of the
-  selected neuron's error and hence they don't effect the partial differential.
-  Hence, the partial differential of <span class="code">TotalError</span> with
-  respect to one neuron's error is <span class="code">1</span>.</p>
+<p>Let's look into solving each of the individual differentials to get the
+  initial desired differential.</p>
+<p>The <em>TotalError</em> of a network is the sum of errors in all its output
+  neurons. Since we are calculating the partial differential with respect to
+  only one neuron's error, errors from other neurons are treated as constants
+  since they are not a function of the selected neuron's error, hence they don't
+  effect the partial differential. So essentially we are calculating the partial
+  differential of an entity against itself, hence the partial differential of
+  <em>TotalError</em> with respect to one neuron's error is
+  <span class="code">1</span>.</p>
 <div class="image">
-  <img alt="image illustrating an equation for partial differential of total error with respect to error" src="/images/{{ url }}/pd-total-error-wrt-error.png" width="180" />
+  <img alt="image illustrating an equation for partial differential of total error with respect to error"
+       src="/images/{{ url }}/pd-total-error-wrt-error.png"
+       width="180"/>
 </div>
-<p>As mentioned earlier, we use the mean squared error function to calculate the
-  error in an outout neuron's output(actual).</p>
+<p>As mentioned earlier, we use the
+  <a href="https://en.wikipedia.org/wiki/Mean_squared_error"
+     target="_blank">Mean Squared Error</a>
+  function to calculate the error in an output neuron's actual output.</p>
 <div class="image">
-  <img alt="image illustrating an equation for mean square error of an output neuron" src="/images/{{ url }}/mean-square-error.png" width="280" />
+  <img alt="image illustrating an equation for mean square error of an output neuron"
+       src="/images/{{ url }}/mean-square-error.png"
+       width="280"/>
 </div>
-<p>Since, actual is the output of the neuron, the derivative of the error with
-  respect to the output would be:</p>
+<p>Since, <em>actual</em> is the output of the neuron, the derivative of the
+  error with respect to the <em>Output</em> would be:</p>
 <div class="image">
-  <img alt="image illustrating an equation for partial derivative of error with respect to output" src="/images/{{ url }}/pd-error-wrt-output.png" width="600" />
+  <img alt="image illustrating an equation for partial derivative of error with respect to output"
+       src="/images/{{ url }}/pd-error-wrt-output.png"
+       width="600"/>
 </div>
-<p>Since we are using the Sigmoid activation function to calculate output from
-  the total net input, we will use the partial
-  <a href="https://en.wikipedia.org/wiki/Logistic_function#Derivative" target="_blank">derivative
-  of the sigmoid function with respect to its input</a> to calculate the partial
-  derivative of a neuron's output with respect to its input.</p>
+<p>As we are using the Sigmoid activation function to calculate output from
+  the <em>Total Net Input</em>, which is a function of only one variable, we
+  calculate the derivative instead of partial derivative of a neuron's output
+  with respect to its input using
+  <a href="https://en.wikipedia.org/wiki/Logistic_function#Derivative"
+     target="_blank">this formula</a>.</p>
 <div class="image">
-  <img alt="image illustrating an equation for partial derivative of output with respect to the total net input" src="/images/{{ url }}/pd-output-wrt-total-net-input.png" width="400" />
+  <img alt="image illustrating an equation for partial derivative of output with respect to the total net input"
+       src="/images/{{ url }}/pd-output-wrt-total-net-input.png"
+       width="600"/>
 </div>
-<p>As we already know, the total net input of a neuron is a weighted summation
-  of all its inputs and the bias. The derivative of the total net input with
-  respect to one of its weights is the corresponding input factor of that
-  particular weight since all other weighted sums and bias would be treated as
-  constants.</p>
+<p>As we already know, the <em>Total Net Input</em> of a neuron is a weighted
+  summation of all its inputs and the bias. The derivative of the
+  <em>Total Net Input</em> with respect to one of its weights is the
+  corresponding input factor of that particular weight since all other weighted
+  sums and bias will be treated as constants.</p>
 <div class="image">
-  <img alt="image illustrating an equation for partial derivative of total net input with respect to the weight" src="/images/{{ url }}/pd-total-net-input-wrt-weight.png" width="250" />
+  <img alt="image illustrating an equation for partial derivative of total net input with respect to the weight"
+       src="/images/{{ url }}/pd-total-net-input-wrt-weight.png"
+       width="250"/>
 </div>
-<p>After solving for each of the individual differentials, we can easily calculate
-  the partial differential of the total error with respect to the weight. Once we have
-  that, we adjust our weight in proportion to the <em>learning rate</em>.</p>
+<p>After solving for each of the individual differentials, we can now calculate
+  the partial differential of the <em>Total Error</em> with respect to a weight.
+  Once we have that, we adjust our weight in proportion to the
+  <em>learning rate</em>.</p>
 <div class="image">
-  <img alt="image illustrating an equation for adjusting the weight based on the learning rate and error differential" src="/images/{{ url }}/weight-adjust.png" width="600" />
+  <img alt="image illustrating an equation for adjusting the weight based on the learning rate and error differential"
+       src="/images/{{ url }}/weight-adjust.png"
+       width="600"/>
 </div>
-<p>The learning rate determines how drastically do the weights in a network get adjusted based on
-  the error differential. In other words, how quickly will the neural network adapt
-  to reduce the error in the network. The learning rate's value spans between
-  0 and 1. There are caveats for using both high or low learning rates.</p>
+<p>The learning rate determines how drastically do the weights in a network get
+  adjusted based on the <em>error differential</em>. In other words, how quickly
+  or slowly will the neural network adapt to reduce its errors. The learning
+  rate's value spans between 0 and 1. There are caveats for using both high and
+  low learning rates.</p>
 <p>If a neural network's learning rate is too high then it will quickly adjust
   it weights for any errors in the output. As a consequence, the latest data set
   in the training data set will have a much higher bearing on the network's
-  inclinations than the earlier data sets. In simpler words, the network will
-  readily learn from the latest data but will keep forgetting <em>lessons</em>
-  from the older data.</p>
+  output than the earlier data sets. In simpler words, the network will readily
+  learn from the latest data but will keep forgetting <em>lessons</em> from the
+  older data.</p>
 <p>On the other hand, having a very low learning rate is also fraught with
   consequences. The network will have a higher <em>inertia</em> against learning
-  i.e. it will be very slow to responding to any erros in the output. As a result,
-  it will either only learn in the beginning and become prejudiced against the
-  later training data sets or it will not learn at all and will remain stuck
-  with the initial weights it was initialized with.</p>
+  i.e. it will be very slow to responding to any errors in the output. As a
+  result, it will either only learn in the beginning and become prejudiced
+  against the later training data sets or it will not learn at all and will
+  remain stuck with the initial weights it was initialized with.</p>
 <p>We just saw how back propagation of errors is used in MLP neural networks to
   adjust weights for the output layer to train the network. We use a similar
   process to adjust weights in the hidden layers of the network which we would
-  see next with a real neural network's implementation since it will be easier to
-  explain it with an example.</p>
+  see next with a real neural network's implementation since it will be easier
+  to explain it with an example where we have actual numbers to play with.</p>
 <h2>Neural Network Implementation</h2>
 <p>Let's build a neural network and train it to approximate the function for a
   XOR gate. The following are the I/O sets for a XOR gate:</p>
@@ -309,154 +400,238 @@
   Determining the number of neurons needed in the hidden layer depends on a wide
   variety of variables and there are a number of hidden layer configuration
   designs to choose from.</p>
-<p>The general consensus is that the number of neurons
-  in the hidden layer should be between the number of nodes in the input and
-  the output layer but almost never greater than the number of input nodes. The
-  last bit exists so that the network can generalize better instead of
-  overfitting/memorizing the training data.</p>
-<p>Since we also know the expected output for our inputs in the training data,
-  this will be called <em>supervised learning</em>. Also, since we will be
-  predicting the output value for the input set, we are creating a
-  <em>regression</em> neural network model.</p>
-<p>Apart from the neuron nodes we will also add one bias node in the input and
-  the hidden layer each.</p>
+<p>The general consensus is that, if the number of inputs is greater than the
+  outputs, the number of neurons in the hidden layer should be between the
+  number of nodes in the input and the output layer but never greater than the
+  number of input nodes. The last bit exists so that the network can generalize
+  better instead of overfitting/memorizing the training data.</p>
+<p>Since we know the expected output for our inputs, this will be called
+  <em>supervised learning</em>. Also, since we will be predicting the
+  <em>output value</em> for the input set, we are creating a <em>regression</em>
+  neural network model.</p>
+<p>Apart from neurons we will also add one bias node in the input and the hidden
+  layer.</p>
 <div class="image">
-  <img alt="image illustrating an artifical neural network for a xor gate" src="/images/{{ url }}/xor-neural-network.png" width="600" />
+  <img alt="image illustrating an artificial neural network for a xor gate"
+       src="/images/{{ url }}/xor-neural-network.png"
+       width="600"/>
 </div>
-<p>Notice that we have labeled all the nodes in the network for easy of
-  explanation.</p>
+<p>Notice that we have labeled all the nodes and the weights in the network for
+  easy of explanation.</p>
 <p>The next step is to initialize all the connections between the neurons of
   different layers with weights. Initially these weights are just random decimal
   point numbers between 0 and 1.</p>
 <p>Let us start training our network with the second row in the above table. The
   input nodes will have the values 0 & 1. </p>
 <div class="image">
-  <img alt="image illustrating an artifical neural network for a xor gate with random initial weights" src="/images/{{ url }}/xor-neural-network-weights.png" width="550" />
+  <img alt="image illustrating an artificial neural network for a xor gate with random initial weights"
+       src="/images/{{ url }}/xor-neural-network-weights.png"
+       width="550"/>
 </div>
 <p>Now that we have initialized our network let us see what output it spews out
-  for the selected input data set.</p>
+  for the selected input.</p>
 <h3>Feed Forward</h3>
 <h4>Hidden Layer</h4>
-<p>We need to calculate the total net input to each hidden layer neuron, squash
-  it using the activation function and then repeat the same process for the
-  output layer.</p>
-<p>First let's calculate the total net input to the first hidden layer neuron,
-  h1.</p>
-<p>As described earlier, the total net input to a neuron is a weighted summation
-  of all of its inputs and its bias. Hence, the total net input to h1 is:</p>
+<p>We need to calculate the <em>Total Net Input</em> to each hidden layer
+  neuron, squash it using the activation function and then repeat the same
+  process for the output layer.</p>
+<p>First let's calculate the <em>Total Net Input</em> to the first hidden layer
+  neuron, <strong>h1</strong>.</p>
+<p>As described earlier, the <em>Total Net Input</em> to a neuron is a weighted
+  summation of all of its inputs and its bias. Hence, the
+  <em>Total Net Input</em> to <strong>h1</strong> is:</p>
 <pre><code>TotalNetInput to h1 = w1 * i1 + w3 * i2 + w5 * b1
 TotalNetInput to h1 = 0.604 * 0 + 0.940 * 1 + 0.664 * 1
 TotalNetInput to h1 = 1.604</code></pre>
-<p>Now that we have the total net input to h1 we can calculate the output from h1
-  using the sigmoid function:</p>
-<pre><code>output from h1 = 1/ (1 + e^(-neth1))
-output from h1 = 1/ (1 + e^(-1.604))
-output from h1 = 0.8325766980765932</code></pre>
-<p>Similarly, the total net input to the second hidden layer neuron, h2 will be:</p>
+<div class="image">
+  <img alt="image illustrating an equation to calculate total net input to h1"
+       src="/images/{{ url }}/total-net-input-h1.png"
+       width="500"/>
+</div>
+<p>Now that we have the <em>Total Net Input</em> to <strong>h1</strong> we can
+  calculate the <em>Output</em> from <strong>h1</strong> using the sigmoid function:</p>
+<pre><code>Output from h1 = 1/ (1 + e^(-TotalNetInput to h1))
+Output from h1 = 1/ (1 + e^(-1.604))
+Output from h1 = 0.8325766980765932</code></pre>
+<div class="image">
+  <img alt="image illustrating an equation to calculate output from h1"
+       src="/images/{{ url }}/output-h1.png"
+       width="350"/>
+</div>
+<p>Similarly, the <em>Total Net Input</em> to the second hidden layer neuron,
+  <strong>h2</strong> will be:</p>
 <pre><code>TotalNetInput to h2 = w2 * i1 + w4 * i2 + w6 * b1
 TotalNetInput to h2 = 0.437 * 0 + 0.424 * 1 + 0.686 * 1
 TotalNetInput to h2 = 1.11</code></pre>
-<p>And the output from h2 is::</p>
-<pre><code>output from h2 = 1/ (1 + e^(-neth2))
-output from h2 = 1/ (1 + e^(-1.11))
-output from h2 = 0.7521291114395702</code></pre>
-<p>Now as we know, in neural network feed forward, output from one layer is input
+<div class="image">
+  <img alt="image illustrating an equation to calculate total net input to h2"
+       src="/images/{{ url }}/total-net-input-h2.png"
+       width="500"/>
+</div>
+<p>And the <em>Output</em> from <strong>h2</strong> is:</p>
+<pre><code>Output from h2 = 1/ (1 + e^(-TotalNetInput to h2))
+Output from h2 = 1/ (1 + e^(-1.11))
+Output from h2 = 0.7521291114395702</code></pre>
+<div class="image">
+  <img alt="image illustrating an equation to calculate output from h2"
+       src="/images/{{ url }}/output-h2.png"
+       width="350"/>
+</div>
+<p>As we know, in a feed forward neural network, output from one layer is input
   to the next layer. So now let's input our hidden layer outputs in the output
   layer.</p>
 <h4>Output Layer</h4>
-<p>First we calculate the total net input to the output layer's neuron:</p>
-<pre><code>TotalNetInput to o1 = w7 * outputh1 + w8 * outputh2 + w9 * b2
+<p>We begin by calculating the <em>Total Net Input</em> to the output
+  layer's neuron, <strong>o1</strong>.</p>
+<pre><code>TotalNetInput to o1 = w7 * Outputh1 + w8 * Outputh2 + w9 * b2
 TotalNetInput to o1 = 0.065 * 0.8325766980765932 + 0.156 * 0.7521291114395702 + 0.096 * 1
-TotalNetInput to o1 = 0.5664666852388589</code></pre>
+TotalNetInput to o1 = 0.26744962675955153</code></pre>
+<div class="image">
+  <img alt="image illustrating an equation to calculate total net input to o1"
+       src="/images/{{ url }}/total-net-input-o1.png"
+       width="850"/>
+</div>
+<p>The <em>Output</em> from <strong>o1</strong> would be:</p>
+<pre><code>Output from o1 = 1/ (1 + e^(-TotalNetInput to o1))
+Output from o1 = 1/ (1 + e^(-0.26744962675955153))
+Output from o1 = 0.5664666852388589</code></pre>
+<div class="image">
+  <img alt="image illustrating an equation to calculate output from o1"
+       src="/images/{{ url }}/output-o1.png"
+       width="350"/>
+</div>
 <p><span class="code">0.5664666852388589</span> is the output from the neural
-  network for the given input <span class="code">0</span> and
+  network for the given inputs <span class="code">0</span> and
   <span class="code">1</span> while the expected output is
-  <span class="code">1</span>.</p>
+  <span class="code">1</span>. As expected from the first run of a neural
+  network, the actual output is quite the way off from the target output since
+  we are operating with random weights.</p>
 <h3>Back propagation</h3>
 <p>Now we will employ back propagation strategy to adjust weights of the network
   to get closer to the required output.</p>
-<p>We will be using a relatively higher learning rate of 0.8 so that we can
-  observe definite updates in weights after learning from just one row of the
-  XOR gate's I/O table. Generally a <em>starting</em> learning rate of 0.5 is
-  used in most applications. I say starting rate because many back propagation
-  techniques nowadays also update the learning rate as the training progresses.
-  Another interesting concept is to use a variable learning rate based on the
-  actual output's deviation from the target output instead of a fixed learning
-  rate. For the sake of simplicity we will only be using a fixed learning rate
-  in our implementation.</p>
-<p>As we know, the total error from a neural network is simply a sum of errors
-  from all the output neurons, and since we have only one output neuron in our
-  network, the total error is simply the error from output neuron o1.</p>
+<p>We will be using a relatively higher learning rate of
+  <span class="code">0.8</span> so that we can observe definite updates in
+  weights after learning from just one row of the XOR gate's I/O table.
+  Generally a <em>starting</em> learning rate of <span class="code">0.5</span>
+  is used in most applications. I say starting rate because many back
+  propagation techniques nowadays also update the learning rate as the training
+  progresses. Another interesting concept is to use a variable learning rate
+  based on the actual output's deviation from the target output instead of a
+  fixed learning rate. For the sake of simplicity we will only be using a fixed
+  learning rate in our implementation.</p>
+<p>As we know, the <em>Total Error</em> from a neural network is simply a sum of
+  errors from all the output neurons. Since we have only one output neuron in
+  our network, the <em>Total Error</em> is simply the error from output neuron
+  <strong>o1</strong>.</p>
 <pre><code>Total Error = Erroro1</code></pre>
-<p>Let us begin with updating weights to the output layer.</p>
+<div class="image">
+  <img alt="image illustrating an equation for total error's value"
+       src="/images/{{ url }}/total-error.png"
+       width="250"/>
+</div>
+<p>Let us begin updating weights to the output layer.</p>
 <h4>Output Layer</h4>
-<p>First we calculate the partial differential of total error from the network
-  with respect to the output of output layers only neuron o1. As we discussed
-  earlier, the partial differential of total error with respect to output is:</p>
-<pre><code>pd(TotalError)/pd(output) = pd(Erroro1)/pd(output)
-pd(TotalError)/pd(output) = actual output - target output
-pd(TotalError)/pd(output) = 0.5664666852388589 - 1
-pd(TotalError)/pd(output) = -0.4335333147611411</code></pre>
-<p>Next we need a derivative of output with respect to the total net input to
-  o1. From what we earlier discussed:</p>
-<pre><code>d(Output)/d(TotalNetInput) = outputo1 * (1 - outputo1)
+<p>First we calculate the partial differential of <em>Total Error</em> from the
+  network with respect to the <em>Output</em> of output layers only neuron
+  <strong>o1</strong>. Hence, the partial differential of <em>Total Error</em>
+  with respect to <em>Output</em> of <strong>o1</strong> is:</p>
+<pre><code>pd(TotalError)/pd(Output) = pd(Erroro1)/pd(Outputo1)
+pd(TotalError)/pd(Output) = actualo1 - targeto1
+pd(TotalError)/pd(Output) = 0.5664666852388589 - 1
+pd(TotalError)/pd(Output) = -0.4335333147611411</code></pre>
+<div class="image">
+  <img alt="image illustrating an equation for partial differential of total error with respect to output of o1"
+       src="/images/{{ url }}/pd-total-error-wrt-output-o1.png"
+       width="400"/>
+</div>
+<p>Next we need a derivative of <em>Output</em> of <strong>o1</strong> with
+  respect to the <em>Total Net Input</em> to <strong>o1</strong>. From what we
+  earlier discussed:</p>
+<pre><code>d(Output)/d(TotalNetInput) = Outputo1 * (1 - Outputo1)
 d(Output)/d(TotalNetInput) = 0.5664666852388589 * (1 - 0.5664666852388589)
 d(Output)/d(TotalNetInput) = 0.24558217975335844</code></pre>
+<div class="image">
+  <img alt="image illustrating an equation for partial differential of o1's output with respect to total net input of o1"
+       src="/images/{{ url }}/pd-output-o1-wrt-total-net-input-o1.png"
+       width="700"/>
+</div>
 <p>Now from our understanding of chain rule:</p>
-<pre><code>pd(TotalError)/pd(TotalNetInput) = pd(Error)/pd(output) * d(Output)/d(TotalNetInput)
+<pre><code>pd(TotalError)/pd(TotalNetInput) = pd(TotalError)/pd(Output) * d(Output)/d(TotalNetInput)
 pd(TotalError)/pd(TotalNetInput) = -0.4335333147611411 * 0.24558217975335844
 pd(TotalError)/pd(TotalNetInput) = -0.10646805643473987</code></pre>
-<p>We now have the partial differential of total error with respect to the total
-  net input to the output neuron. To adjust the weights from the hidden layer to
-  the output layer we need to find partial differential of total error with
-  respect to each of those individual weights and update them proportional to
-  the learning rate.</p>
-<p>We next calculate the partial differential of total net input with respect to
-  each of the weights (viz w7, w8 and w9). As we know from earlier explanations,
-  partial differential of total net input with respect to the weight is simply
-  the input associated with that weight when calculating the total net input.
-  i.e.</p>
-<pre><code>pd(TotalNetInput)/pd(w7) = outputh1
+<div class="image">
+  <img alt="image illustrating an equation for partial differential of total error with respect to total net input of o1"
+       src="/images/{{ url }}/pd-total-error-wrt-total-net-input-o1.png"
+       width="700"/>
+</div>
+<p>We now have the partial differential of <em>Total Error</em> with respect to
+  the <em>Total Net Input</em> to the output neuron. To adjust the weights from
+  the hidden layer to the output layer we need to find partial differential of
+  <em>Total Error</em> with respect to each of those individual weights and
+  update them.</p>
+<p>Next we calculate the partial differential of <em>Total Net Input</em> with
+  respect to each of the weights (i.e. <strong>w7</strong>, <strong>w8</strong>
+  and <strong>w9</strong>). As we know from earlier explanations, partial
+  differential of <em>Total Net Input</em> with respect to the weight is simply
+  the input associated with that weight when calculating the
+  <em>Total Net Input</em>. Therefore,</p>
+<pre><code>pd(TotalNetInput)/pd(w7) = Outputh1
 pd(TotalNetInput)/pd(w7) = 0.8325766980765932</code></pre>
-<p>And according to the chain rule, we can express partial differential of total
-  error with respect to weight as:</p>
+<div class="image">
+  <img alt="image illustrating an equation for partial differential of total net input to o1 with respect w7"
+       src="/images/{{ url }}/pd-total-net-input-o1-wrt-w7.png"
+       width="450"/>
+</div>
+<p>And according to the chain rule, we can express partial differential of
+  <em>Total Error</em> with respect to weight as:</p>
 <pre><code>pd(TotalError)/pd(weight) = pd(TotalError)/pd(TotalNetInput) * pd(TotalNetInput)/pd(weight)</code></pre>
+<div class="image">
+  <img alt="image illustrating an equation for partial differential of total error with respect weight"
+       src="/images/{{ url }}/pd-total-error-wrt-weight.png"
+       width="550"/>
+</div>
 <p>Building on the above equation,</p>
 <pre><code>pd(TotalError)/pd(w7) = pd(TotalError)/pd(TotalNetInput) * pd(TotalNetInput)/pd(w7)
 pd(TotalError)/pd(w7) = -0.10646805643473987 * 0.8325766980765932
 pd(TotalError)/pd(w7) = -0.08864282287706811</code></pre>
-<p>Now that we know how much the total error of the network is affected by the
-  weight w7, we can use this to set a new value for w7:</p>
-<pre><code>new w7 = w7 - (learning rate * pd(TotalError)/pd(w7))
-new w7 = 0.065 - (0.8 * -0.08864282287706811)
-new w7 = 0.1359142583016545</code></pre>
-<p>Similarly,</p>
+<p>Now that we know how much the <em>Total Error</em> of the network is affected
+  by the weight <strong>w7</strong>, we can use this to set a new value for
+  <strong>w7</strong>:</p>
+<pre><code>w7' = w7 - (learning rate * pd(TotalError)/pd(w7))
+w7' = 0.065 - (0.8 * -0.08864282287706811)
+w7' = 0.1359142583016545</code></pre>
+<p>Similarly, partial differential of <em>Total Error</em> with respect to
+  <strong>w8</strong> is:</p>
 <pre><code>pd(TotalError)/pd(w8) = pd(TotalError)/pd(TotalNetInput) * pd(TotalNetInput)/pd(w8)
 pd(TotalError)/pd(w8) = -0.10646805643473987 * outputh2
 pd(TotalError)/pd(w8) = -0.10646805643473987 * 0.7521291114395702
 pd(TotalError)/pd(w8) = -0.08007772468295891</code></pre>
-<p>We can now update w8 as:</p>
-<pre><code>new w8 = w8 - (learning rate * pd(TotalError)/pd(w8))
-new w8 = 0.156 - (0.8 * -0.08007772468295891)
-new w8 = 0.22006217974636713</code></pre>
-<p>There is also a third weight from the hidden layer to the output layer, w9.
-  But unlike the above weights, this is not on a connection from a hidden layer
-  neuron but instead from a bias node. Fortunately, updating this weight is also
-  very much like updating the previous weights. First we try to find the partial
-  differential of total error with respect to this weight, which as per the
-  chain rule can be expressed as:</p>
-<pre><code>pd(TotalError)/pd(w9) = pd(TotalError)/pd(TotalNetInput) * pd(TotalNetInput)/pd(w9)</code></pre>
-<p>The partial differential of total error with respect to the total net input
-  remains the same. As we discussed earlier, the partial differential of total
-  net input with respect to a weight is simply the corresponding input
-  associated with that weight. Since, the output from a bias node is always 1.</p>
+<p>We can now update <strong>w8</strong> as:</p>
+<pre><code>w8' = w8 - (learning rate * pd(TotalError)/pd(w8))
+w8' = 0.156 - (0.8 * -0.08007772468295891)
+w8' = 0.22006217974636713</code></pre>
+<p>There is also a third weight from the hidden layer to the output layer,
+  <strong>w8</strong>. But unlike the above weights, this is not on a connection
+  from a hidden layer neuron but instead from a bias node. Fortunately, updating
+  this weight is also very much like updating the previous weights.</p>
+<p>As we discussed earlier, the partial differential of <em>Total Net Input</em>
+  with respect to a weight is simply the corresponding input associated with
+  that weight. Since, the output from a bias node is always
+  <span class="code">1</span>, the associated input in this case is also
+  <span class="code">1</span>. Hence, </p>
 <pre><code>pd(TotalNetInput)/pd(w9) = 1</code></pre>
+<p>Now we can calculate the partial differential of <em>Total Error</em> with
+  respect to this weight, which as per the chain rule can be expressed as:</p>
+<pre><code>pd(TotalError)/pd(w9) = pd(TotalError)/pd(TotalNetInput) * pd(TotalNetInput)/pd(w9)</code></pre>
+<p>The partial differential of <em>Total Error</em> with respect to the
+  <em>Total Net Input</em> remains the same. Therefore,</p>
 <pre><code>pd(TotalError)/pd(w9) = -0.10646805643473987 * 1
 pd(TotalError)/pd(w9) = -0.10646805643473987</code></pre>
-<p>Hence we can adjust the weight on the connection from the bias node as:</p>
-<pre><code>new w9 = w9 - (learning rate * pd(TotalError)/pd(w9))
-new w9 = 0.096 - (0.8 * -0.10646805643473987)
-new w9 = 0.1811744451477919</code></pre>
+<p>Hence we can adjust the weight <strong>w8</strong> on the connection from the
+  bias node as:</p>
+<pre><code>w9' = w9 - (learning rate * pd(TotalError)/pd(w9))
+w9' = 0.096 - (0.8 * -0.10646805643473987)
+w9' = 0.1811744451477919</code></pre>
 <p>Updating the weights from the hidden layer to the output layer with the new
   weights should bring the output closer to the target output thereby reducing
   the network's error.</p>
@@ -464,109 +639,128 @@ new w9 = 0.1811744451477919</code></pre>
   input layer to the hidden layer.</p>
 <h4>Hidden Layer</h4>
 <p>Like with the output layer, to update weights we calculate how much the
-  change in the weights affects the total error of the network. i.e. we
+  change in the weights affects the <em>Total Error</em> of the network. i.e. we
   calculate the partial differential of error with respect to each of the hidden
   layer weights.</p>
-<p>First we calculate the partial differential of total error with respect to a
-  hidden neuron's output which can be expressed with the following equation for
-  an output layer with n neurons.</p>
-<pre><code>pd(TotalError)/pd(output hidden neuron) = sigma i=0 to n(pd(Total Error)/pd(TotalNetInput output neuron) * pd(TotalNetInput output neuron)/pd(output hidden neuron))
+<p>First we calculate the partial differential of <em>Total Error</em> with
+  respect to a hidden neuron's output which can be expressed with the following
+  equation for an output layer with <span class="code">n</span> neurons.</p>
+<pre><code>pd(TotalError)/pd(output hidden neuron) = sigma i=0 to n (pd(Total Error)/pd(TotalNetInput output neuron) * pd(TotalNetInput output neuron)/pd(output hidden neuron))
 </code></pre>
-<p>Note that, since the output from a hidden neuron is fed into each of the
-  output layer neuron and the total error is a summation of errors from each of
-  the output neuron, the partial differential of total error with respect to
-  the output of a hidden neuron is a summation of chain rule calculations via
-  each of the output layer neuron.</p>
+<p>Note that since the output from a hidden neuron is fed into each of the
+  output layer neuron and the <em>Total Error</em> is a summation of errors from
+  each of the output neuron, the partial differential of <em>Total Error</em>
+  with respect to the output of a hidden neuron is a summation of chain rule
+  calculations via each of the output layer neuron.</p>
 <p>Now since our network has only a single output neuron, we can calculate the
-  partial differential of total error with respect to the output of h1 as:</p>
-<pre><code>pd(TotalError)/pd(output h1) = pd(Total Error)/pd(TotalNetInput o1) * pd(TotalNetInput o1)/pd(output h1)
+  partial differential of <em>Total Error</em> with respect to the output of
+  <strong>h1</strong> as:</p>
+<pre><code>pd(TotalError)/pd(Outputh1) = pd(Total Error)/pd(TotalNetInput o1) * pd(TotalNetInput o1)/pd(Outputh1)
 </code></pre>
-<p>We have already calculated partial differential of total error with respect
-  to the total net input to o1 in the previous section. The output from h1 is
-  one of the inputs to o1, and from our earlier discussions we know that partial
-  differential of total net input with respect to an input is the weight
-  corresponding to the input while calculating the input. Therefore,</p>
-<pre><code>pd(TotalError)/pd(output h1) = -0.10646805643473987 * w7
-pd(TotalError)/pd(output h1) = -0.10646805643473987 * 0.065
-pd(TotalError)/pd(output h1) = -0.006920423668258092
+<p>We have already calculated partial differential of <em>Total Error</em> with
+  respect to the <em>Total Net Input</em> to <strong>o1</strong> in the previous
+  section. The output from <strong>h1</strong> is one of the inputs to
+  <strong>o1</strong>, and from our earlier discussions we know that partial
+  differential of <em>Total Net Input</em> with respect to an input is the
+  weight corresponding to the input while calculating the input. Therefore,</p>
+<pre><code>pd(TotalError)/pd(Output h1) = -0.10646805643473987 * w7
+pd(TotalError)/pd(Output h1) = -0.10646805643473987 * 0.065
+pd(TotalError)/pd(Output h1) = -0.006920423668258092
 </code></pre>
-<p>Notice that we used the old value of w7 not the new one because we are
-  still calculating gradient for the error generated while the old weight was
-  being used.</p>
-<p>Moving forward in our chain, we next calculate the derivative of output from
-  h1 with respect to the total net input to h1. The output as we know in
-  is generated by squashing the input with the sigmoid function. Hence, the
-  derivative is a derivative of the sigmoid function which as we have discussed
-  earlier is:</p>
-<pre><code>pd(output h1)/pd(totalnetinput h1) = output h1  * (1 - output h1)
-pd(output h1)/pd(totalnetinput h1) = 0.13939273989647058</code></pre>
+<p>Notice that we used the old value of <strong>w7</strong> not the new one
+  because we are still calculating gradient for the error generated while the
+  old weight was being used.</p>
+<p>Moving on in our chain, we next calculate the derivative of output from
+  <strong>h1</strong> with respect to the <em>Total Net Input</em> to
+  <strong>h1</strong>. The output, as we already know, is generated by squashing
+  the input with the sigmoid function. Hence, the derivative is a derivative of
+  the sigmoid function which as we have discussed earlier is:</p>
+<pre><code>pd(Output h1)/pd(TotalNetInput h1) = Output h1  * (1 - Output h1)
+pd(Output h1)/pd(TotalNetInput h1) = 0.13939273989647058</code></pre>
 <p>Now that we have the necessary elements to calculate the partial differential
-  of total error with respect to the total net input to h1, we calculate it by
-  simplifying it using the chain rule:</p>
-<pre><code>pd(total error)/pd(totalnetinput h1) = pd(TotalError)/pd(output h1) * pd(output h1)/pd(totalnetinput h1)
-pd(total error)/pd(totalnetinput h1) = -0.006920423668258092 * 0.13939273989647058
-pd(total error)/pd(totalnetinput h1) = -0.000964656816362879</code></pre>
-<p>Now, the total net input to h1 is a function of inputs from i1, i2 and b1
-  with w1, w3 and w5 as the corresponding weights respectively. We will now
-  proceed to find new values for weights w1 and w3 from input nodes and w5 from
-  the bias node.</p>
-<p>As we know, the partial differential of total input input with respect to a
-  weight is simply the input value corresponding to the weight. Therefore,</p>
-<pre><code>pd(totalnetinput h1)/pd(w1) = i1
-pd(totalnetinput h1)/pd(w1) = 0</code></pre>
+  of <em>Total Error</em> with respect to the <em>Total Net Input</em> to
+  <strong>h1</strong>, we calculate it by first simplifying it using the chain
+  rule:</p>
+<pre><code>pd(Total Error)/pd(TotalNetInput h1) = pd(TotalError)/pd(Output h1) * pd(Output h1)/pd(TotalNetInput h1)
+pd(Total Error)/pd(TotalNetInput h1) = -0.006920423668258092 * 0.13939273989647058
+pd(Total Error)/pd(TotalNetInput h1) = -0.000964656816362879</code></pre>
+<p>The <em>Total Net Input</em> to <strong>h1</strong> is a function of inputs
+  from <strong>i1</strong>, <strong>i2</strong> and <strong>b1</strong> with
+  <strong>w1</strong>, <strong>w3</strong> and <strong>w5</strong> as the
+  corresponding weights respectively. We will now find new values for weights
+  <strong>w1</strong> and <strong>w3</strong> from input nodes and
+  <strong>w5</strong> from the bias node.</p>
+<p>As we know, the partial differential of <em>Total Net Input</em> with respect
+  to a weight is simply the input value corresponding to the weight. Therefore,</p>
+<pre><code>pd(TotalNetInput h1)/pd(w1) = i1
+pd(TotalNetInput h1)/pd(w1) = 0</code></pre>
 <p>Again applying the chain rule,</p>
-<pre><code>pd(TotalError)/pd(w1) = pd(total error)/pd(totalnetinput h1) * pd(totalnetinput h1)/pd(w1)
+<pre><code>pd(TotalError)/pd(w1) = pd(Total Error)/pd(TotalNetInput h1) * pd(TotalNetInput h1)/pd(w1)
 pd(TotalError)/pd(w1) = -0.000964656816362879 * 0
 pd(TotalError)/pd(w1) = 0</code></pre>
-<p>Now that we know how much the weight w1 affects the total error, we can
-  adjust it to minimize the total error. Since the affect of w1 on the total
-  error is zero the new weight should remain unchanged which is validated by
-  applying the below equation.</p>
-<pre><code>new w1 = w1 - (learning rate * pd(TotalError)/pd(w1))
-new w1 = 0.604 - (0.8 * 0)
-new w1 = 0.604</code></pre>
-<p>We can use similar approach to calculate how much the partial differential
-  of total net input to h1 with respect to w3,</p>
-<pre><code>pd(totalnetinput h1)/pd(w3) = i2
-pd(totalnetinput h1)/pd(w3) = 1</code></pre>
+<p>Now that we know how much the weight <strong>w1</strong> affects the
+  <em>Total Error</em>, we can adjust it to minimize the <em>Total Error</em>.
+  Since the affect of <strong>w1</strong> on the <em>Total Error</em> is zero
+  the new weight should remain unchanged. This can be validated by applying the
+  weight update equation.</p>
+<pre><code>w1' = w1 - (learning rate * pd(TotalError)/pd(w1))
+w1' = 0.604 - (0.8 * 0)
+w1' = 0.604</code></pre>
+<p>We can use a similar approach to calculate how much the partial differential
+  of <em>Total Net Input</em> to <strong>h1</strong> with respect to
+  <strong>w3</strong>,</p>
+<pre><code>pd(TotalNetInput h1)/pd(w3) = i2
+pd(TotalNetInput h1)/pd(w3) = 1</code></pre>
 <p>Hence,</p>
-<pre><code>pd(TotalError)/pd(w3) = pd(total error)/pd(totalnetinput h1) * pd(totalnetinput h1)/pd(w3)
+<pre><code>pd(TotalError)/pd(w3) = pd(Total Error)/pd(TotalNetInput h1) * pd(TotalNetInput h1)/pd(w3)
 pd(TotalError)/pd(w1) = -0.000964656816362879 * 1
 pd(TotalError)/pd(w1) = -0.000964656816362879</code></pre>
-<p>Now similar to w1 we can calculate new weight for w3 as:</p>
-<pre><code>new w3 = w3 - (learning rate * pd(TotalError)/pd(w3))
-new w3 = 0.94 - (0.8 * -0.000964656816362879)
-new w3 = 0.94 - (-0.0007717254530903032)
-new w3 = 0.9407717254530903</code></pre>
-<p>As with weights from the input nodes, we also need to update weight w5 from
-  the bias node b1. First we find out how much the weight w5 affects the total
-  net input to h1. Since the corresponding input for the w5 in equation for
-  calculating the total net input is 1,</p>
-<pre><code>pd(totalnetinput h1)/pd(w5) = 1</code></pre>
+<p>Now similar to <strong>w1</strong> we can calculate new weight for
+  <strong>w3</strong> as:</p>
+<pre><code>w3' = w3 - (learning rate * pd(TotalError)/pd(w3))
+w3' = 0.94 - (0.8 * -0.000964656816362879)
+w3' = 0.94 - (-0.0007717254530903032)
+w3' = 0.9407717254530903</code></pre>
+<p>As with weights from the input nodes, we also need to update weight
+  <strong>w5</strong> from the bias node <strong>b1</strong>. First we find out
+  how much the weight <strong>w5</strong> affects the <em>Total Net Input</em>
+  to <strong>h1</strong>. Since the corresponding input for the
+  <strong>w5</strong> in equation for calculating the <em>Total Net Input</em>
+  is <span class="code">1</span>,</p>
+<pre><code>pd(TotalNetInput h1)/pd(w5) = 1</code></pre>
 <p>Hence,</p>
 <pre><code>pd(TotalError)/pd(w5) = pd(total error)/pd(totalnetinput h1) * pd(totalnetinput h1)/pd(w5)
 pd(TotalError)/pd(w5) = -0.000964656816362879 * 1
 pd(TotalError)/pd(w5) = -0.000964656816362879</code></pre>
-<p>Calculating the new value for weight w5:</p>
-<pre><code>new w5 = w5 - (learning rate * pd(TotalError)/pd(w5))
-new w5 = 0.664 - (0.8 * -0.000964656816362879)
-new w5 = 0.664 - (-0.0007717254530903032)
-new w5 = 0.6647717254530904</code></pre>
+<p>Calculating the new value for weight <strong>w5</strong>:</p>
+<pre><code>w5' = w5 - (learning rate * pd(TotalError)/pd(w5))
+w5' = 0.664 - (0.8 * -0.000964656816362879)
+w5' = 0.664 - (-0.0007717254530903032)
+w5' = 0.6647717254530904</code></pre>
 <p>Using the above techniques to calculate new values for weights from input
-  layer to h2, we get the following values:</p>
-<pre><code>new w2 = 0.437
-new w4 = 0.4264771473090286
-new w6 = 0.6884771473090286</code></pre>
+  layer to <strong>h2</strong>, we get the following values:</p>
+<pre><code>w2' = 0.437
+w4' = 0.4264771473090286
+w6' = 0.6884771473090286</code></pre>
 <h3>Conclusion</h3>
 <p>If we again employ the feed forward technique to the neural network for the
-  same input but with the new weights, we get 0.6130333654357785 as output.
-  Which is slightly closer to the target output of 1 compared to the earlier
-  output 0.5664666852388589. This is essentially how a neural network training
-  works, over several iterations with randomly selected input data the network
-  gradually updates its weight to reduce the total error. The choice of
-  learning rate, number of hidden neurons, activation functions etc, dictate the
-  speed and accuracy of the network's training life cycle.</p>
+  same input but with the new weights, we get
+  <span class="code">0.6130333654357785</span> as output. Which is slightly
+  closer to the target output of 0.6130333654357785 compared to the earlier
+  output <span class="code">0.5664666852388589</span>. This is essentially how a
+  neural network training works, over several iterations with randomly selected
+  input data the network gradually updates its weight to reduce its total error.
+  The choice of learning rate, number of hidden neurons, activation functions
+  etc, dictate the speed and accuracy of the network's training life cycle.</p>
 <h2>Example</h2>
-<p>You can experiment with a basic GoLang back propagation implementation I have
-  on github: <a href="https://github.com/surenderthakran/back-propagation-demo" target="_blank">surenderthakran/back-propagation-demo</a>
+<p>You can experiment with a basic GoLang based back propagation implementation
+  I have on github:
+  <a href="https://github.com/surenderthakran/back-propagation-demo"
+     target="_blank">surenderthakran/back-propagation-demo</a>
   where I train a neural network to learn the AND gate.</p>
+<p>You can also checkout my attempt at writing a neural network training
+  library at
+  <a href="https://github.com/surenderthakran/gomind"
+     target="_blank">surenderthakran/gomind</a>
+  which I hope will have taken a respectable shape by the time I publish this
+  article.</p>
