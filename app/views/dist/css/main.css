@@ -594,8 +594,8 @@ article.article {
   article.article div.article-body {
     padding: 2em 0;
     width: 100%; }
-    article.article div.article-body h2, article.article div.article-body h3 {
-      margin: 0.5em 0;
+    article.article div.article-body h2, article.article div.article-body h3, article.article div.article-body h4 {
+      margin: 1em 0 0.3em 0;
       width: 100%; }
     article.article div.article-body p, article.article div.article-body ol, article.article div.article-body ul {
       margin: 0.5em 0;
