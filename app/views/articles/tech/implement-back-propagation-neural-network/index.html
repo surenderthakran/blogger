@@ -578,7 +578,7 @@ pd(TotalError)/pd(TotalNetInput) = -0.10646805643473987</code></pre>
 <pre><code>pd(TotalNetInput)/pd(w7) = Outputh1
 pd(TotalNetInput)/pd(w7) = 0.8325766980765932</code></pre>
 <div class="image">
-  <img alt="image illustrating an equation for partial differential of total net input to o1 with respect w7"
+  <img alt="image illustrating an equation for partial differential of total net input to o1 with respect to w7"
        src="/images/{{ url }}/pd-total-net-input-o1-wrt-w7.png"
        width="450"/>
 </div>
@@ -586,7 +586,7 @@ pd(TotalNetInput)/pd(w7) = 0.8325766980765932</code></pre>
   <em>Total Error</em> with respect to weight as:</p>
 <pre><code>pd(TotalError)/pd(weight) = pd(TotalError)/pd(TotalNetInput) * pd(TotalNetInput)/pd(weight)</code></pre>
 <div class="image">
-  <img alt="image illustrating an equation for partial differential of total error with respect weight"
+  <img alt="image illustrating an equation for partial differential of total error with respect to weight"
        src="/images/{{ url }}/pd-total-error-wrt-weight.png"
        width="550"/>
 </div>
@@ -594,22 +594,42 @@ pd(TotalNetInput)/pd(w7) = 0.8325766980765932</code></pre>
 <pre><code>pd(TotalError)/pd(w7) = pd(TotalError)/pd(TotalNetInput) * pd(TotalNetInput)/pd(w7)
 pd(TotalError)/pd(w7) = -0.10646805643473987 * 0.8325766980765932
 pd(TotalError)/pd(w7) = -0.08864282287706811</code></pre>
+<div class="image">
+  <img alt="image illustrating an equation for partial differential of total error with respect to w7"
+       src="/images/{{ url }}/pd-total-error-wrt-w7.png"
+       width="600"/>
+</div>
 <p>Now that we know how much the <em>Total Error</em> of the network is affected
   by the weight <strong>w7</strong>, we can use this to set a new value for
   <strong>w7</strong>:</p>
 <pre><code>w7' = w7 - (learning rate * pd(TotalError)/pd(w7))
 w7' = 0.065 - (0.8 * -0.08864282287706811)
 w7' = 0.1359142583016545</code></pre>
+<div class="image">
+  <img alt="image illustrating an equation for calculating new value for w7"
+       src="/images/{{ url }}/new-w7.png"
+       width="450"/>
+</div>
 <p>Similarly, partial differential of <em>Total Error</em> with respect to
   <strong>w8</strong> is:</p>
 <pre><code>pd(TotalError)/pd(w8) = pd(TotalError)/pd(TotalNetInput) * pd(TotalNetInput)/pd(w8)
 pd(TotalError)/pd(w8) = -0.10646805643473987 * outputh2
 pd(TotalError)/pd(w8) = -0.10646805643473987 * 0.7521291114395702
 pd(TotalError)/pd(w8) = -0.08007772468295891</code></pre>
+<div class="image">
+  <img alt="image illustrating an equation for partial differential of total error with respect to w8"
+       src="/images/{{ url }}/pd-total-error-wrt-w8.png"
+       width="600"/>
+</div>
 <p>We can now update <strong>w8</strong> as:</p>
 <pre><code>w8' = w8 - (learning rate * pd(TotalError)/pd(w8))
 w8' = 0.156 - (0.8 * -0.08007772468295891)
 w8' = 0.22006217974636713</code></pre>
+<div class="image">
+  <img alt="image illustrating an equation for calculating new value for w8"
+       src="/images/{{ url }}/new-w8.png"
+       width="450"/>
+</div>
 <p>There is also a third weight from the hidden layer to the output layer,
   <strong>w8</strong>. But unlike the above weights, this is not on a connection
   from a hidden layer neuron but instead from a bias node. Fortunately, updating
@@ -620,18 +640,31 @@ w8' = 0.22006217974636713</code></pre>
   <span class="code">1</span>, the associated input in this case is also
   <span class="code">1</span>. Hence, </p>
 <pre><code>pd(TotalNetInput)/pd(w9) = 1</code></pre>
+<div class="image">
+  <img alt="image illustrating an equation for partial differential of total net input to o1 with respect to w9"
+       src="/images/{{ url }}/pd-total-net-input-o1-wrt-w9.png"
+       width="250"/>
+</div>
 <p>Now we can calculate the partial differential of <em>Total Error</em> with
   respect to this weight, which as per the chain rule can be expressed as:</p>
-<pre><code>pd(TotalError)/pd(w9) = pd(TotalError)/pd(TotalNetInput) * pd(TotalNetInput)/pd(w9)</code></pre>
-<p>The partial differential of <em>Total Error</em> with respect to the
-  <em>Total Net Input</em> remains the same. Therefore,</p>
-<pre><code>pd(TotalError)/pd(w9) = -0.10646805643473987 * 1
+<pre><code>pd(TotalError)/pd(w9) = pd(TotalError)/pd(TotalNetInput) * pd(TotalNetInput)/pd(w9)
+pd(TotalError)/pd(w9) = -0.10646805643473987 * 1
 pd(TotalError)/pd(w9) = -0.10646805643473987</code></pre>
+<div class="image">
+  <img alt="image illustrating an equation for partial differential of total error with respect to w9"
+       src="/images/{{ url }}/pd-total-error-wrt-w9.png"
+       width="600"/>
+</div>
 <p>Hence we can adjust the weight <strong>w8</strong> on the connection from the
   bias node as:</p>
 <pre><code>w9' = w9 - (learning rate * pd(TotalError)/pd(w9))
 w9' = 0.096 - (0.8 * -0.10646805643473987)
 w9' = 0.1811744451477919</code></pre>
+<div class="image">
+  <img alt="image illustrating an equation for calculating new value for w9"
+       src="/images/{{ url }}/new-w9.png"
+       width="450"/>
+</div>
 <p>Updating the weights from the hidden layer to the output layer with the new
   weights should bring the output closer to the target output thereby reducing
   the network's error.</p>
@@ -647,6 +680,11 @@ w9' = 0.1811744451477919</code></pre>
   equation for an output layer with <span class="code">n</span> neurons.</p>
 <pre><code>pd(TotalError)/pd(output hidden neuron) = sigma i=0 to n (pd(Total Error)/pd(TotalNetInput output neuron) * pd(TotalNetInput output neuron)/pd(output hidden neuron))
 </code></pre>
+<div class="image">
+  <img alt="image illustrating an equation for partial differential of total error with respect to output of a hidden neuron"
+       src="/images/{{ url }}/pd-total-error-wrt-output-hidden.png"
+       width="650"/>
+</div>
 <p>Note that since the output from a hidden neuron is fed into each of the
   output layer neuron and the <em>Total Error</em> is a summation of errors from
   each of the output neuron, the partial differential of <em>Total Error</em>
@@ -657,6 +695,11 @@ w9' = 0.1811744451477919</code></pre>
   <strong>h1</strong> as:</p>
 <pre><code>pd(TotalError)/pd(Outputh1) = pd(Total Error)/pd(TotalNetInput o1) * pd(TotalNetInput o1)/pd(Outputh1)
 </code></pre>
+<div class="image">
+  <img alt="image illustrating an equation for partial differential of total error with respect to output of h1"
+       src="/images/{{ url }}/pd-total-error-wrt-output-h1-equation.png"
+       width="600"/>
+</div>
 <p>We have already calculated partial differential of <em>Total Error</em> with
   respect to the <em>Total Net Input</em> to <strong>o1</strong> in the previous
   section. The output from <strong>h1</strong> is one of the inputs to
@@ -667,6 +710,11 @@ w9' = 0.1811744451477919</code></pre>
 pd(TotalError)/pd(Output h1) = -0.10646805643473987 * 0.065
 pd(TotalError)/pd(Output h1) = -0.006920423668258092
 </code></pre>
+<div class="image">
+  <img alt="image illustrating an equation for partial differential of total error with respect to output of h1"
+       src="/images/{{ url }}/pd-total-error-wrt-output-h1.png"
+       width="500"/>
+</div>
 <p>Notice that we used the old value of <strong>w7</strong> not the new one
   because we are still calculating gradient for the error generated while the
   old weight was being used.</p>
@@ -677,6 +725,11 @@ pd(TotalError)/pd(Output h1) = -0.006920423668258092
   the sigmoid function which as we have discussed earlier is:</p>
 <pre><code>pd(Output h1)/pd(TotalNetInput h1) = Output h1  * (1 - Output h1)
 pd(Output h1)/pd(TotalNetInput h1) = 0.13939273989647058</code></pre>
+<div class="image">
+  <img alt="image illustrating an equation for partial differential of output of h1 with respect to total net input of h1"
+       src="/images/{{ url }}/pd-output-h1-wrt-total-net-input-h1.png"
+       width="500"/>
+</div>
 <p>Now that we have the necessary elements to calculate the partial differential
   of <em>Total Error</em> with respect to the <em>Total Net Input</em> to
   <strong>h1</strong>, we calculate it by first simplifying it using the chain
@@ -684,6 +737,11 @@ pd(Output h1)/pd(TotalNetInput h1) = 0.13939273989647058</code></pre>
 <pre><code>pd(Total Error)/pd(TotalNetInput h1) = pd(TotalError)/pd(Output h1) * pd(Output h1)/pd(TotalNetInput h1)
 pd(Total Error)/pd(TotalNetInput h1) = -0.006920423668258092 * 0.13939273989647058
 pd(Total Error)/pd(TotalNetInput h1) = -0.000964656816362879</code></pre>
+<div class="image">
+  <img alt="image illustrating an equation for partial differential of total error with respect to total net input of h1"
+       src="/images/{{ url }}/pd-total-error-wrt-total-net-input-h1.png"
+       width="650"/>
+</div>
 <p>The <em>Total Net Input</em> to <strong>h1</strong> is a function of inputs
   from <strong>i1</strong>, <strong>i2</strong> and <strong>b1</strong> with
   <strong>w1</strong>, <strong>w3</strong> and <strong>w5</strong> as the
@@ -694,10 +752,20 @@ pd(Total Error)/pd(TotalNetInput h1) = -0.000964656816362879</code></pre>
   to a weight is simply the input value corresponding to the weight. Therefore,</p>
 <pre><code>pd(TotalNetInput h1)/pd(w1) = i1
 pd(TotalNetInput h1)/pd(w1) = 0</code></pre>
+<div class="image">
+  <img alt="image illustrating an equation for partial differential of total net input of h1 with respect to w1"
+       src="/images/{{ url }}/pd-total-net-input-h1-wrt-w1.png"
+       width="300"/>
+</div>
 <p>Again applying the chain rule,</p>
 <pre><code>pd(TotalError)/pd(w1) = pd(Total Error)/pd(TotalNetInput h1) * pd(TotalNetInput h1)/pd(w1)
 pd(TotalError)/pd(w1) = -0.000964656816362879 * 0
 pd(TotalError)/pd(w1) = 0</code></pre>
+<div class="image">
+  <img alt="image illustrating an equation for partial differential of total error with respect to w1"
+       src="/images/{{ url }}/pd-total-error-wrt-w1.png"
+       width="550"/>
+</div>
 <p>Now that we know how much the weight <strong>w1</strong> affects the
   <em>Total Error</em>, we can adjust it to minimize the <em>Total Error</em>.
   Since the affect of <strong>w1</strong> on the <em>Total Error</em> is zero
@@ -706,21 +774,41 @@ pd(TotalError)/pd(w1) = 0</code></pre>
 <pre><code>w1' = w1 - (learning rate * pd(TotalError)/pd(w1))
 w1' = 0.604 - (0.8 * 0)
 w1' = 0.604</code></pre>
+<div class="image">
+  <img alt="image illustrating an equation for calculating new value for w1"
+       src="/images/{{ url }}/new-w1.png"
+       width="450"/>
+</div>
 <p>We can use a similar approach to calculate how much the partial differential
   of <em>Total Net Input</em> to <strong>h1</strong> with respect to
   <strong>w3</strong>,</p>
 <pre><code>pd(TotalNetInput h1)/pd(w3) = i2
 pd(TotalNetInput h1)/pd(w3) = 1</code></pre>
+<div class="image">
+  <img alt="image illustrating an equation for partial differential of total net input of h1 with respect to w3"
+       src="/images/{{ url }}/pd-total-net-input-h1-wrt-w3.png"
+       width="300"/>
+</div>
 <p>Hence,</p>
 <pre><code>pd(TotalError)/pd(w3) = pd(Total Error)/pd(TotalNetInput h1) * pd(TotalNetInput h1)/pd(w3)
-pd(TotalError)/pd(w1) = -0.000964656816362879 * 1
-pd(TotalError)/pd(w1) = -0.000964656816362879</code></pre>
+pd(TotalError)/pd(w3) = -0.000964656816362879 * 1
+pd(TotalError)/pd(w3) = -0.000964656816362879</code></pre>
+<div class="image">
+  <img alt="image illustrating an equation for partial differential of total error with respect to w3"
+       src="/images/{{ url }}/pd-total-error-wrt-w3.png"
+       width="550"/>
+</div>
 <p>Now similar to <strong>w1</strong> we can calculate new weight for
   <strong>w3</strong> as:</p>
 <pre><code>w3' = w3 - (learning rate * pd(TotalError)/pd(w3))
 w3' = 0.94 - (0.8 * -0.000964656816362879)
 w3' = 0.94 - (-0.0007717254530903032)
 w3' = 0.9407717254530903</code></pre>
+<div class="image">
+  <img alt="image illustrating an equation for calculating new value for w3"
+       src="/images/{{ url }}/new-w3.png"
+       width="450"/>
+</div>
 <p>As with weights from the input nodes, we also need to update weight
   <strong>w5</strong> from the bias node <strong>b1</strong>. First we find out
   how much the weight <strong>w5</strong> affects the <em>Total Net Input</em>
@@ -728,20 +816,40 @@ w3' = 0.9407717254530903</code></pre>
   <strong>w5</strong> in equation for calculating the <em>Total Net Input</em>
   is <span class="code">1</span>,</p>
 <pre><code>pd(TotalNetInput h1)/pd(w5) = 1</code></pre>
+<div class="image">
+  <img alt="image illustrating an equation for partial differential of total net input of h1 with respect to w5"
+       src="/images/{{ url }}/pd-total-net-input-h1-wrt-w5.png"
+       width="250"/>
+</div>
 <p>Hence,</p>
 <pre><code>pd(TotalError)/pd(w5) = pd(total error)/pd(totalnetinput h1) * pd(totalnetinput h1)/pd(w5)
 pd(TotalError)/pd(w5) = -0.000964656816362879 * 1
 pd(TotalError)/pd(w5) = -0.000964656816362879</code></pre>
+<div class="image">
+  <img alt="image illustrating an equation for partial differential of total error with respect to w5"
+       src="/images/{{ url }}/pd-total-error-wrt-w5.png"
+       width="550"/>
+</div>
 <p>Calculating the new value for weight <strong>w5</strong>:</p>
 <pre><code>w5' = w5 - (learning rate * pd(TotalError)/pd(w5))
 w5' = 0.664 - (0.8 * -0.000964656816362879)
 w5' = 0.664 - (-0.0007717254530903032)
 w5' = 0.6647717254530904</code></pre>
+<div class="image">
+  <img alt="image illustrating an equation for calculating new value for w5"
+       src="/images/{{ url }}/new-w5.png"
+       width="450"/>
+</div>
 <p>Using the above techniques to calculate new values for weights from input
   layer to <strong>h2</strong>, we get the following values:</p>
 <pre><code>w2' = 0.437
 w4' = 0.4264771473090286
 w6' = 0.6884771473090286</code></pre>
+<div class="image">
+  <img alt="image illustrating new values for w2, w4 and w6"
+       src="/images/{{ url }}/new-w2-w4-w6.png"
+       width="250"/>
+</div>
 <h3>Conclusion</h3>
 <p>If we again employ the feed forward technique to the neural network for the
   same input but with the new weights, we get
