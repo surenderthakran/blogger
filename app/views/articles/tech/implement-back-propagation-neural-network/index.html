@@ -279,13 +279,13 @@
 </div>
 <p>Let's look into solving each of the individual differentials to get the
   initial desired differential.</p>
-<p>The <em>TotalError</em> of a network is the sum of errors in all its output
+<p>The <em>Total Error</em> of a network is the sum of errors in all its output
   neurons. Since we are calculating the partial differential with respect to
   only one neuron's error, errors from other neurons are treated as constants
   since they are not a function of the selected neuron's error, hence they don't
   effect the partial differential. So essentially we are calculating the partial
   differential of an entity against itself, hence the partial differential of
-  <em>TotalError</em> with respect to one neuron's error is
+  <em>Total Error</em> with respect to one neuron's error is
   <span class="code">1</span>.</p>
 <div class="image">
   <img alt="image illustrating an equation for partial differential of total error with respect to error"
@@ -440,7 +440,7 @@
 <p>As described earlier, the <em>Total Net Input</em> to a neuron is a weighted
   summation of all of its inputs and its bias. Hence, the
   <em>Total Net Input</em> to <strong>h1</strong> is:</p>
-<pre><code>TotalNetInput to h1 = w1 * i1 + w3 * i2 + w5 * b1
+<pre style="display: none;"><code>TotalNetInput to h1 = w1 * i1 + w3 * i2 + w5 * b1
 TotalNetInput to h1 = 0.604 * 0 + 0.940 * 1 + 0.664 * 1
 TotalNetInput to h1 = 1.604</code></pre>
 <div class="image">
@@ -450,7 +450,7 @@ TotalNetInput to h1 = 1.604</code></pre>
 </div>
 <p>Now that we have the <em>Total Net Input</em> to <strong>h1</strong> we can
   calculate the <em>Output</em> from <strong>h1</strong> using the sigmoid function:</p>
-<pre><code>Output from h1 = 1/ (1 + e^(-TotalNetInput to h1))
+<pre style="display: none;"><code>Output from h1 = 1/ (1 + e^(-TotalNetInput to h1))
 Output from h1 = 1/ (1 + e^(-1.604))
 Output from h1 = 0.8325766980765932</code></pre>
 <div class="image">
@@ -460,7 +460,7 @@ Output from h1 = 0.8325766980765932</code></pre>
 </div>
 <p>Similarly, the <em>Total Net Input</em> to the second hidden layer neuron,
   <strong>h2</strong> will be:</p>
-<pre><code>TotalNetInput to h2 = w2 * i1 + w4 * i2 + w6 * b1
+<pre style="display: none;"><code>TotalNetInput to h2 = w2 * i1 + w4 * i2 + w6 * b1
 TotalNetInput to h2 = 0.437 * 0 + 0.424 * 1 + 0.686 * 1
 TotalNetInput to h2 = 1.11</code></pre>
 <div class="image">
@@ -469,7 +469,7 @@ TotalNetInput to h2 = 1.11</code></pre>
        width="500"/>
 </div>
 <p>And the <em>Output</em> from <strong>h2</strong> is:</p>
-<pre><code>Output from h2 = 1/ (1 + e^(-TotalNetInput to h2))
+<pre style="display: none;"><code>Output from h2 = 1/ (1 + e^(-TotalNetInput to h2))
 Output from h2 = 1/ (1 + e^(-1.11))
 Output from h2 = 0.7521291114395702</code></pre>
 <div class="image">
@@ -483,7 +483,7 @@ Output from h2 = 0.7521291114395702</code></pre>
 <h4>Output Layer</h4>
 <p>We begin by calculating the <em>Total Net Input</em> to the output
   layer's neuron, <strong>o1</strong>.</p>
-<pre><code>TotalNetInput to o1 = w7 * Outputh1 + w8 * Outputh2 + w9 * b2
+<pre style="display: none;"><code>TotalNetInput to o1 = w7 * Outputh1 + w8 * Outputh2 + w9 * b2
 TotalNetInput to o1 = 0.065 * 0.8325766980765932 + 0.156 * 0.7521291114395702 + 0.096 * 1
 TotalNetInput to o1 = 0.26744962675955153</code></pre>
 <div class="image">
@@ -492,7 +492,7 @@ TotalNetInput to o1 = 0.26744962675955153</code></pre>
        width="850"/>
 </div>
 <p>The <em>Output</em> from <strong>o1</strong> would be:</p>
-<pre><code>Output from o1 = 1/ (1 + e^(-TotalNetInput to o1))
+<pre style="display: none;"><code>Output from o1 = 1/ (1 + e^(-TotalNetInput to o1))
 Output from o1 = 1/ (1 + e^(-0.26744962675955153))
 Output from o1 = 0.5664666852388589</code></pre>
 <div class="image">
@@ -523,7 +523,7 @@ Output from o1 = 0.5664666852388589</code></pre>
   errors from all the output neurons. Since we have only one output neuron in
   our network, the <em>Total Error</em> is simply the error from output neuron
   <strong>o1</strong>.</p>
-<pre><code>Total Error = Erroro1</code></pre>
+<pre style="display: none;"><code>Total Error = Erroro1</code></pre>
 <div class="image">
   <img alt="image illustrating an equation for total error's value"
        src="/images/{{ url }}/total-error.png"
@@ -535,7 +535,7 @@ Output from o1 = 0.5664666852388589</code></pre>
   network with respect to the <em>Output</em> of output layers only neuron
   <strong>o1</strong>. Hence, the partial differential of <em>Total Error</em>
   with respect to <em>Output</em> of <strong>o1</strong> is:</p>
-<pre><code>pd(TotalError)/pd(Output) = pd(Erroro1)/pd(Outputo1)
+<pre style="display: none;"><code>pd(TotalError)/pd(Output) = pd(Erroro1)/pd(Outputo1)
 pd(TotalError)/pd(Output) = actualo1 - targeto1
 pd(TotalError)/pd(Output) = 0.5664666852388589 - 1
 pd(TotalError)/pd(Output) = -0.4335333147611411</code></pre>
@@ -547,7 +547,7 @@ pd(TotalError)/pd(Output) = -0.4335333147611411</code></pre>
 <p>Next we need a derivative of <em>Output</em> of <strong>o1</strong> with
   respect to the <em>Total Net Input</em> to <strong>o1</strong>. From what we
   earlier discussed:</p>
-<pre><code>d(Output)/d(TotalNetInput) = Outputo1 * (1 - Outputo1)
+<pre style="display: none;"><code>d(Output)/d(TotalNetInput) = Outputo1 * (1 - Outputo1)
 d(Output)/d(TotalNetInput) = 0.5664666852388589 * (1 - 0.5664666852388589)
 d(Output)/d(TotalNetInput) = 0.24558217975335844</code></pre>
 <div class="image">
@@ -556,7 +556,7 @@ d(Output)/d(TotalNetInput) = 0.24558217975335844</code></pre>
        width="700"/>
 </div>
 <p>Now from our understanding of chain rule:</p>
-<pre><code>pd(TotalError)/pd(TotalNetInput) = pd(TotalError)/pd(Output) * d(Output)/d(TotalNetInput)
+<pre style="display: none;"><code>pd(TotalError)/pd(TotalNetInput) = pd(TotalError)/pd(Output) * d(Output)/d(TotalNetInput)
 pd(TotalError)/pd(TotalNetInput) = -0.4335333147611411 * 0.24558217975335844
 pd(TotalError)/pd(TotalNetInput) = -0.10646805643473987</code></pre>
 <div class="image">
@@ -575,7 +575,7 @@ pd(TotalError)/pd(TotalNetInput) = -0.10646805643473987</code></pre>
   differential of <em>Total Net Input</em> with respect to the weight is simply
   the input associated with that weight when calculating the
   <em>Total Net Input</em>. Therefore,</p>
-<pre><code>pd(TotalNetInput)/pd(w7) = Outputh1
+<pre style="display: none;"><code>pd(TotalNetInput)/pd(w7) = Outputh1
 pd(TotalNetInput)/pd(w7) = 0.8325766980765932</code></pre>
 <div class="image">
   <img alt="image illustrating an equation for partial differential of total net input to o1 with respect to w7"
@@ -584,14 +584,14 @@ pd(TotalNetInput)/pd(w7) = 0.8325766980765932</code></pre>
 </div>
 <p>And according to the chain rule, we can express partial differential of
   <em>Total Error</em> with respect to weight as:</p>
-<pre><code>pd(TotalError)/pd(weight) = pd(TotalError)/pd(TotalNetInput) * pd(TotalNetInput)/pd(weight)</code></pre>
+<pre style="display: none;"><code>pd(TotalError)/pd(weight) = pd(TotalError)/pd(TotalNetInput) * pd(TotalNetInput)/pd(weight)</code></pre>
 <div class="image">
   <img alt="image illustrating an equation for partial differential of total error with respect to weight"
        src="/images/{{ url }}/pd-total-error-wrt-weight.png"
        width="550"/>
 </div>
 <p>Building on the above equation,</p>
-<pre><code>pd(TotalError)/pd(w7) = pd(TotalError)/pd(TotalNetInput) * pd(TotalNetInput)/pd(w7)
+<pre style="display: none;"><code>pd(TotalError)/pd(w7) = pd(TotalError)/pd(TotalNetInput) * pd(TotalNetInput)/pd(w7)
 pd(TotalError)/pd(w7) = -0.10646805643473987 * 0.8325766980765932
 pd(TotalError)/pd(w7) = -0.08864282287706811</code></pre>
 <div class="image">
@@ -602,7 +602,7 @@ pd(TotalError)/pd(w7) = -0.08864282287706811</code></pre>
 <p>Now that we know how much the <em>Total Error</em> of the network is affected
   by the weight <strong>w7</strong>, we can use this to set a new value for
   <strong>w7</strong>:</p>
-<pre><code>w7' = w7 - (learning rate * pd(TotalError)/pd(w7))
+<pre style="display: none;"><code>w7' = w7 - (learning rate * pd(TotalError)/pd(w7))
 w7' = 0.065 - (0.8 * -0.08864282287706811)
 w7' = 0.1359142583016545</code></pre>
 <div class="image">
@@ -612,7 +612,7 @@ w7' = 0.1359142583016545</code></pre>
 </div>
 <p>Similarly, partial differential of <em>Total Error</em> with respect to
   <strong>w8</strong> is:</p>
-<pre><code>pd(TotalError)/pd(w8) = pd(TotalError)/pd(TotalNetInput) * pd(TotalNetInput)/pd(w8)
+<pre style="display: none;"><code>pd(TotalError)/pd(w8) = pd(TotalError)/pd(TotalNetInput) * pd(TotalNetInput)/pd(w8)
 pd(TotalError)/pd(w8) = -0.10646805643473987 * outputh2
 pd(TotalError)/pd(w8) = -0.10646805643473987 * 0.7521291114395702
 pd(TotalError)/pd(w8) = -0.08007772468295891</code></pre>
@@ -622,7 +622,7 @@ pd(TotalError)/pd(w8) = -0.08007772468295891</code></pre>
        width="600"/>
 </div>
 <p>We can now update <strong>w8</strong> as:</p>
-<pre><code>w8' = w8 - (learning rate * pd(TotalError)/pd(w8))
+<pre style="display: none;"><code>w8' = w8 - (learning rate * pd(TotalError)/pd(w8))
 w8' = 0.156 - (0.8 * -0.08007772468295891)
 w8' = 0.22006217974636713</code></pre>
 <div class="image">
@@ -639,7 +639,7 @@ w8' = 0.22006217974636713</code></pre>
   that weight. Since, the output from a bias node is always
   <span class="code">1</span>, the associated input in this case is also
   <span class="code">1</span>. Hence, </p>
-<pre><code>pd(TotalNetInput)/pd(w9) = 1</code></pre>
+<pre style="display: none;"><code>pd(TotalNetInput)/pd(w9) = 1</code></pre>
 <div class="image">
   <img alt="image illustrating an equation for partial differential of total net input to o1 with respect to w9"
        src="/images/{{ url }}/pd-total-net-input-o1-wrt-w9.png"
@@ -647,7 +647,7 @@ w8' = 0.22006217974636713</code></pre>
 </div>
 <p>Now we can calculate the partial differential of <em>Total Error</em> with
   respect to this weight, which as per the chain rule can be expressed as:</p>
-<pre><code>pd(TotalError)/pd(w9) = pd(TotalError)/pd(TotalNetInput) * pd(TotalNetInput)/pd(w9)
+<pre style="display: none;"><code>pd(TotalError)/pd(w9) = pd(TotalError)/pd(TotalNetInput) * pd(TotalNetInput)/pd(w9)
 pd(TotalError)/pd(w9) = -0.10646805643473987 * 1
 pd(TotalError)/pd(w9) = -0.10646805643473987</code></pre>
 <div class="image">
@@ -657,7 +657,7 @@ pd(TotalError)/pd(w9) = -0.10646805643473987</code></pre>
 </div>
 <p>Hence we can adjust the weight <strong>w8</strong> on the connection from the
   bias node as:</p>
-<pre><code>w9' = w9 - (learning rate * pd(TotalError)/pd(w9))
+<pre style="display: none;"><code>w9' = w9 - (learning rate * pd(TotalError)/pd(w9))
 w9' = 0.096 - (0.8 * -0.10646805643473987)
 w9' = 0.1811744451477919</code></pre>
 <div class="image">
@@ -678,7 +678,7 @@ w9' = 0.1811744451477919</code></pre>
 <p>First we calculate the partial differential of <em>Total Error</em> with
   respect to a hidden neuron's output which can be expressed with the following
   equation for an output layer with <span class="code">n</span> neurons.</p>
-<pre><code>pd(TotalError)/pd(output hidden neuron) = sigma i=0 to n (pd(Total Error)/pd(TotalNetInput output neuron) * pd(TotalNetInput output neuron)/pd(output hidden neuron))
+<pre style="display: none;"><code>pd(TotalError)/pd(output hidden neuron) = sigma i=0 to n (pd(Total Error)/pd(TotalNetInput output neuron) * pd(TotalNetInput output neuron)/pd(output hidden neuron))
 </code></pre>
 <div class="image">
   <img alt="image illustrating an equation for partial differential of total error with respect to output of a hidden neuron"
@@ -694,7 +694,7 @@ w9' = 0.1811744451477919</code></pre>
 <p>Now since our network has only a single output neuron, we can calculate the
   partial differential of <em>Total Error</em> with respect to the output of
   <strong>h1</strong> as:</p>
-<pre><code>pd(TotalError)/pd(Outputh1) = pd(Total Error)/pd(TotalNetInput o1) * pd(TotalNetInput o1)/pd(Outputh1)
+<pre style="display: none;"><code>pd(TotalError)/pd(Outputh1) = pd(Total Error)/pd(TotalNetInput o1) * pd(TotalNetInput o1)/pd(Outputh1)
 </code></pre>
 <div class="image">
   <img alt="image illustrating an equation for partial differential of total error with respect to output of h1"
@@ -707,7 +707,7 @@ w9' = 0.1811744451477919</code></pre>
   <strong>o1</strong>, and from our earlier discussions we know that partial
   differential of <em>Total Net Input</em> with respect to an input is the
   weight corresponding to the input while calculating the input. Therefore,</p>
-<pre><code>pd(TotalError)/pd(Output h1) = -0.10646805643473987 * w7
+<pre style="display: none;"><code>pd(TotalError)/pd(Output h1) = -0.10646805643473987 * w7
 pd(TotalError)/pd(Output h1) = -0.10646805643473987 * 0.065
 pd(TotalError)/pd(Output h1) = -0.006920423668258092
 </code></pre>
@@ -724,7 +724,7 @@ pd(TotalError)/pd(Output h1) = -0.006920423668258092
   <strong>h1</strong>. The output, as we already know, is generated by squashing
   the input with the sigmoid function. Hence, the derivative is a derivative of
   the sigmoid function which as we have discussed earlier is:</p>
-<pre><code>pd(Output h1)/pd(TotalNetInput h1) = Output h1  * (1 - Output h1)
+<pre style="display: none;"><code>pd(Output h1)/pd(TotalNetInput h1) = Output h1  * (1 - Output h1)
 pd(Output h1)/pd(TotalNetInput h1) = 0.13939273989647058</code></pre>
 <div class="image">
   <img alt="image illustrating an equation for partial differential of output of h1 with respect to total net input of h1"
@@ -735,7 +735,7 @@ pd(Output h1)/pd(TotalNetInput h1) = 0.13939273989647058</code></pre>
   of <em>Total Error</em> with respect to the <em>Total Net Input</em> to
   <strong>h1</strong>, we calculate it by first simplifying it using the chain
   rule:</p>
-<pre><code>pd(Total Error)/pd(TotalNetInput h1) = pd(TotalError)/pd(Output h1) * pd(Output h1)/pd(TotalNetInput h1)
+<pre style="display: none;"><code>pd(Total Error)/pd(TotalNetInput h1) = pd(TotalError)/pd(Output h1) * pd(Output h1)/pd(TotalNetInput h1)
 pd(Total Error)/pd(TotalNetInput h1) = -0.006920423668258092 * 0.13939273989647058
 pd(Total Error)/pd(TotalNetInput h1) = -0.000964656816362879</code></pre>
 <div class="image">
@@ -751,7 +751,7 @@ pd(Total Error)/pd(TotalNetInput h1) = -0.000964656816362879</code></pre>
   <strong>w5</strong> from the bias node.</p>
 <p>As we know, the partial differential of <em>Total Net Input</em> with respect
   to a weight is simply the input value corresponding to the weight. Therefore,</p>
-<pre><code>pd(TotalNetInput h1)/pd(w1) = i1
+<pre style="display: none;"><code>pd(TotalNetInput h1)/pd(w1) = i1
 pd(TotalNetInput h1)/pd(w1) = 0</code></pre>
 <div class="image">
   <img alt="image illustrating an equation for partial differential of total net input of h1 with respect to w1"
@@ -759,7 +759,7 @@ pd(TotalNetInput h1)/pd(w1) = 0</code></pre>
        width="300"/>
 </div>
 <p>Again applying the chain rule,</p>
-<pre><code>pd(TotalError)/pd(w1) = pd(Total Error)/pd(TotalNetInput h1) * pd(TotalNetInput h1)/pd(w1)
+<pre style="display: none;"><code>pd(TotalError)/pd(w1) = pd(Total Error)/pd(TotalNetInput h1) * pd(TotalNetInput h1)/pd(w1)
 pd(TotalError)/pd(w1) = -0.000964656816362879 * 0
 pd(TotalError)/pd(w1) = 0</code></pre>
 <div class="image">
@@ -772,7 +772,7 @@ pd(TotalError)/pd(w1) = 0</code></pre>
   Since the affect of <strong>w1</strong> on the <em>Total Error</em> is zero
   the new weight should remain unchanged. This can be validated by applying the
   weight update equation.</p>
-<pre><code>w1' = w1 - (learning rate * pd(TotalError)/pd(w1))
+<pre style="display: none;"><code>w1' = w1 - (learning rate * pd(TotalError)/pd(w1))
 w1' = 0.604 - (0.8 * 0)
 w1' = 0.604</code></pre>
 <div class="image">
@@ -783,7 +783,7 @@ w1' = 0.604</code></pre>
 <p>We can use a similar approach to calculate how much the partial differential
   of <em>Total Net Input</em> to <strong>h1</strong> with respect to
   <strong>w3</strong>,</p>
-<pre><code>pd(TotalNetInput h1)/pd(w3) = i2
+<pre style="display: none;"><code>pd(TotalNetInput h1)/pd(w3) = i2
 pd(TotalNetInput h1)/pd(w3) = 1</code></pre>
 <div class="image">
   <img alt="image illustrating an equation for partial differential of total net input of h1 with respect to w3"
@@ -791,7 +791,7 @@ pd(TotalNetInput h1)/pd(w3) = 1</code></pre>
        width="300"/>
 </div>
 <p>Hence,</p>
-<pre><code>pd(TotalError)/pd(w3) = pd(Total Error)/pd(TotalNetInput h1) * pd(TotalNetInput h1)/pd(w3)
+<pre style="display: none;"><code>pd(TotalError)/pd(w3) = pd(Total Error)/pd(TotalNetInput h1) * pd(TotalNetInput h1)/pd(w3)
 pd(TotalError)/pd(w3) = -0.000964656816362879 * 1
 pd(TotalError)/pd(w3) = -0.000964656816362879</code></pre>
 <div class="image">
@@ -801,7 +801,7 @@ pd(TotalError)/pd(w3) = -0.000964656816362879</code></pre>
 </div>
 <p>Now similar to <strong>w1</strong> we can calculate new weight for
   <strong>w3</strong> as:</p>
-<pre><code>w3' = w3 - (learning rate * pd(TotalError)/pd(w3))
+<pre style="display: none;"><code>w3' = w3 - (learning rate * pd(TotalError)/pd(w3))
 w3' = 0.94 - (0.8 * -0.000964656816362879)
 w3' = 0.94 - (-0.0007717254530903032)
 w3' = 0.9407717254530903</code></pre>
@@ -816,40 +816,40 @@ w3' = 0.9407717254530903</code></pre>
   to <strong>h1</strong>. Since the corresponding input for the
   <strong>w5</strong> in equation for calculating the <em>Total Net Input</em>
   is <span class="code">1</span>,</p>
-<pre><code>pd(TotalNetInput h1)/pd(w5) = 1</code></pre>
+<pre style="display: none;"><code>pd(TotalNetInput h1)/pd(w5) = 1</code></pre>
 <div class="image">
   <img alt="image illustrating an equation for partial differential of total net input of h1 with respect to w5"
        src="/images/{{ url }}/pd-total-net-input-h1-wrt-w5.png"
        width="250"/>
 </div>
 <p>Hence,</p>
-<pre><code>pd(TotalError)/pd(w5) = pd(total error)/pd(totalnetinput h1) * pd(totalnetinput h1)/pd(w5)
+<pre style="display: none;"><code>pd(TotalError)/pd(w5) = pd(total error)/pd(totalnetinput h1) * pd(totalnetinput h1)/pd(w5)
 pd(TotalError)/pd(w5) = -0.000964656816362879 * 1
 pd(TotalError)/pd(w5) = -0.000964656816362879</code></pre>
 <div class="image">
   <img alt="image illustrating an equation for partial differential of total error with respect to w5"
        src="/images/{{ url }}/pd-total-error-wrt-w5.png"
-       width="550"/>
+       width="580"/>
 </div>
 <p>Calculating the new value for weight <strong>w5</strong>:</p>
-<pre><code>w5' = w5 - (learning rate * pd(TotalError)/pd(w5))
+<pre style="display: none;"><code>w5' = w5 - (learning rate * pd(TotalError)/pd(w5))
 w5' = 0.664 - (0.8 * -0.000964656816362879)
 w5' = 0.664 - (-0.0007717254530903032)
 w5' = 0.6647717254530904</code></pre>
 <div class="image">
   <img alt="image illustrating an equation for calculating new value for w5"
        src="/images/{{ url }}/new-w5.png"
-       width="450"/>
+       width="470"/>
 </div>
 <p>Using the above techniques to calculate new values for weights from input
   layer to <strong>h2</strong>, we get the following values:</p>
-<pre><code>w2' = 0.437
+<pre style="display: none;"><code>w2' = 0.437
 w4' = 0.4264771473090286
 w6' = 0.6884771473090286</code></pre>
 <div class="image">
   <img alt="image illustrating new values for w2, w4 and w6"
        src="/images/{{ url }}/new-w2-w4-w6.png"
-       width="250"/>
+       width="270"/>
 </div>
 <h3>Conclusion</h3>
 <p>If we again employ the <em>feed forward</em> technique to the neural network
@@ -864,7 +864,7 @@ w6' = 0.6884771473090286</code></pre>
   training life cycle.</p>
 <h2>Example</h2>
 <p>You can experiment with a basic GoLang based back propagation implementation
-  I have on github at:
+  I have on GitHub at:
   <a href="https://github.com/surenderthakran/back-propagation-demo"
      target="_blank">surenderthakran/back-propagation-demo</a>
   where I train a neural network to learn the AND gate.</p>
