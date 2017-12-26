@@ -689,7 +689,8 @@ w9' = 0.1811744451477919</code></pre>
   output layer neuron and the <em>Total Error</em> is a summation of errors from
   each of the output neuron, the partial differential of <em>Total Error</em>
   with respect to the output of a hidden neuron is a summation of chain rule
-  calculations via each of the output layer neuron.</p>
+  calculations via <em>Total Net Input</em> of each of the output layer neuron.
+</p>
 <p>Now since our network has only a single output neuron, we can calculate the
   partial differential of <em>Total Error</em> with respect to the output of
   <strong>h1</strong> as:</p>
@@ -851,24 +852,23 @@ w6' = 0.6884771473090286</code></pre>
        width="250"/>
 </div>
 <h3>Conclusion</h3>
-<p>If we again employ the feed forward technique to the neural network for the
-  same input but with the new weights, we get
+<p>If we again employ the <em>feed forward</em> technique to the neural network
+  for the same input but with the new weights, we get
   <span class="code">0.6130333654357785</span> as output. Which is slightly
-  closer to the target output of 0.6130333654357785 compared to the earlier
-  output <span class="code">0.5664666852388589</span>. This is essentially how a
-  neural network training works, over several iterations with randomly selected
-  input data the network gradually updates its weight to reduce its total error.
-  The choice of learning rate, number of hidden neurons, activation functions
-  etc, dictate the speed and accuracy of the network's training life cycle.</p>
+  closer to the target output of <span class="code">1</span> compared to the
+  earlier output <span class="code">0.5664666852388589</span>. This is
+  essentially how a neural network training works, over several iterations with
+  randomly selected input data the network gradually updates its weight to
+  reduce its total error. The choice of learning rate, number of hidden neurons,
+  activation functions etc, dictate the speed and accuracy of the network's
+  training life cycle.</p>
 <h2>Example</h2>
 <p>You can experiment with a basic GoLang based back propagation implementation
-  I have on github:
+  I have on github at:
   <a href="https://github.com/surenderthakran/back-propagation-demo"
      target="_blank">surenderthakran/back-propagation-demo</a>
   where I train a neural network to learn the AND gate.</p>
-<p>You can also checkout my attempt at writing a neural network training
-  library at
+<p>You can also checkout my attempt at writing a neural network library at
   <a href="https://github.com/surenderthakran/gomind"
      target="_blank">surenderthakran/gomind</a>
-  which I hope will have taken a respectable shape by the time I publish this
-  article.</p>
+  which I hope will take a respectable shape in the coming weeks.</p>
