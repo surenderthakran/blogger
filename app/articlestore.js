@@ -7,7 +7,7 @@ module.exports = [
     head: {
       title: 'Implement A Simple Back Propagation Neural Network | Surender Thakran',
       description: 'Implement A Simple Back Propagation Neural Network',
-      keywords: 'neural-network,back-propagation,deep-learning',
+      keywords: 'neural-network,back-propagation,deep-learning,math,mathematics,sigmoid,differentiation,go,golang',
     },
     article: {
       title: 'Implement A Simple Back Propagation Neural Network',
