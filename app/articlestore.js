@@ -5,14 +5,14 @@ module.exports = [
     articleId: 'implement-back-propagation-neural-network',
     url: 'articles/tech/implement-back-propagation-neural-network',
     head: {
-      title: 'Implement A Simple Back Propagation Neural Network | Surender Thakran',
-      description: 'Implement A Simple Back Propagation Neural Network',
+      title: 'Implementing Back Propagation Algorithm In A Neural Network | Surender Thakran',
+      description: 'Implementing Back Propagation Algorithm In A Neural Network',
       keywords: 'neural-network,back-propagation,deep-learning,math,mathematics,sigmoid,differentiation,go,golang',
     },
     article: {
-      title: 'Implement A Simple Back Propagation Neural Network',
-      datetime: '2017-10-31',
-      date: '31st October 2017',
+      title: 'Implementing Back Propagation Algorithm In A Neural Network',
+      datetime: '2017-12-26',
+      date: '26th December 2017',
     },
   },
   {
