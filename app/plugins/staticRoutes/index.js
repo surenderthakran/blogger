@@ -18,7 +18,7 @@ exports.register = function (server, options, next) {
           };
         },
         registerPartial: function (name, src) {
-          console.log('inside registerPartial()');
+          console.log('Registering partial: ' + name);
           partials[name] = src;
         },
       },
@@ -65,6 +65,21 @@ exports.register = function (server, options, next) {
         index: ['index.html'],
       },
     },
+  });
+
+  server.ext('onPostHandler', function (request, reply) {
+    let response = request.response;
+    if (response.output && response.output.statusCode &&
+        response.output.statusCode === 404) {
+      return reply.view('404', {
+        head: {
+          title: 'Page Not Found | Surender Thakran',
+          description: 'The requested page does not exists',
+          keywords: '404',
+        },
+      });
+    }
+    return reply.continue();
   });
 
   next();
