@@ -42,16 +42,7 @@ exports.register = function (server, options, next) {
     });
   } });
 
-  server.route({ method: 'GET', path: '/about', handler: function (request, reply) {
-    console.log(request.method.toUpperCase() + ' ' + request.path);
-    reply.view('about', {
-      head: {
-        title: 'About | Surender Thakran',
-        description: 'Page describing Surender Thakran, his career path and future goals.',
-        keywords: 'web architect,enterprise architect,startup,devops,backend developer,frontend developer,technology',
-      },
-    });
-  } });
+  server.route({ method: 'GET', path: '/about', handler: require('./handlers/about')});
 
   server.route({ method: 'GET', path: '/articles/tech/{articleId}', handler: require('./handlers/article')});
 
