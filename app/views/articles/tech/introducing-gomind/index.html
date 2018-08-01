@@ -28,12 +28,10 @@
 </p>
 <p>Similarly after a while a need arose for a neural network library which
   gelled perfectly with Vaahan and was also simplistic enough for quick training
-  exercises. But I would be lying if I said that I wrote GoMind because of
-  lack of good open source libraries in Go since we have <a
-    href="https://github.com/avelino/awesome-go#machine-learning" target="_blank">
-  this awesome list</a> of Go machine learning projects. No, the reason for
-  starting GoMind is again educational. Afterall, what better way to understand
-  neural networks than creating them yourselves?
+  exercises. But I would be lying if I said that I only wrote GoMind because of
+  lack of good open source libraries in Go since. No, the reason for starting
+  GoMind is again educational. Afterall, what better way to understand neural
+  networks than creating them yourselves?
 </p>
 <h3>Why Go?</h3>
 <p>I do realise that I can bypass many of my challenges if I moved away from Go
@@ -76,8 +74,8 @@
     </ul>
   </li>
   <li>Uses <a href="https://en.wikipedia.org/wiki/Mean_squared_error"
-    target="_blank">Mean Squared Error function</a> to calculate error for back
-    propagation.</li>
+    target="_blank">Mean Squared Error</a> loss function for back propagation.
+  </li>
 </ul>
 <h2>Code specs</h2>
 <p>Every new push to the library is tested for Go versions 1.7 to 1.10 using
@@ -96,8 +94,81 @@
   target="_blank">here</a>).
 </p>
 <h2>Usage</h2>
+<h3>Installation</h3>
+<p>GoMind can be installed using Go's go get command:</p>
+<pre><code class="language-bash">go get github.com/surenderthakran/gomind</code></pre>
 <h3>Example</h3>
+<p>The following example teaches the XOR gate to GoMind's neural network.</p>
+<pre><code class="language-go">package main
+
+import (
+	"github.com/singhsurender/gomind"
+)
+
+func main() {
+	// XOR gate training set.
+	trainingSet := [][][]float64{
+		[][]float64{[]float64{0, 0}, []float64{0}},
+		[][]float64{[]float64{0, 1}, []float64{1}},
+		[][]float64{[]float64{1, 0}, []float64{1}},
+		[][]float64{[]float64{1, 1}, []float64{0}},
+	}
+
+	// create neural network model.
+	mind, err := gomind.New(&gomind.ModelConfiguration{
+		NumberOfInputs:                    2,
+		NumberOfOutputs:                   1,
+		NumberOfHiddenLayerNeurons:        16,
+		HiddenLayerActivationFunctionName: "relu",
+		OutputLayerActivationFunctionName: "sigmoid",
+	})
+	if err != nil {
+		return nil, fmt.Errorf("unable to create neural network. %v", err)
+	}
+
+	// iterate 500 times on random XOR gate transaction samples.
+	for i := 0; i < 500; i++ {
+		rand := rand.Intn(4)
+		input := trainingSet[rand][0]
+		output := trainingSet[rand][1]
+
+		// learn from random sample.
+		if err := mind.LearnSample(input, output); err != nil {
+			mind.Describe(true)
+			return nil, fmt.Errorf("error while learning from sample input: %v, target: %v. %v", input, output, err)
+		}
+
+		// output guessed by the neural network.
+		actual := mind.LastOutput()
+
+		// error in network's guess.
+		outputError, err := mind.CalculateError(output)
+		if err != nil {
+			mind.Describe(true)
+			return nil, fmt.Errorf("error while calculating error for input: %v, target: %v and actual: %v. %v", input, output, actual, err)
+		}
+
+		// accuracy in network's guess.
+		outputAccuracy, err := mind.CalculateAccuracy(output)
+		if err != nil {
+			mind.Describe(true)
+			return nil, fmt.Errorf("error while calculating error for input: %v, target: %v and actual: %v. %v", input, output, actual, err)
+		}
+
+		fmt.Println("Index: %v, Input: %v, Target: %v, Actual: %v, Error: %v, Accuracy: %v\n", i, input, output, actual, outputError, outputAccuracy)
+	}
+}</code></pre>
 <h2>Roadmap</h2>
+<p>Following features are planned for future GoMind releases:</p>
+<ul>
+  <li>Perform training in Goroutines to improve concurrency.</li>
+  <li>Ability to import and export network model.</li>
+  <li>Ability to pause and resume training.</li>
+  <li>Introduce more loss functions in addition to Mean Squared Error function.
+  </li>
+  <li>Provide in-built epoch running for learning.</li>
+  <li>Provide in-built batch learning capability.</li>
+</ul>
 <h2>Confession</h2>
 <p>While GoMind is nowhere close to machine learning giants like <a
   href="https://www.tensorflow.org/" target="_blank">Tensorflow</a> or <a
