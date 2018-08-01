@@ -3,15 +3,17 @@
   is a simplistic Neural Network library written entirely in
   <a href="https://golang.org/" target="_blank">Go (GoLang)</a>.
 </p>
-<p>It provides educated default configuration values to simplify model creation
-  and uses back propagation algorithm for training.
+<p>GoMind is built upon learnings from my previous article where I had <a
+  href="/articles/tech/implement-back-propagation-neural-network"
+  target="_blank">explained Neural Networks and back propagation algorithms</a>
+  in detail.
 </p>
-<p>I have <a href="/articles/tech/implement-back-propagation-neural-network"
-  target="_blank">previously explained Neural Networks and back propagation
-  algorithms</a> in detail. GoMind is built upon learnings from that article.
+<p>Soon after its release, GoMind became a proud member of <a
+  href="https://github.com/avelino/awesome-go" target="_blank">Avelino's curated
+  list of awesome go projects.</a>
 </p>
 <h3>Why bother?</h3>
-<p>I started learning Neural Network was an intellectual exercise and like
+<p>I started learning Neural Network as an intellectual exercise and like
   almost every learning exercise it is best to set an end goal. In my case I
   decided on a two-dimensional self driving car simulation project, which I in
   my magnanimosity christened, <a href="https://github.com/surenderthakran/vaahan"
@@ -24,13 +26,15 @@
   SymPy</a>. Hopefully some day GoGeo will also get its own repositiory but it
   has a long journey ahead of it before that happens.
 </p>
-<p>But I would be lying if I said that GoMind was also born because of this lack
-  of good open source libraries in Go since we have <a
+<p>Similarly after a while a need arose for a neural network library which
+  gelled perfectly with Vaahan and was also simplistic enough for quick training
+  exercises. But I would be lying if I said that I wrote GoMind because of
+  lack of good open source libraries in Go since we have <a
     href="https://github.com/avelino/awesome-go#machine-learning" target="_blank">
   this awesome list</a> of Go machine learning projects. No, the reason for
   starting GoMind is again educational. Afterall, what better way to understand
-  neural networks than creating them yourselves (unlike simply making some API
-  calls and have network models handed to you).
+  neural networks than creating them yourselves?
+</p>
 <h3>Why Go?</h3>
 <p>I do realise that I can bypass many of my challenges if I moved away from Go
   but recently Go has been my language of choice for most of my personal
@@ -46,6 +50,51 @@
   development pipeline.
 </p>
 <h2>Salient Features</h2>
+<p>Even though still in its infancy, GoMind attempts to provide a few
+  good-to-have features for a neural network library like:
+</p>
+<ul>
+  <li>Smartly estimates ideal number of hidden layer neurons for given input and
+    output sizes (if not configured during model creation).</li>
+  <li>Uses educated default activation functions for hidden and output layers.
+  </li>
+  <li>Supports the following activation functions:
+    <ul>
+      <li>Linear</li>
+      <li>
+        <a href="https://en.wikipedia.org/wiki/Sigmoid_function"
+           target="_blank">Sigmoid (Logistic)</a>
+      </li>
+      <li>
+        <a href="https://en.wikipedia.org/wiki/Rectifier_(neural_networks)"
+           target="_blank">ReLU (Rectified Linear Unit)</a>
+      </li>
+      <li>
+        <a href="https://en.wikipedia.org/wiki/Rectifier_(neural_networks)#Leaky_ReLUs"
+           target="_blank">Leaky ReLU</a>
+      </li>
+    </ul>
+  </li>
+  <li>Uses <a href="https://en.wikipedia.org/wiki/Mean_squared_error"
+    target="_blank">Mean Squared Error function</a> to calculate error for back
+    propagation.</li>
+</ul>
+<h2>Code specs</h2>
+<p>Every new push to the library is tested for Go versions 1.7 to 1.10 using
+  <a href="https://travis-ci.com/surenderthakran/gomind" target="_blank">Travis
+  CI</a>.</p>
+<p>As of <a
+  href="https://github.com/surenderthakran/gomind/releases/tag/v0.2-alpha"
+  target="_blank">release v0.2-alpha</a> GoMind has over 83% test coverage (find
+  latest coverage report <a href="https://codecov.io/gh/surenderthakran/gomind"
+  target="_blank">here</a>).
+</p>
+<p>GoMind also scores an impressive A+ in code quality on <a
+  href="https://goreportcard.com/" target="_blank">goreportcard.com</a>
+  (checkout latest score <a
+  href="https://goreportcard.com/report/github.com/surenderthakran/gomind"
+  target="_blank">here</a>).
+</p>
 <h2>Usage</h2>
 <h3>Example</h3>
 <h2>Roadmap</h2>
