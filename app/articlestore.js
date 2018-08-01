@@ -41,8 +41,8 @@ module.exports = [
       title: 'Dockerized Development and Production Environment For Go (GoLang)',
       datetime: '2017-05-30',
       date: '30th May 2017',
-      updateDatetime: '2017-10-25',
-      updateDate: '25th Oct 2017',
+      updateDatetime: '2018-08-01',
+      updateDate: '1st Aug 2018',
     },
   },
   {
