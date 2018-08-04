@@ -212,7 +212,7 @@ go_prep_install:
 
 go_dep_install:
 	@echo "\n....Installing dependencies for $(GO_PROJECT_NAME)...."
-	go get ./...
+	go get -t ./...
 
 go_install:
 	@echo "\n....Compiling $(GO_PROJECT_NAME)...."
@@ -257,7 +257,10 @@ restart:
   for our application by creating the required <span class="code">/bin</span>
   and <span class="code">/pkg</span> directories in our
   <span class="code">$GOPATH</span>. Next we install all our application's
-  external dependencies by running <span class="code">go get ./...</span>.</p>
+  external dependencies by running <span class="code">go get -t ./...</span>.
+  With the <span class="code">-t</span> flag any separate dependencies in test
+  files are also installed.
+</p>
 <p>Finally, we install our application by running <span class="code">
     go install $(GO_PROJECT_NAME)</span> where
   <span class="code">GO_PROJECT_NAME=my_go_project</span> as defined at the top

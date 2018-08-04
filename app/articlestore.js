@@ -2,6 +2,20 @@
 
 module.exports = [
   {
+    articleId: 'introducing-gomind',
+    url: 'articles/tech/introducing-gomind',
+    head: {
+      title: 'Introducing GoMind - A Simplistic Neural Network Library in Go | Surender Thakran',
+      description: 'Introducing GoMind. A Neural Network Library in Go',
+      keywords: 'go,golang,neural-network,back-propagation,deep-learning',
+    },
+    article: {
+      title: 'Introducing GoMind: A Simplistic Neural Network Library in Go',
+      datetime: '2018-07-29',
+      date: '29th July 2018',
+    },
+  },
+  {
     articleId: 'implement-back-propagation-neural-network',
     url: 'articles/tech/implement-back-propagation-neural-network',
     head: {
@@ -27,8 +41,8 @@ module.exports = [
       title: 'Dockerized Development and Production Environment For Go (GoLang)',
       datetime: '2017-05-30',
       date: '30th May 2017',
-      updateDatetime: '2017-10-25',
-      updateDate: '25th Oct 2017',
+      updateDatetime: '2018-08-01',
+      updateDate: '1st Aug 2018',
     },
   },
   {

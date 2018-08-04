@@ -30,28 +30,9 @@ exports.register = function (server, options, next) {
 
   // @TODO(surenderthakran): make urls case insensitive
 
-  server.route({ method: 'GET', path: '/', handler: function (request, reply) {
-    console.log(request.method.toUpperCase() + ' ' + request.path);
-    reply.view('index', {
-      head: {
-        title: 'Home | Surender Thakran',
-        description: 'Surender Thakran\'s technical articles about web development, server management and enterprise architecture',
-        keywords: 'web,css3,html5',
-      },
-      articles: ArticleStore,
-    });
-  } });
+  server.route({ method: 'GET', path: '/', handler: require('./handlers/home')});
 
-  server.route({ method: 'GET', path: '/about', handler: function (request, reply) {
-    console.log(request.method.toUpperCase() + ' ' + request.path);
-    reply.view('about', {
-      head: {
-        title: 'About | Surender Thakran',
-        description: 'Page describing Surender Thakran, his career path and future goals.',
-        keywords: 'web architect,enterprise architect,startup,devops,backend developer,frontend developer,technology',
-      },
-    });
-  } });
+  server.route({ method: 'GET', path: '/about', handler: require('./handlers/about')});
 
   server.route({ method: 'GET', path: '/articles/tech/{articleId}', handler: require('./handlers/article')});
 
