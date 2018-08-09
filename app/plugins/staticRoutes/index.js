@@ -2,8 +2,6 @@
 
 const Mustache = require('mustache');
 
-const ArticleStore = require('../../articlestore');
-
 exports.register = function (server, options, next) {
   const partials = {};
 
@@ -31,6 +29,8 @@ exports.register = function (server, options, next) {
   // @TODO(surenderthakran): make urls case insensitive
 
   server.route({ method: 'GET', path: '/', handler: require('./handlers/home')});
+
+  server.route({ method: 'GET', path: '/projects', handler: require('./handlers/projects')});
 
   server.route({ method: 'GET', path: '/about', handler: require('./handlers/about')});
 
