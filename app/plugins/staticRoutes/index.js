@@ -1,0 +1,73 @@
+'use strict';
+
+const Mustache = require('mustache');
+
+exports.register = function (server, options, next) {
+  const partials = {};
+
+  server.views({
+    engines: {
+      html: {
+        compile: function (template) {
+          Mustache.parse(template);
+
+          return function (context) {
+            return Mustache.render(template, context, partials);
+          };
+        },
+        registerPartial: function (name, src) {
+          console.log('Registering partial: ' + name);
+          partials[name] = src;
+        },
+      },
+    },
+    relativeTo: __dirname,
+    path: '../../views',
+    partialsPath: '../../views/partials',
+  });
+
+  // @TODO(surenderthakran): make urls case insensitive
+
+  server.route({ method: 'GET', path: '/', handler: require('./handlers/home')});
+
+  server.route({ method: 'GET', path: '/projects', handler: require('./handlers/projects')});
+
+  server.route({ method: 'GET', path: '/about', handler: require('./handlers/about')});
+
+  server.route({ method: 'GET', path: '/articles/tech/{articleId}', handler: require('./handlers/article')});
+
+  // @TODO(surenderthakran): update to redirect all *.html requests to non-html urls
+  server.route({
+    method: 'GET',
+    path: '/{filename*}',
+    handler: {
+      directory: {
+        path: '.',
+        index: ['index.html'],
+      },
+    },
+  });
+
+  server.ext('onPostHandler', function (request, reply) {
+    let response = request.response;
+    if (response.output && response.output.statusCode &&
+        response.output.statusCode === 404) {
+      return reply.view('404', {
+        head: {
+          title: 'Page Not Found | Surender Thakran',
+          description: 'The requested page does not exists',
+          keywords: '404',
+        },
+      });
+    }
+    return reply.continue();
+  });
+
+  next();
+};
+
+exports.register.attributes = {
+  name: 'staticRoutesPlugin',
+  version: '1.0.0',
+  multiple: false,
+};

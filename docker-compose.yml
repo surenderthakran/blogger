@@ -1,0 +1,14 @@
+version: '2'
+services:
+  app:
+    build: .
+    command: make run
+    volumes:
+      - ./app:/blogger/app
+      - ./package.json:/blogger/package.json
+    environment:
+      NODE_ENV: dev
+    ports:
+      - "18660:18660"
+    logging:
+      driver: "json-file"

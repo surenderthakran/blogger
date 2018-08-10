@@ -1,0 +1,30 @@
+$responsive-threshold: 830px;
+
+* {
+    margin: 0;
+    padding: 0;
+    float: left;
+    box-sizing: border-box;
+}
+
+html {
+    width: 100%
+}
+
+body {
+    font-family: Open Sans,Helvetica Neue,sans-serif;
+    width: 100%;
+    color: #444444;
+    background-image: url('/images/background.jpg');
+    background-repeat: repeat;
+    background-position: top left;
+    background-attachment: fixed;
+}
+
+.hidden {
+    display: none;
+}
+
+.width-100 {
+    width: 100%;
+}
