@@ -6,9 +6,11 @@ help:
 
 install:
 	@echo Running make install...
+	npm install
 
 run:
 	@echo Running make run...
+	node app/app.js
 
 # to catch all default targets and do nothing
 .DEFAULT: ;
