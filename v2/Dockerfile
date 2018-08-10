@@ -2,11 +2,13 @@
 
 FROM node:8.11-alpine
 
+LABEL version="2.0"
+
 MAINTAINER https://github.com/surenderthakran
 
 RUN apk add --no-cache \
-            bash \
-            make
+    bash \
+    make
 
 COPY . /blogger
 
