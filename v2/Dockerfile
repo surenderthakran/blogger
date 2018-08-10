@@ -1,11 +1,8 @@
 # Dockerfile for surenderthakran/blogger
-
+# TODO(surenderthakran): Run application through a non-root user.
 FROM node:8.11-alpine
 
 LABEL version="2.0"
-
-ENV group blogger_group
-ENV user blogger_user
 
 MAINTAINER https://github.com/surenderthakran
 
@@ -14,14 +11,9 @@ RUN apk add --no-cache \
     bash \
     make
 
-# Add non-root group and user.
-RUN addgroup -S ${group} && adduser -S -G ${group} ${user}
+COPY . /blogger
 
-USER ${user}
-
-COPY . /home/${user}/blogger
-
-WORKDIR /home/${user}/blogger
+WORKDIR /blogger
 
 RUN make install
 
