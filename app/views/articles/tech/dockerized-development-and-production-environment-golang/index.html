@@ -157,7 +157,7 @@ MAINTAINER https://github.com/surenderthakran
 ENV GOPATH /workspace
 ENV PATH "$PATH:$GOPATH/bin"
 
-ADD ./ $GOPATH
+COPY ./ $GOPATH
 
 WORKDIR $GOPATH
 
@@ -181,9 +181,12 @@ CMD make --no-print-directory run
 </p>
 <p>We also added our <span class="code">$GOPATH/bin</span> directory to the
   <span class="code">$PATH</span> environment variable.</p>
-<p>Next we added our project's code base to our
+<p>Next we copied our project's code base to our
   <span class="code">$GOPATH</span> directory inside the container and change
-  the present working directory to it.</p>
+  the present working directory to it. Dockerfiles best practices suggests
+  <a href="https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#add-or-copy"
+     target="_blank">using COPY instead of ADD</a> to move local files in a
+  docker container.</p>
 <p>The <span class="code">RUN</span> and <span class="code">CMD</span>
   instructions, in their simplest form, are used to build our image and to run
   our containers respectively. <span class="code">RUN</span> instruction is
@@ -353,8 +356,15 @@ services:
 <h2>How to use?</h2>
 <h3>In Production</h3>
 <p>We can build a docker image for our go application by running:</p>
-<pre><code class="language-bash">docker build -t go_app .</code></pre>
-<p>And to launch a docker container for the image created above we run:</p>
+<pre><code class="language-bash">docker build --no-cache=true -t go_app .</code></pre>
+<p>The <span class="code">--no-cache=true</span> flag askes docker to not use
+  existing images from its cache while building intermediate images. Though
+  docker has a pretty robust
+  <a href="https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#leverage-build-cache"
+     target="_blank">cache leveraging mechanism</a>, for sensitive production
+  images it is best to be safe in case any unwanted change in previously cached
+  images trickled into your final image.</p>
+<p>To launch a docker container for the image created above we run:</p>
 <pre><code class="language-bash">docker run -it -d --name go_app_1 --net=host go_app
 </code></pre>
 <p>With <span class="code">--net=host</span> the container's port
