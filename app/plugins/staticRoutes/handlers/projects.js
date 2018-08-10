@@ -3,7 +3,6 @@
 const ProjectStore = require('../../../projectstore');
 
 module.exports = function (request, reply) {
-  console.log(ProjectStore);
   reply.view('projects', {
     head: {
       title: 'Projects | Surender Thakran',
