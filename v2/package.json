@@ -18,5 +18,8 @@
   "homepage": "https://github.com/surenderthakran/blogger#readme",
   "dependencies": {
     "express": "^4.16.3"
+  },
+  "devDependencies": {
+    "mocha": "^5.2.0"
   }
 }
