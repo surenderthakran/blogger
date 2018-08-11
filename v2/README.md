@@ -7,7 +7,7 @@ docker run --rm -it \
 -v $(pwd)/:/blogger/ \
 -v /blogger/node_modules/ \
 -p 18660:18660 \
---name blogger_v2_1 \
+--name blogger_v2_container \
 blogger_v2 bash
 ```
 
@@ -16,6 +16,6 @@ docker run --rm -it \
 -v $(pwd)/:/blogger/ \
 -v /blogger/node_modules/ \
 -p 18660:18660 \
---name blogger_v2_1 \
+--name blogger_v2_container \
 node:dev bash
 ```
