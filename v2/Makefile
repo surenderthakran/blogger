@@ -1,3 +1,5 @@
+DOCKER:=$(shell grep docker /proc/self/cgroup)
+
 help:
 	@echo "=============== BLOGGER ================="
 	@echo "help ................ Show Help"
@@ -5,12 +7,20 @@ help:
 	@echo "run ................. Run Blogger"
 
 install:
-	@echo Running make install...
+ifdef DOCKER
+	@echo Running \"make install\"...
 	npm install
+else
+	@echo \"make install\" will only work inside docker!!!
+endif
 
 run:
-	@echo Running make run...
+ifdef DOCKER
+	@echo Running \"make run\"...
 	node app/app.js
+else
+	@echo \"make run\" will only work inside docker!!!
+endif
 
 # to catch all default targets and do nothing
 .DEFAULT: ;
