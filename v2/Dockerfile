@@ -1,5 +1,6 @@
 # Dockerfile for surenderthakran/blogger
 # TODO(surenderthakran): Run application through a non-root user.
+
 FROM node:8.11-alpine
 
 LABEL version="2.0"
