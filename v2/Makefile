@@ -1,5 +1,7 @@
 DOCKER:=$(shell grep docker /proc/self/cgroup)
 
+ARGS:=
+
 help:
 	@echo "=============== BLOGGER ================="
 	@echo "help ................ Show Help"
@@ -20,6 +22,18 @@ ifdef DOCKER
 	node app/app.js
 else
 	@echo \"make run\" will only work inside docker!!!
+endif
+
+npm:
+ifdef DOCKER:
+	@echo 'make npm' will NOT work inside docker!!!
+else
+ifdef ARG
+	@echo Running \"npm ${ARG}\" inside docker...
+	docker exec -it blogger_v2_container npm ${ARG}
+else
+	@echo 'make npm' needs arguments!!
+endif
 endif
 
 # to catch all default targets and do nothing
