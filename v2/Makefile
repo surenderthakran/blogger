@@ -1,6 +1,6 @@
 DOCKER:=$(shell grep docker /proc/self/cgroup)
 
-ARGS:=
+CMD:=
 
 help:
 	@echo "=============== BLOGGER ================="
