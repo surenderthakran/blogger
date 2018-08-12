@@ -5,8 +5,15 @@ ARGS:=
 help:
 	@echo "=============== BLOGGER ================="
 	@echo "help ................ Show Help"
-	@echo "install ............. Install Blogger"
-	@echo "run ................. Run Blogger"
+	@echo ""
+	@echo "Make rules to be run from outside a docker container."
+	@echo "command ............. Runs generic commands inside the container."
+	@echo "                      Usage: make command CMD='<command to run>'"
+	@echo "                      ex: make command CMD='npm install chai --save-dev'"
+	@echo ""
+	@echo "Make rules to be run from inside a docker container."
+	@echo "install ............. Installs Blogger"
+	@echo "run ................. Runs Blogger"
 
 install:
 ifdef DOCKER
@@ -24,15 +31,15 @@ else
 	@echo \"make run\" will only work inside docker!!!
 endif
 
-npm:
+command:
 ifdef DOCKER:
-	@echo 'make npm' will NOT work inside docker!!!
+	@echo 'make command' will NOT work inside docker!!!
 else
-ifdef ARG
-	@echo Running \"npm ${ARG}\" inside docker...
-	docker exec -it blogger_v2_container npm ${ARG}
+ifdef CMD
+	@echo Running \"${CMD`}\" inside docker...
+	docker exec -it blogger_v2_container ${CMD}
 else
-	@echo 'make npm' needs arguments!!
+	@echo 'make command' needs arguments!!
 endif
 endif
 
