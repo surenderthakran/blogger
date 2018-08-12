@@ -6,9 +6,16 @@ services:
     command: make run
     container_name: blogger_v2_container
     volumes:
-      - .:/blogger
-      - /blogger/node_modules
+      # Bind mount current host directory with /home/node volume in container.
+      # This will override /home/node in container with the host directory
+      # content and changes in one will be reflected in other.
+      - .:/home/node
+      # Create volume from node_modules/ directory in the image. This will bind
+      # node_modules/ volume with a directory somewhere under
+      # /var/lib/docker/volumes on the host. Here the node_modules/ directory
+      # will not be overridden with host directory's content.
+      - /home/node/node_modules
     environment:
-      NODE_ENV: dev
+      NODE_ENV: development
     ports:
       - "18660:18660"

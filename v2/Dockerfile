@@ -1,5 +1,4 @@
 # Dockerfile for surenderthakran/blogger
-# TODO(surenderthakran): Run application through a non-root user.
 
 FROM node:8.11-alpine
 
@@ -12,9 +11,11 @@ RUN apk add --no-cache \
     bash \
     make
 
-COPY . /blogger
+COPY . /home/node
 
-WORKDIR /blogger
+WORKDIR /home/node
+
+USER node
 
 RUN make install
 
