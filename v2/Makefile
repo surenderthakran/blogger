@@ -1,5 +1,7 @@
 DOCKER:=$(shell grep docker /proc/self/cgroup)
 
+NODEMON = ./node_modules/nodemon/bin/nodemon.js
+
 CMD:=
 
 help:
@@ -26,7 +28,11 @@ endif
 run:
 ifdef DOCKER
 	@echo Running \"make run\"...
+ifeq ($(NODE_ENV), production)
 	node app/app.js
+else
+	@$(NODEMON) -e js,html -i 'app/*' app/app.js
+endif
 else
 	@echo \"make run\" will only work inside docker!!!
 endif
