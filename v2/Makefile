@@ -36,7 +36,7 @@ ifdef DOCKER:
 	@echo 'make command' will NOT work inside docker!!!
 else
 ifdef CMD
-	@echo Running \"${CMD`}\" inside docker...
+	@echo Running \"${CMD}\" inside docker...
 	docker exec -it blogger_v2_container ${CMD}
 else
 	@echo 'make command' needs arguments!!
