@@ -11,11 +11,9 @@ RUN apk add --no-cache \
     bash \
     make
 
-COPY . /home/node
+COPY . /blogger
 
-WORKDIR /home/node
-
-USER node
+WORKDIR /blogger
 
 RUN make install
 
