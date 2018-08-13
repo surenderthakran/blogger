@@ -6,6 +6,7 @@ const mustache = require('mustache');
 const path = require('path');
 
 const articleStore = require(__root + '/config/articlestore');
+const projectStore = require(__root + '/config/projectstore');
 
 const rendererConfig = {
   partials: {},
@@ -31,6 +32,18 @@ const rendererConfig = {
           description: 'Page describing Surender Thakran, his career path and future goals.',
           keywords: 'web architect,enterprise architect,startup,devops,backend developer,frontend developer,technology',
         },
+      },
+    },
+    {
+      src: 'projects.html',
+      target: 'projects.html',
+      viewData: {
+        head: {
+          title: 'Projects | Surender Thakran',
+          description: 'Surender Thakran\'s technical articles about web development, server management and enterprise architecture',
+          keywords: 'web,css3,html5',
+        },
+        projects: projectStore,
       },
     },
   ],
