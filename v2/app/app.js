@@ -1,5 +1,7 @@
 'use strict';
 
+global.__root = __dirname + '/';
+
 const express = require('express');
 const app = express();
 
