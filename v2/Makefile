@@ -29,9 +29,9 @@ run:
 ifdef DOCKER
 	@echo Running \"make run\"...
 ifeq ($(NODE_ENV), production)
-	node app/app.js
+	node app/index.js
 else
-	@$(NODEMON) --watch app --ignore app/views --ignore app/public app/app.js
+	@$(NODEMON) --watch app --ignore app/views --ignore app/public app/index.js
 endif
 else
 	@echo \"make run\" will only work inside docker!!!
