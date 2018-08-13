@@ -1,10 +1,10 @@
 'use strict';
 
-global.__root = __dirname + '/';
+global.__root = __dirname;
 
 const express = require('express');
 
-const renderer = require(__root + 'renderer');
+const renderer = require(__root + '/renderer');
 
 renderer.render();
 
