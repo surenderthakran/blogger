@@ -22,6 +22,17 @@ const rendererConfig = {
         articles: articleStore,
       },
     },
+    {
+      src: 'about.html',
+      target: 'about.html',
+      viewData: {
+        head: {
+          title: 'About | Surender Thakran',
+          description: 'Page describing Surender Thakran, his career path and future goals.',
+          keywords: 'web architect,enterprise architect,startup,devops,backend developer,frontend developer,technology',
+        },
+      },
+    },
   ],
 };
 
