@@ -7,13 +7,6 @@ const path = require('path');
 
 const renderer = require(__root + '/renderer');
 
-const $ = {};
-$.path = {
-  views: path.resolve(__root + '/views'),
-  templates: path.resolve(__root + '/templates'),
-  public: path.resolve(__root + '/public')
-};
-
 const init = () => {
   const app = express();
 
@@ -26,5 +19,3 @@ const init = () => {
 };
 
 init();
-
-module.exports = $;
