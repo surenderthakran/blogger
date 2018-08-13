@@ -3,6 +3,11 @@
 global.__root = __dirname + '/';
 
 const express = require('express');
+
+const renderer = require(__root + 'renderer');
+
+renderer.render();
+
 const app = express();
 
 app.get('/', (req, res) => res.send('Hello World!'));
