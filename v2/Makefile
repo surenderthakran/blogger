@@ -31,7 +31,7 @@ ifdef DOCKER
 ifeq ($(NODE_ENV), production)
 	node app/app.js
 else
-	@$(NODEMON) -e js,html -i 'app/*' app/app.js
+	@$(NODEMON) -e js,html app/app.js
 endif
 else
 	@echo \"make run\" will only work inside docker!!!
