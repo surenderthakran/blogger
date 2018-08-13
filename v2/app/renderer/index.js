@@ -8,7 +8,21 @@ const path = require('path');
 const articleStore = require(__root + '/config/articlestore');
 
 const rendererConfig = {
-  partials: {}
+  partials: {},
+  pages: [
+    {
+      src: 'index.html',
+      target: 'index.html',
+      viewData: {
+        head: {
+          title: 'Home | Surender Thakran',
+          description: 'Surender Thakran\'s technical articles about web development, server management and enterprise architecture',
+          keywords: 'web,css3,html5',
+        },
+        articles: articleStore,
+      },
+    },
+  ],
 };
 
 const externals = {};
@@ -22,7 +36,7 @@ const registerPartials = () => {
   const files = glob.sync(__root + '/views/templates/partials/*.html', options);
 
   files.forEach((filePath) => {
-    console.log(filePath);
+    console.log('Registering partial:', filePath);
     let fileName = path.basename(filePath);
     let partialName = fileName.substring(0, fileName.indexOf('.'));
 
@@ -30,22 +44,19 @@ const registerPartials = () => {
   });
 };
 
+const renderPages = () => {
+  rendererConfig.pages.forEach((page) => {
+    console.log('Rendering page:', page.src);
+    const file = fs.readFileSync(__root + '/views/templates/' + page.src, 'utf8');
+    const output = mustache.render(file, page.viewData, rendererConfig.partials);
+    fs.writeFileSync(__root + '/public/' + page.target, output);
+  });
+};
+
 externals.render = () => {
   registerPartials();
-  const index = fs.readFileSync(__root + '/views/templates/index.html', 'utf8');
-  const html = mustache.render(index, {
-    head: {
-      title: 'Home | Surender Thakran',
-      description: 'Surender Thakran\'s technical articles about web development, server management and enterprise architecture',
-      keywords: 'web,css3,html5',
-    },
-    articles: articleStore,
-  }, rendererConfig.partials);
 
-  fs.writeFile(__root + '/public/index.html', html, function (err) {
-    if (err) throw err;
-    console.log('Saved!');
-  });
+  renderPages();
 };
 
 module.exports = externals;
