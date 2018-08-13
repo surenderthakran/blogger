@@ -46,6 +46,17 @@ const rendererConfig = {
         projects: projectStore,
       },
     },
+    {
+      src: '404.html',
+      target: '404.html',
+      viewData: {
+        head: {
+          title: 'Page Not Found | Surender Thakran',
+          description: 'The requested page does not exists',
+          keywords: '404',
+        },
+      },
+    },
   ],
 };
 
