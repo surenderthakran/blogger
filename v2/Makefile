@@ -36,7 +36,7 @@ else
 	@nohup $(GULP) watch &
 	@sleep 1
 	@echo Starting server with nodemon...
-	@$(NODEMON) --watch app --ignore app/views --ignore app/public app/app.js
+	@$(NODEMON) --watch app --ignore app/views --ignore app/public --delay 0.5 app/app.js
 endif
 else
 	@echo \"make run\" will only work inside docker!!!
