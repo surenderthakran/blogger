@@ -1,6 +1,7 @@
 DOCKER:=$(shell grep docker /proc/self/cgroup)
 
 NODEMON = ./node_modules/nodemon/bin/nodemon.js
+GULP = ./node_modules/gulp/bin/gulp.js
 
 CMD:=
 
@@ -31,6 +32,10 @@ ifdef DOCKER
 ifeq ($(NODE_ENV), production)
 	node app/app.js
 else
+	@echo Starting gulp watch in background...
+	@nohup $(GULP) watch &
+	@sleep 1
+	@echo Starting server with nodemon...
 	@$(NODEMON) --watch app --ignore app/views --ignore app/public app/app.js
 endif
 else
