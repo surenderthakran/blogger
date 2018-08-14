@@ -79,7 +79,21 @@ const registerPartials = () => {
   });
 };
 
+const removePages = () => {
+  console.log('\nDeleting pages...');
+  const files = fs.readdirSync(__root + '/public/');
+
+  files.forEach((file) => {
+    if(file.indexOf(".html") > -1) {
+      console.log('Deleting file:', file);
+      const filePath = path.join(__root + '/public/', file);
+      fs.unlinkSync(filePath);
+    }
+  });
+};
+
 const renderPages = () => {
+  console.log('\nRendering pages...');
   rendererConfig.pages.forEach((page) => {
     console.log('Rendering page:', page.src);
     const file = fs.readFileSync(__root + '/views/templates/' + page.src, 'utf8');
@@ -91,6 +105,7 @@ const renderPages = () => {
 externals.render = () => {
   registerPartials();
 
+  removePages();
   renderPages();
 };
 
