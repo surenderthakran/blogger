@@ -3,7 +3,6 @@
 global.__root = __dirname;
 
 const express = require('express');
-const path = require('path');
 
 const renderer = require(__root + '/renderer');
 
