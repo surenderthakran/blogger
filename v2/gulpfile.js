@@ -1,5 +1,6 @@
 'use strict';
 
+var cleanCSS = require('gulp-clean-css');
 const eslint = require('gulp-eslint');
 const gulp = require('gulp');
 const less = require('gulp-less');
@@ -26,6 +27,7 @@ gulp.task('less', function() {
     .pipe(less({
       plugins: [autoprefix], // Automatically adds vendor prefixes.
     }))
+    .pipe(cleanCSS())
     .pipe(rename('main.min.css'))
     .pipe(sourcemaps.write('./')) // Writes sourcemap to main.min.css.map
     .pipe(gulp.dest('./app/public/css'));

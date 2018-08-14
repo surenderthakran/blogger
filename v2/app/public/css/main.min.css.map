@@ -1,1 +1,1 @@
-{"version":3,"sources":["main.less","../../../<input css 2>"],"names":[],"mappings":"AAAA;EACE,WAAA;CCCD","file":"main.min.css","sourcesContent":["p {\n  color: red;\n}\n","p {\n  color: red;\n}\n"]}
+{"version":3,"sources":["main.less"],"names":[],"mappings":"AAAA,EACE,MAAA","file":"main.min.css","sourcesContent":["p {\n  color: red;\n}\n"]}
