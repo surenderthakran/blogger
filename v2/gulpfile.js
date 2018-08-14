@@ -3,8 +3,12 @@
 const eslint = require('gulp-eslint');
 const gulp = require('gulp');
 const less = require('gulp-less');
-var rename = require('gulp-rename');
-var sourcemaps = require('gulp-sourcemaps');
+const LessAutoprefix = require('less-plugin-autoprefix');
+const rename = require('gulp-rename');
+const sourcemaps = require('gulp-sourcemaps');
+
+// create autoprefixer to add vendor prefixes.
+const autoprefix = new LessAutoprefix({browsers: ['cover 99.5%']});
 
 gulp.task('eslint', function() {
   return gulp.src([
@@ -16,12 +20,14 @@ gulp.task('eslint', function() {
     .pipe(eslint.failAfterError());
 });
 
-gulp.task('less', function () {
+gulp.task('less', function() {
   return gulp.src(__dirname + '/app/views/less/**/*.less')
     .pipe(sourcemaps.init())
-    .pipe(less())
+    .pipe(less({
+      plugins: [autoprefix], // Automatically adds vendor prefixes.
+    }))
     .pipe(rename('main.min.css'))
-    .pipe(sourcemaps.write('./'))
+    .pipe(sourcemaps.write('./')) // Writes sourcemap to main.min.css.map
     .pipe(gulp.dest('./app/public/css'));
 });
 
