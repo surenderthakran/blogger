@@ -1,7 +1,7 @@
 'use strict';
 
-var gulp = require('gulp');
-var eslint = require('gulp-eslint');
+const gulp = require('gulp');
+const eslint = require('gulp-eslint');
 
 gulp.task('eslint', function() {
   return gulp.src([
@@ -10,9 +10,9 @@ gulp.task('eslint', function() {
     '!./app/public{,/**}'])
     .pipe(eslint())
     .pipe(eslint.format())
-    .pipe(eslint.failAfterError())
+    .pipe(eslint.failAfterError());
 });
 
-gulp.task('watch', function () {
+gulp.task('watch', function() {
   gulp.watch(__dirname + '/app/**/*.js', ['eslint']);
 });
