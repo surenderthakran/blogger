@@ -5,8 +5,8 @@ const glob = require('glob');
 const mustache = require('mustache');
 const path = require('path');
 
-const articleStore = require(__root + '/config/articlestore');
-const projectStore = require(__root + '/config/projectstore');
+const articleStore = require(__root + '/datastore/articlestore');
+const projectStore = require(__root + '/datastore/projectstore');
 
 const rendererConfig = {
   partials: {},
