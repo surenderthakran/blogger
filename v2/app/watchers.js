@@ -16,14 +16,13 @@ const externals = {};
 externals.set = () => {
   console.log('Setting watchers...');
   const rendererWatcher = chokidar.watch(
-      [__root + '/renderer', __root + '/views/templates'],
+      [__root + '/renderer', __root + '/views/templates/**/*'],
       {
         ignoreInitial: true,
         persistent: true,
       });
 
   const renderHtml = async (path) => {
-    console.log('delaying html render...');
     await sleep(800);
     renderer.render();
   };
