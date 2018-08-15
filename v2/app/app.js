@@ -4,7 +4,7 @@ global.__root = __dirname;
 
 const express = require('express');
 
-const renderer = require(__root + '/renderer');
+const watchers = require(__root + '/watchers');
 
 const initServer = () => {
   const app = express();
@@ -17,7 +17,7 @@ const initServer = () => {
 
 const init = () => {
   if (process.env.NODE_ENV === 'development') {
-    renderer.render();
+    watchers.set();
   }
 
   initServer();

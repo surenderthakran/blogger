@@ -69,6 +69,7 @@ const renderPages = () => {
 };
 
 externals.render = () => {
+  console.log('Running Renderer...');
   registerPartials();
 
   removePages();
