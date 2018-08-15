@@ -22,16 +22,17 @@ gulp.task('eslint', function() {
 });
 
 gulp.task('less', function() {
-  return gulp.src(__dirname + '/app/views/less/**/*.less')
-    // .pipe(sourcemaps.init())
-    // .pipe(less({
-    //   paths: [__dirname + '/app/views/less/**/*.less'],
-    //   plugins: [autoprefix], // Automatically adds vendor prefixes.
-    // }))
-    .pipe(less())
-    // .pipe(cleanCSS())
+  // Run less on only the make file and all the imports will be handled
+  // automatically. Running on *.less will disturb import order and all less
+  // files may not be imported in the final output.
+  return gulp.src(__dirname + '/app/views/less/main.less')
+    .pipe(sourcemaps.init())
+    .pipe(less({
+      plugins: [autoprefix], // Automatically adds vendor prefixes.
+    }))
+    .pipe(cleanCSS())
     .pipe(rename('main.min.css'))
-    // .pipe(sourcemaps.write('./')) // Writes sourcemap to main.min.css.map
+    .pipe(sourcemaps.write('./')) // Writes sourcemap to main.min.css.map
     .pipe(gulp.dest('./app/public/css'));
 });
 
