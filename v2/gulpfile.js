@@ -37,6 +37,9 @@ gulp.task('less', function() {
 });
 
 gulp.task('watch', function() {
-  gulp.watch(__dirname + '/app/**/*.js', ['eslint']);
+  // Watch js files and run eslint on change.
+  gulp.watch(
+      [__dirname + '/app/**/*.js', __dirname + '/gulpfile.js'], ['eslint']);
+
   gulp.watch(__dirname + '/app/views/less/**/*.less', ['less']);
 });
