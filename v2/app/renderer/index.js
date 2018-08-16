@@ -5,29 +5,10 @@ const glob = require('glob');
 const mustache = require('mustache');
 const path = require('path');
 
-const articleStore = require(__root + '/datastore/articlestore');
-const projectStore = require(__root + '/datastore/projectstore');
+const rendererConfig = require(__root + '/renderer/config');
 
 const templatesPath = __root + '/views/templates/';
 const partialsPath = __root + '/views/templates/partials/';
-
-const rendererConfig = {
-  partials: {},
-  pages: [
-    {
-      src: 'index.html',
-      target: 'index.html',
-      viewData: {
-        head: {
-          title: 'Home | Surender Thakran',
-          description: 'Surender Thakran\'s technical articles about web development, server management and enterprise architecture',
-          keywords: 'web,css3,html5',
-        },
-        articles: articleStore,
-      },
-    },
-  ],
-};
 
 const externals = {};
 
