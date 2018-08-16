@@ -6,12 +6,12 @@
     <body>
         {{>header}}
         <section class="projects-list">
-            <header>PROJECTS</header>
+            <header>MY PROJECTS</header>
             <ul>
                 {{#projects}}
                 <li>
                     <a href="{{ url }}" target="_blank"><h1>{{ title }}</h1></a>
-                    <p>{{ description }}</p>
+                    <p>{{{ description }}}</p>
                 </li>
                 {{/projects}}
             </ul>
