@@ -13,6 +13,7 @@ module.exports = [
       title: 'Introducing GoMind: A Simplistic Neural Network Library in Go',
       datetime: '2018-07-29',
       date: '29th July 2018',
+      tags: ['Neural Network', 'Go'],
     },
   },
   {
@@ -27,6 +28,7 @@ module.exports = [
       title: 'Implementing Back Propagation Algorithm In A Neural Network',
       datetime: '2017-12-26',
       date: '26th December 2017',
+      tags: ['Neural Network', 'Math'],
     },
   },
   {
@@ -43,6 +45,7 @@ module.exports = [
       date: '30th May 2017',
       updateDatetime: '2018-08-10',
       updateDate: '10th Aug 2018',
+      tags: ['Docker', 'Go'],
     },
   },
   {
@@ -57,6 +60,7 @@ module.exports = [
       title: 'Enable Docker Remote API on Remote Docker Host and Connect Using SSH Tunnel On Ubuntu 14.04',
       datetime: '2016-06-02',
       date: '2nd June 2016',
+      tags: ['Docker'],
     },
   },
   {
@@ -71,6 +75,7 @@ module.exports = [
       title: 'AWS S3 Direct Upload from Browser with Node.js as Backend',
       datetime: '2016-05-28',
       date: '28th May 2016',
+      tags: ['AWS', 'S3', 'Node.js', 'Javascript'],
     },
   },
 ];
