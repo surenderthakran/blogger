@@ -1,5 +1,6 @@
 DOCKER:=$(shell grep docker /proc/self/cgroup)
 
+# TODO(surenderthakran): Remove these binary paths and use npx instead.
 NODEMON = ./node_modules/nodemon/bin/nodemon.js
 GULP = ./node_modules/gulp/bin/gulp.js
 
