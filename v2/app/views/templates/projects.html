@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {{>head_content}}
+    </head>
+    <body>
+        {{>header}}
+        <section class="projects-list">
+            <header>PROJECTS</header>
+            <ul>
+                {{#projects}}
+                <li>
+                    <a href="{{ url }}" target="_blank"><h1>{{ title }}</h1></a>
+                    <p>{{ description }}</p>
+                </li>
+                {{/projects}}
+            </ul>
+        </section>
+    </body>
+</html>

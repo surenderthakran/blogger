@@ -18,5 +18,17 @@ module.exports = {
         articles: articleStore,
       },
     },
+    {
+      src: 'projects.html',
+      target: 'projects.html',
+      viewData: {
+        head: {
+          title: 'Projects | Surender Thakran',
+          description: 'Surender Thakran\'s technical articles about web development, server management and enterprise architecture',
+          keywords: 'web,css3,html5',
+        },
+        projects: projectStore,
+      },
+    },
   ],
 };
