@@ -29,7 +29,7 @@ gulp.task('less', function() {
     .pipe(sourcemaps.init())
     .pipe(less({
       plugins: [autoprefix], // Automatically adds vendor prefixes.
-    }).on('error', function(err){
+    }).on('error', function(err) {
       // Added handler to prevent gulp watch crashing on error in the task.
       console.log('[gulp-less]', err);
       this.emit('end');
