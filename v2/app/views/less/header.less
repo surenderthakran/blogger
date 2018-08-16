@@ -1,9 +1,11 @@
 header.page-header {
   background-color: #FFFFFF;
-  box-shadow: 0px 1px 3px 0px @theme-dark-color;
+  border-bottom: solid 1px @theme-dark-color;
+  // box-shadow: 0px 1px 3px 0px @theme-dark-color;
   display: flex;
   justify-content: center;
-  position: fixed;
+  opacity: 0.9;
+  // position: fixed;
   width: 100%;
   z-index: 100;
 
@@ -96,6 +98,43 @@ header.page-header {
               transform: scaleX(1);
               visibility: visible;
             }
+          }
+        }
+      }
+    }
+  }
+}
+
+header.page-header.scrolled {
+  background-color: @theme-dark-color;
+  border-bottom: none;
+  box-shadow: 0px 1px 3px 0px @theme-dark-color;
+  position: fixed;
+
+  .content {
+    .signature {
+      color: #FFFFFF;
+
+      .owner-image {
+        display: none;
+      }
+    }
+  }
+
+  .centerbar {
+    a {
+      filter: brightness(100%) invert(1);
+    }
+  }
+
+  nav.menu {
+    ul {
+      li {
+        a {
+          color: #FFFFFF;
+
+          &:before {
+            background-color: #FFFFFF;
           }
         }
       }
