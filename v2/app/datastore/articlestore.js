@@ -45,7 +45,7 @@ module.exports = [
       date: '30th May 2017',
       updateDatetime: '2018-08-10',
       updateDate: '10th Aug 2018',
-      tags: ['Docker', 'Go'],
+      tags: ['Docker', 'Go', 'Testing', 'Makefile', 'Docker-Compose'],
     },
   },
   {
@@ -60,7 +60,7 @@ module.exports = [
       title: 'Enable Docker Remote API on Remote Docker Host and Connect Using SSH Tunnel On Ubuntu 14.04',
       datetime: '2016-06-02',
       date: '2nd June 2016',
-      tags: ['Docker'],
+      tags: ['Docker', 'SSH', 'Upstart'],
     },
   },
   {
@@ -75,7 +75,7 @@ module.exports = [
       title: 'AWS S3 Direct Upload from Browser with Node.js as Backend',
       datetime: '2016-05-28',
       date: '28th May 2016',
-      tags: ['AWS', 'S3', 'Node.js', 'Javascript'],
+      tags: ['AWS', 'S3', 'Node.js', 'Javascript', 'Ajax'],
     },
   },
 ];
