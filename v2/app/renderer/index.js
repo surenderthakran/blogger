@@ -13,6 +13,7 @@ const partialsPath = __root + '/views/templates/partials/';
 const externals = {};
 
 const registerPartials = () => {
+  console.log('Registering partials...');
   let options = {
     nodir: true,
     strict: true,
@@ -21,7 +22,6 @@ const registerPartials = () => {
   const files = glob.sync(partialsPath + '*.html', options);
 
   files.forEach((filePath) => {
-    console.log('Registering partial:', filePath);
     let fileName = path.basename(filePath);
     let partialName = fileName.substring(0, fileName.indexOf('.'));
 
@@ -30,12 +30,11 @@ const registerPartials = () => {
 };
 
 const removePages = () => {
-  console.log('\nDeleting pages...');
+  console.log('Deleting existing pages...');
   const files = fs.readdirSync(__root + '/public/');
 
   files.forEach((file) => {
     if (file.indexOf('.html') > -1) {
-      console.log('Deleting file:', file);
       const filePath = path.join(__root + '/public/', file);
       fs.unlinkSync(filePath);
     }
@@ -43,9 +42,8 @@ const removePages = () => {
 };
 
 const renderPages = () => {
-  console.log('\nRendering pages...');
+  console.log('Rendering pages...');
   rendererConfig.pages.forEach((page) => {
-    console.log('Rendering page:', templatesPath + page.src);
     const file = fs.readFileSync(templatesPath + page.src, 'utf8');
     const output = mustache.render(file, page.viewData, rendererConfig.partials);
     fs.writeFileSync(__root + '/public/' + page.target, output);
@@ -53,7 +51,7 @@ const renderPages = () => {
 };
 
 externals.render = () => {
-  console.log('Running Renderer...');
+  console.log('\nRunning Renderer...');
   registerPartials();
 
   removePages();
