@@ -21,6 +21,10 @@ const initServer = () => {
     res.sendFile($.public + '/projects.html');
   });
 
+  app.get('/about', (req, res) => {
+    res.sendFile($.public + '/about.html');
+  });
+
   app.listen(
       18660, () => console.log('\nExample app listening on port 18660!'));
 };
