@@ -9,6 +9,7 @@ const path = require('path');
 const express = require('express');
 
 // Local requires.
+const articleStore = require(__root + '/datastore/articlestore');
 const watchers = require(__root + '/watchers');
 
 const publicPath = path.join(__root, '/public/');
@@ -24,6 +25,13 @@ const initServer = () => {
 
   app.get('/about', (req, res) => {
     res.sendFile(path.join(publicPath, '/about.html'));
+  });
+
+  // Register article routes.
+  articleStore.forEach((article) => {
+    app.get('/' + article.url, (req, res) => {
+      res.sendFile(path.join(publicPath, req.url + '.html'));
+    });
   });
 
   app.use((req, res, next) => {
