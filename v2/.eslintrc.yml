@@ -7,3 +7,4 @@ env:
   es6: true
 rules:
   arrow-parens: 0
+  no-invalid-this: 0
