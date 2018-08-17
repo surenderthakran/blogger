@@ -9,6 +9,7 @@ const glob = require('glob');
 const mustache = require('mustache');
 
 // Local requires.
+const articleStore = require(__root + '/datastore/articlestore');
 const rendererConfig = require(__root + '/renderer/config');
 
 const templatesPath = path.join(__root, '/views/templates/');
@@ -60,12 +61,50 @@ const renderPages = () => {
   });
 };
 
+const renderArticles = () => {
+  console.log('Rendering article pages...');
+
+  // Iterate over all articles listed in the store.
+  articleStore.forEach((article) => {
+    console.log('Rendering article', article.articleId);
+
+    // Make deep copy of the article object to be discarded later.
+    const articleData = JSON.parse(JSON.stringify(article));
+
+    // Path of the article's body's html.
+    const bodyTemplatePath = path.join(templatesPath, articleData.url + '.html');
+    // Target path of the rendered html file.
+    const targetPath = path.join(publicPath, articleData.url + '.html');
+
+    // Read article's body.
+    const bodyTemplate = fs.readFileSync(bodyTemplatePath, 'utf-8');
+
+    // Render article body.
+    const body = mustache.render(bodyTemplate, articleData);
+
+    // Save article body in article object.
+    articleData.article.body = body;
+
+    // Read article page's template.
+    const articleTemplate = fs.readFileSync(path.join(templatesPath, 'article.html'), 'utf-8');
+
+    // Render final page.
+    const output = mustache.render(articleTemplate, articleData, rendererConfig.partials);
+
+    // Write final page at target path.
+    fs.writeFileSync(targetPath, output);
+  });
+};
+
 externals.render = () => {
   console.log('\nRunning Renderer...');
 
   registerPartials();
+
   deleteAllHtmlPages();
+
   renderPages();
+  renderArticles();
 };
 
 module.exports = externals;
