@@ -1,9 +1,5 @@
 DOCKER:=$(shell grep docker /proc/self/cgroup)
 
-# TODO(surenderthakran): Remove these binary paths and use npx instead.
-NODEMON = ./node_modules/nodemon/bin/nodemon.js
-GULP = ./node_modules/gulp/bin/gulp.js
-
 CMD:=
 
 help:
@@ -34,10 +30,10 @@ ifeq ($(NODE_ENV), production)
 	node app/app.js
 else
 	@echo Starting gulp watch in background...
-	@nohup $(GULP) watch &
+	@nohup npx gulp watch &
 	@sleep 1
 	@echo Starting server with nodemon...
-	@$(NODEMON) --watch app --ignore app/views --ignore app/public --delay 0.5 app/app.js
+	@npx nodemon --watch app --ignore app/views --ignore app/public --delay 0.5 app/app.js
 endif
 else
 	@echo \"make run\" will only work inside docker!!!
