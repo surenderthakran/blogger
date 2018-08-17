@@ -2,31 +2,32 @@
 
 global.__root = __dirname;
 
+// Global requires.
+const path = require('path');
+
+// NPM requires.
 const express = require('express');
 
+// Local requires.
 const watchers = require(__root + '/watchers');
 
-const $ = {};
-
-const initPaths = () => {
-  $.public = __root + '/public';
-};
+const publicPath = path.join(__root, '/public/');
 
 const initServer = () => {
   const app = express();
 
-  app.use(express.static(__root + '/public'));
+  app.use(express.static(publicPath));
 
   app.get('/projects', (req, res) => {
-    res.sendFile($.public + '/projects.html');
+    res.sendFile(path.join(publicPath, '/projects.html'));
   });
 
   app.get('/about', (req, res) => {
-    res.sendFile($.public + '/about.html');
+    res.sendFile(path.join(publicPath, '/about.html'));
   });
 
   app.use(function (req, res, next) {
-    res.status(404).sendFile($.public + '/404.html');
+    res.status(404).sendFile(path.join(publicPath, '/404.html'));
   });
 
   app.listen(
@@ -38,11 +39,7 @@ const init = () => {
     watchers.set();
   }
 
-  initPaths();
-
   initServer();
 };
 
 init();
-
-module.exports = $;

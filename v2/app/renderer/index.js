@@ -1,14 +1,19 @@
 'use strict';
 
+// Global requires.
 const fs = require('fs');
-const glob = require('glob');
-const mustache = require('mustache');
 const path = require('path');
 
+// NPM requires.
+const glob = require('glob');
+const mustache = require('mustache');
+
+// Local requires.
 const rendererConfig = require(__root + '/renderer/config');
 
-const templatesPath = __root + '/views/templates/';
-const partialsPath = __root + '/views/templates/partials/';
+const templatesPath = path.join(__root, '/views/templates/');
+const partialsPath = path.join(__root, '/views/templates/partials/');
+const publicPath = path.join(__root, '/public/');
 
 const externals = {};
 
@@ -19,11 +24,10 @@ const registerPartials = () => {
     strict: true,
     cwd: process.cwd(),
   };
-  const files = glob.sync(partialsPath + '*.html', options);
+  const files = glob.sync(path.join(partialsPath, '*.html'), options);
 
   files.forEach((filePath) => {
-    let fileName = path.basename(filePath);
-    let partialName = fileName.substring(0, fileName.indexOf('.'));
+    let partialName = path.basename(filePath, '.html');
 
     rendererConfig.partials[partialName] = fs.readFileSync(filePath, 'utf8');
   });
@@ -31,11 +35,11 @@ const registerPartials = () => {
 
 const removePages = () => {
   console.log('Deleting existing pages...');
-  const files = fs.readdirSync(__root + '/public/');
+  const files = fs.readdirSync(publicPath);
 
   files.forEach((file) => {
-    if (file.indexOf('.html') > -1) {
-      const filePath = path.join(__root + '/public/', file);
+    if (path.extname(file) === '.html') {
+      const filePath = path.join(publicPath, file);
       fs.unlinkSync(filePath);
     }
   });
@@ -44,16 +48,16 @@ const removePages = () => {
 const renderPages = () => {
   console.log('Rendering pages...');
   rendererConfig.pages.forEach((page) => {
-    const file = fs.readFileSync(templatesPath + page.src, 'utf8');
+    const file = fs.readFileSync(path.join(templatesPath, page.src), 'utf8');
     const output = mustache.render(file, page.viewData, rendererConfig.partials);
-    fs.writeFileSync(__root + '/public/' + page.target, output);
+    fs.writeFileSync(path.join(publicPath, page.target), output);
   });
 };
 
 externals.render = () => {
   console.log('\nRunning Renderer...');
-  registerPartials();
 
+  registerPartials();
   removePages();
   renderPages();
 };

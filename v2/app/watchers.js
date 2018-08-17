@@ -1,6 +1,7 @@
 'use strict';
 
 // Global requires.
+const path = require('path');
 const {promisify} = require('util');
 
 // NPM requires.
@@ -23,7 +24,7 @@ externals.set = () => {
   renderHtml();
 
   const rendererWatcher = chokidar.watch(
-      [__root + '/views/templates/**/*'],
+      [path.join(__root, '/views/templates/**/*')],
       {
         ignoreInitial: true,
         persistent: true,
