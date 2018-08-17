@@ -33,13 +33,16 @@ const registerPartials = () => {
   });
 };
 
-const removePages = () => {
-  console.log('Deleting existing pages...');
-  const files = fs.readdirSync(publicPath);
+const deleteAllHtmlPages = (directory=publicPath) => {
+  console.log('Deleting html files in', directory);
+  const files = fs.readdirSync(directory);
 
   files.forEach((file) => {
-    if (path.extname(file) === '.html') {
-      const filePath = path.join(publicPath, file);
+    if (fs.lstatSync(path.join(directory, file)).isDirectory()) {
+      deleteAllHtmlPages(path.join(directory, file));
+    } else if (path.extname(file) === '.html') {
+      const filePath = path.join(directory, file);
+      console.log('Deleting', filePath);
       fs.unlinkSync(filePath);
     }
   });
@@ -61,7 +64,7 @@ externals.render = () => {
   console.log('\nRunning Renderer...');
 
   registerPartials();
-  removePages();
+  deleteAllHtmlPages();
   renderPages();
 };
 
