@@ -49,7 +49,10 @@ const renderPages = () => {
   console.log('Rendering pages...');
   rendererConfig.pages.forEach((page) => {
     const file = fs.readFileSync(path.join(templatesPath, page.src), 'utf8');
-    const output = mustache.render(file, page.viewData, rendererConfig.partials);
+
+    const output = mustache.render(
+      file, page.viewData, rendererConfig.partials);
+
     fs.writeFileSync(path.join(publicPath, page.target), output);
   });
 };

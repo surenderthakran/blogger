@@ -12,7 +12,8 @@ module.exports = {
       viewData: {
         head: {
           title: 'Home | Surender Thakran',
-          description: 'Surender Thakran\'s technical articles about web development, server management and enterprise architecture',
+          description: 'Surender Thakran\'s technical articles about web ' +
+              'development, server management and enterprise architecture',
           keywords: 'web,css3,html5',
         },
         articles: articleStore,
@@ -24,7 +25,7 @@ module.exports = {
       viewData: {
         head: {
           title: 'Projects | Surender Thakran',
-          description: 'Surender Thakran\'s technical articles about web development, server management and enterprise architecture',
+          description: 'Surender Thakran\'s open source projects',
           keywords: 'web,css3,html5',
         },
         projects: projectStore,
@@ -36,8 +37,11 @@ module.exports = {
       viewData: {
         head: {
           title: 'About | Surender Thakran',
-          description: 'Page describing Surender Thakran, his career path and future goals.',
-          keywords: 'web architect,enterprise architect,startup,devops,backend developer,frontend developer,technology',
+          description: 'Page describing Surender Thakran, his career path and' +
+              ' future goals.',
+          keywords: ['web architect', 'enterprise architect', 'startup',
+                     'devops', 'backend developer', 'frontend developer',
+                     'google', 'technology', 'karate'].join(','),
         },
       },
     },

@@ -26,7 +26,7 @@ const initServer = () => {
     res.sendFile(path.join(publicPath, '/about.html'));
   });
 
-  app.use(function (req, res, next) {
+  app.use((req, res, next) => {
     res.status(404).sendFile(path.join(publicPath, '/404.html'));
   });
 
