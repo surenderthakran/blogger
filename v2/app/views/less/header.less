@@ -10,8 +10,8 @@ header.page-header {
   .content {
     align-items: center;
     display: flex;
-    max-width: @header-width;
-    padding: 1em;
+    max-width: @header-max-width;
+    padding: 1em 2em;
     width: 100%;
 
     .signature {
@@ -21,21 +21,29 @@ header.page-header {
       letter-spacing: 1px;
       line-height: 1.5em;
       min-width: 260px;
-      width: 33%;
+      width: 34%;
 
       .owner-image {
         border: solid #fff 3px;
         border-radius: 50%;
         box-shadow: 0px 0px 3px 1px @theme-dark-color;
         height: 100px;
+        margin-right: 1em;
         width: 100px;
       }
 
       div {
-        padding-left: 1em;
+
+        a {
+          p {
+            clear: both;
+            font-style: normal;
+          }
+        }
 
         p {
           clear: both;
+          font-style: italic;
         }
       }
     }
@@ -108,6 +116,8 @@ header.page-header.scrolled {
   position: fixed;
 
   .content {
+    padding: 0.5em 2em;
+
     .signature {
       color: #FFFFFF;
 
@@ -136,4 +146,10 @@ header.page-header.scrolled {
       }
     }
   }
+}
+
+div.spacer {
+  display: none;
+  height: 60px;
+  width: 100%;
 }
