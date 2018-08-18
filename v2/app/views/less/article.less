@@ -1,0 +1,180 @@
+section.article {
+  float: none;
+  margin: 0 auto;
+  max-width: 960px;
+  overflow: hidden;
+  padding: 2em;
+
+  header.head {
+    border-bottom: solid 1px #CCC;
+    padding: 2em 0;
+    width: 100%;
+
+    h1 {
+      font-size: 2.5em;
+      letter-spacing: 0.01em;
+      width: 100%;
+    }
+
+    time {
+      font-size: 1em;
+      line-height: 1.5em;
+      opacity: 0.8;
+      width: 100%;
+    }
+
+    p.tags {
+      color: #888888;
+      width: 100%;
+
+      span {
+        border: solid 1px #888888;
+        border-radius: 0.2em;
+        margin: 0.5em 0.5em 0.5em 0;
+        padding: 0.2em;
+      }
+    }
+  }
+
+  article.body {
+    padding: 2em 0;
+    width: 100%;
+
+    h2, h3, h4 {
+      margin: 1em 0 0.3em 0;
+      width: 100%;
+    }
+
+    p, ol, ul {
+      line-height: 1.4em;
+      margin: 0.5em 0;
+      font-size: 1.1em;
+      font-weight: 400;
+      width: 100%;
+      word-spacing: 0.1em;
+
+      a {
+        color: inherit;
+        border-bottom: 1px dotted #444444;
+        float: none;
+        text-decoration: none;
+
+        &:hover {
+          border-bottom: 1px solid #000;
+          color: #000;
+        }
+      }
+    }
+
+    pre {
+      background-color: #efefef;
+      line-height: 1.5em;
+      padding: 1em;
+      width: 100%;
+
+      code {
+        span.token.operator {
+          background-color: #EFEFEF;
+        }
+      }
+    }
+
+    ol, ul {
+      padding-left: 2em;
+
+      li {
+        width: 100%;
+      }
+    }
+
+    ol {
+      list-style-position: outside;
+      list-style-type: decimal;
+    }
+
+    div.image {
+      padding: 1em 0.5em;
+      text-align: center;
+      width: 100%;
+
+      img {
+        float: none;
+        height: auto;
+        max-width: 100%;
+      }
+
+      a {
+        color: #777777;
+        font-size: 0.8em;
+        font-style: italic;
+        padding: 1em 0;
+        text-align: right;
+        width: 100%;
+      }
+    }
+
+    span, strong, em {
+      float: none;
+
+      &.bold {
+        font-weight:600;
+      }
+    }
+
+    span {
+      &.underline {
+        text-decoration: underline;
+      }
+
+      &.code {
+        background-color: #efefef;
+        border: solid #ddd 1px;
+        font-family: monospace, monospace;
+        font-size: 0.9em;
+        padding: 0.1em 0.2em;
+        white-space: nowrap;
+      }
+    }
+
+    table {
+      border: 1px solid #cacaca;
+      border-collapse: collapse;
+      float: none;
+      margin: auto;
+
+      thead {
+        background-color: #cacaca;
+        float: none;
+
+        tr {
+          float: none;
+
+          th {
+            float: none;
+            padding: 1em;
+            text-align: center;
+          }
+        }
+      }
+
+      tbody {
+        float: none;
+
+        tr {
+          border-bottom: 1px solid #cacaca;
+          float: none;
+
+          td {
+            float: none;
+            padding: 1em;
+            text-align: center;
+          }
+        }
+
+        tr:nth-child(even) {
+          background-color: #eee;
+        }
+      }
+    }
+  }
+}
