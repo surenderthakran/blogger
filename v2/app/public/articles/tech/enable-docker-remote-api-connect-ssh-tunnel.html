@@ -69,8 +69,8 @@
     </nav>
   </div>
 </header>
-    <article class="article">
-      <header>
+    <section class="article">
+      <header class="head">
         <h1>Enable Docker Remote API on Remote Docker Host and Connect Using SSH Tunnel On Ubuntu 14.04</h1>
         <time datetime="2016-06-02">Published On: 2nd June 2016</time>
         <p class="tags">
@@ -79,7 +79,7 @@
           <span>Upstart</span>
         </p>
       </header>
-      <div class="article-body">
+      <article class="body">
         <h2>What is this about?</h2>
 <p><a href="https://www.docker.com/" target="_blank">Docker</a> is no longer the exotic new kid in the playground. A huge number of companies are adopting it in their development as well as deployment environments.</p>
 <p>With this increasing usage, the number of use cases for this technology are also evolving. One of them is to be able to connect to a docker daemon running on a remote server. Here, one may suggest to simply <span class="code">SSH</span> to the remote server running the docker daemon and execute whatever commands or scripts one may desire. While not a bad idea, it does not works very well if we want to connect to multiple docker daemon's running on different hosts and get docker host information simultaneously.</p>
@@ -110,8 +110,8 @@
 <p>If successfully done, we should be able to make API calls on out localhost to port <span class="code">4244</span>.</p>
 <pre><code class="language-bash">curl -X GET http://127.0.0.1:4244/images/json</code></pre>
 
-      </div>
-    </article>
+      </article>
+    </section>
 <footer>&copy; 2016-2018 Surender Thakran, unless stated otherwise.</footer>
   </body>
 </html>

@@ -5,8 +5,8 @@
   </head>
   <body>
     {{>header}}
-    <article class="article">
-      <header>
+    <section class="article">
+      <header class="head">
         <h1>{{ article.title }}</h1>
         <time datetime="{{ article.datetime }}">Published On: {{ article.date }}</time>
         {{#article.updateDate}}
@@ -18,10 +18,10 @@
           {{ /article.tags }}
         </p>
       </header>
-      <div class="article-body">
+      <article class="body">
         {{{ article.body }}}
-      </div>
-    </article>
+      </article>
+    </section>
     {{>footer}}
   </body>
 </html>
