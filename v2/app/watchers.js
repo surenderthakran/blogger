@@ -50,7 +50,7 @@ const watchWebpack = () => {
   });
 
   compiler.watch({
-    aggregateTimeout: 300,
+    aggregateTimeout: 500,
     poll: undefined,
   }, (err, stats) => {
     console.log('\nWebpack report!');
@@ -60,16 +60,6 @@ const watchWebpack = () => {
         console.error(err.details);
       }
       return;
-    }
-
-    const info = stats.toJson();
-
-    if (stats.hasErrors()) {
-      console.error(info.errors);
-    }
-
-    if (stats.hasWarnings()) {
-      console.warn(info.warnings);
     }
 
     console.log(stats.toString({
