@@ -35,7 +35,6 @@ const registerPartials = () => {
 };
 
 const deleteAllHtmlPages = (directory=publicPath) => {
-  console.log('Deleting html files in', directory);
   const files = fs.readdirSync(directory);
 
   files.forEach((file) => {
@@ -43,7 +42,6 @@ const deleteAllHtmlPages = (directory=publicPath) => {
       deleteAllHtmlPages(path.join(directory, file));
     } else if (path.extname(file) === '.html') {
       const filePath = path.join(directory, file);
-      console.log('Deleting', filePath);
       fs.unlinkSync(filePath);
     }
   });
@@ -66,13 +64,12 @@ const renderArticles = () => {
 
   // Iterate over all articles listed in the store.
   articleStore.forEach((article) => {
-    console.log('Rendering article', article.articleId);
-
     // Make deep copy of the article object to be discarded later.
     const articleData = JSON.parse(JSON.stringify(article));
 
     // Path of the article's body's html.
-    const bodyTemplatePath = path.join(templatesPath, articleData.url + '.html');
+    const bodyTemplatePath = path.join(
+        templatesPath, articleData.url + '.html');
     // Target path of the rendered html file.
     const targetPath = path.join(publicPath, articleData.url + '.html');
 
@@ -86,10 +83,12 @@ const renderArticles = () => {
     articleData.article.body = body;
 
     // Read article page's template.
-    const articleTemplate = fs.readFileSync(path.join(templatesPath, 'article.html'), 'utf-8');
+    const articleTemplate = fs.readFileSync(
+        path.join(templatesPath, 'article.html'), 'utf-8');
 
     // Render final page.
-    const output = mustache.render(articleTemplate, articleData, rendererConfig.partials);
+    const output = mustache.render(
+        articleTemplate, articleData, rendererConfig.partials);
 
     // Write final page at target path.
     fs.writeFileSync(targetPath, output);
