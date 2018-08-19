@@ -1,5 +1,5 @@
 header.page-header {
-  background-color: #FFFFFF;
+  background-color: @theme-dark-color;
   box-shadow: 0px 1px 3px 0px @theme-dark-color;
   display: flex;
   justify-content: center;
@@ -16,7 +16,7 @@ header.page-header {
 
     .signature {
       align-items: center;
-      color: @theme-dark-color;
+      color: #FFFFFF;
       display: flex;
       letter-spacing: 1px;
       line-height: 1.5em;
@@ -80,7 +80,7 @@ header.page-header {
           padding-left: 1.5em;
 
           a {
-            color: @theme-dark-color;
+            color: #FFFFFF;
             font-size: 0.9em;
             letter-spacing: 1px;
             line-height: 2em;
@@ -88,7 +88,7 @@ header.page-header {
             text-decoration: none;
 
             &:before {
-              background-color: @theme-dark-color;
+              background-color: #FFFFFF;
               bottom: 0;
               content: "";
               height: 2px;
@@ -112,35 +112,12 @@ header.page-header {
 }
 
 header.page-header.scrolled {
-  background-color: @theme-dark-color;
   position: fixed;
 
   .content {
     .signature {
-      color: #FFFFFF;
-
       .owner-image {
         display: none;
-      }
-    }
-  }
-
-  .centerbar {
-    a {
-      filter: brightness(100%) invert(1);
-    }
-  }
-
-  nav.menu {
-    ul {
-      li {
-        a {
-          color: #FFFFFF;
-
-          &:before {
-            background-color: #FFFFFF;
-          }
-        }
       }
     }
   }
