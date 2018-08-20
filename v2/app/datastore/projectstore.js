@@ -10,7 +10,7 @@ module.exports = [
         models in Python.`,
   },
   {
-    title: 'Dockerized Go Environemnt',
+    title: 'Dockerized Go Environment',
     url: 'https://github.com/surenderthakran/go_docker_env',
     description: `A dockerized development and production environment for Go to
         help jumpstart a new project.<br>A combination of Docker and Makefile
