@@ -3,17 +3,50 @@ section.article {
   margin: 0 auto;
   max-width: @project-max-width;
   overflow: hidden;
-  padding: 2em;
+
+  @media @phones {
+    padding: 0.5em 1em;
+  }
+
+  @media @tablets-portrait, @tablets-landscape {
+    padding: 0.5em 1.5em;
+  }
+
+  @media @desktop {
+    padding: 0.5em 2em;
+  }
 
   header.head {
     border-bottom: solid 1px #CCC;
-    padding-bottom: 2em;
     width: 100%;
 
+    @media @phones {
+      padding-bottom: 1em;
+    }
+
+    @media @tablets-portrait, @tablets-landscape {
+      padding-bottom: 1.5em;
+    }
+
+    @media @desktop {
+      padding-bottom: 2em;
+    }
+
     h1 {
-      font-size: 2.5em;
       letter-spacing: 0.01em;
       width: 100%;
+
+      @media @phones {
+        font-size: 1.8em;
+      }
+
+      @media @tablets-portrait, @tablets-landscape {
+        font-size: 2em;
+      }
+
+      @media @desktop {
+        font-size: 2.5em;
+      }
     }
 
     time {
@@ -37,8 +70,19 @@ section.article {
   }
 
   article.body {
-    padding: 2em 0;
     width: 100%;
+
+    @media @phones {
+      padding-top: 0.8em;
+    }
+
+    @media @tablets-portrait, @tablets-landscape {
+      padding-top: 1em;
+    }
+
+    @media @desktop {
+      padding-top: 1.2em;
+    }
 
     h2, h3, h4 {
       margin: 1em 0 0.3em 0;
