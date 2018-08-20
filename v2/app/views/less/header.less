@@ -2,18 +2,37 @@ header.page-header {
   background-color: @theme-color;
   box-shadow: 0px 1px 3px 0px @theme-color;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   opacity: 0.9;
-  position: fixed;
   width: 100%;
   z-index: 100;
+
+  @media @phones {
+    position: relative;
+  }
+
+  @media @tablets-portrait, @tablets-landscape, @desktop {
+    position: fixed;
+  }
 
   .content {
     align-items: center;
     display: flex;
     max-width: @project-max-width;
-    padding: 0.5em 2em;
     width: 100%;
+
+    @media @phones {
+      padding: 0.5em 1em;
+    }
+
+    @media @tablets-portrait, @tablets-landscape {
+      padding: 0.5em 1.5em;
+    }
+
+    @media @desktop {
+      padding: 0.5em 2em;
+    }
 
     .signature {
       align-items: center;
@@ -22,7 +41,14 @@ header.page-header {
       letter-spacing: 1px;
       line-height: 1.5em;
       min-width: 260px;
-      width: 34%;
+
+      @media @phones, @tablets-portrait {
+        width: 80%;
+      }
+
+      @media @tablets-landscape, @desktop {
+        width: 45%;
+      }
 
       .owner-image {
         border: solid #fff 3px;
@@ -31,6 +57,10 @@ header.page-header {
         height: 100px;
         margin-right: 1em;
         width: 100px;
+
+        @media @phones {
+          display: none;
+        }
       }
 
       div {
@@ -38,12 +68,14 @@ header.page-header {
         a {
           p {
             clear: both;
+            font-size: 1em;
             font-style: normal;
           }
         }
 
         p {
           clear: both;
+          font-size: 0.9em;
           font-style: italic;
         }
       }
@@ -53,7 +85,14 @@ header.page-header {
       align-items: center;
       display: flex;
       justify-content: center;
-      width: 33%;
+
+      @media @phones, @tablets-portrait {
+        display: none;
+      }
+
+      @media @tablets-landscape, @desktop {
+        width: 10%;
+      }
 
       a {
         filter: grayscale(1);
@@ -69,7 +108,13 @@ header.page-header {
     }
 
     nav.menu {
-      width: 33%;
+      @media @phones, @tablets-portrait {
+        display: none;
+      }
+
+      @media @tablets-landscape, @desktop {
+        width: 45%;
+      }
 
       ul {
         display: flex;
@@ -109,10 +154,68 @@ header.page-header {
         }
       }
     }
+
+    nav.hamburger {
+      @media @phones, @tablets-portrait {
+        width: 20%;
+      }
+
+      @media @tablets-landscape, @desktop {
+        display: none;
+      }
+
+      button {
+        background: url(/images/hamburger.svg) no-repeat;
+        border: 0;
+        float: right;
+        height: 32px;
+        width: 32px;
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+  }
+
+  div.drawer {
+    background-color: #FFFFFF;
+    transition: all 1s;
+    width: 100%;
+
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      list-style-type: none;
+      width: 100%;
+
+      li {
+        border-bottom: solid 1px #B1B1B1;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+
+        a {
+          color: @theme-color;
+          font-size: 0.8em;
+          letter-spacing: 1px;
+          line-height: 2em;
+          padding: 0.5em;
+          text-decoration: none;
+        }
+      }
+    }
   }
 }
 
 div.spacer {
-  height: 120px;
   width: 100%;
+
+  @media @phones {
+    height: 0px;
+  }
+
+  @media @tablets-portrait, @tablets-landscape, @desktop {
+    height: 120px;
+  }
 }
