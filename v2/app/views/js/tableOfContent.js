@@ -62,12 +62,15 @@ export default class {
 
   displayTableOfContent() {
     const section = document.getElementsByTagName('section')[0];
-    if (section.getElementsByClassName('article-index').length === 0) {
-      const indexList = this.createTocFromArray();
-      indexList.className = 'article-index';
+    const articleBody = section.getElementsByClassName('body')[0];
+    if (section.getElementsByClassName('article-toc').length === 0) {
+      const nav = document.createElement('nav');
+      nav.className = 'article-toc'
+      section.insertBefore(nav, articleBody);
 
-      const articleBody = section.getElementsByClassName('body')[0];
-      section.insertBefore(indexList, articleBody);
+      const indexList = this.createTocFromArray();
+
+      nav.appendChild(indexList);
     }
   }
 
