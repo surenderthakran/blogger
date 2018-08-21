@@ -69,6 +69,42 @@ section.article {
     }
   }
 
+  nav.article-toc {
+    border-bottom: solid 1px #ccc;
+    font-size: 1.1em;
+    font-weight: 400;
+    line-height: 1.8em;
+    padding: 1.5em 0 1.5em 1em;
+    width: 100%;
+    word-spacing: 0.1em;
+
+    ul {
+      li {
+        width: 100%;
+
+        a {
+          border-bottom: 1px dotted #444444;
+          color: inherit;
+          float: none;
+          text-decoration: none;
+
+          &:hover {
+            border-bottom: 1px solid #000;
+            color: #000;
+          }
+        }
+
+        &.child-list-item {
+          list-style-type: none;
+
+          ul.child-list {
+            padding-left: 2em;
+          }
+        }
+      }
+    }
+  }
+
   article.body {
     width: 100%;
 
