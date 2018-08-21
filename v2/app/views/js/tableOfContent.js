@@ -10,9 +10,7 @@ export default class {
   generateIndexObject() {
     const section = document.getElementsByTagName('section')[0];
     const articleBody = section.getElementsByClassName('body')[0];
-    console.log(articleBody);
     const children = articleBody.children;
-    console.log(children);
 
     let currentLevel = 0;
     let currentParent = null;
@@ -56,8 +54,6 @@ export default class {
         lastHeader = indexElement;
       }
     }
-
-    console.log(this.index);
   }
 
   displayTableOfContent() {
@@ -65,7 +61,7 @@ export default class {
     const articleBody = section.getElementsByClassName('body')[0];
     if (section.getElementsByClassName('article-toc').length === 0) {
       const nav = document.createElement('nav');
-      nav.className = 'article-toc'
+      nav.className = 'article-toc';
       section.insertBefore(nav, articleBody);
 
       const indexList = this.createTocFromArray();
@@ -75,7 +71,6 @@ export default class {
   }
 
   createTocFromArray(indexObj=this.index) {
-    console.log(indexObj);
     const list = document.createElement('ul');
 
     for (const indexElement of indexObj) {

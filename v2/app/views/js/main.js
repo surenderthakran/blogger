@@ -5,7 +5,7 @@ import * as utils from './utils';
 import TableOfContent from './tableOfContent';
 
 (() => {
-  document.addEventListener('DOMContentLoaded', () => {
+  window.addEventListener('load', () => {
     // Add listener on hamburger icon to toggle header's drawer.
     document.getElementById('hamburger')
         .addEventListener('click', handlers.showHideDrawer);
