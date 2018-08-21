@@ -14,6 +14,8 @@ const watchers = require(__root + '/watchers');
 
 const publicPath = path.join(__root, '/public/');
 
+const port = 18660;
+
 const initServer = () => {
   const app = express();
 
@@ -39,7 +41,7 @@ const initServer = () => {
   });
 
   app.listen(
-      18660, () => console.log('\nExample app listening on port 18660!'));
+      port, () => console.log(`\nExample app listening on port ${port}!`));
 };
 
 const init = () => {

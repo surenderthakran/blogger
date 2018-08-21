@@ -53,7 +53,7 @@ const watchWebpack = () => {
     aggregateTimeout: 500,
     poll: undefined,
   }, (err, stats) => {
-    console.log('\nWebpack report!');
+    console.log('\n=============== Webpack report! ===============');
     if (err) {
       console.error(err.stack || err);
       if (err.details) {
@@ -70,6 +70,7 @@ const watchWebpack = () => {
       stats: 'minimal',
       version: false,
     }));
+    console.log('\n===============================================');
   });
 };
 
