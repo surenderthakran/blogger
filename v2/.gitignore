@@ -1,5 +1,0 @@
-node_modules
-
-# Cache folders by npm
-.npm
-.config
