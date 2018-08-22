@@ -1,46 +1,57 @@
 DOCKER:=$(shell grep docker /proc/self/cgroup)
 
-GULP = ./node_modules/gulp/bin/gulp.js
-NODEMON = ./node_modules/nodemon/bin/nodemon.js
+CMD:=
 
 help:
 	@echo "=============== BLOGGER ================="
 	@echo "help ................ Show Help"
-	@echo "install ............. Install Blogger"
-	@echo "run ................. Run Blogger"
-	@echo "clean ............... Clean Installation"
+	@echo ""
+	@echo "Make rules to be run from outside a docker container."
+	@echo "command ............. Runs generic commands inside the container."
+	@echo "                      Usage: make command CMD='<command to run>'"
+	@echo "                      ex: make command CMD='npm install chai --save-dev'"
+	@echo ""
+	@echo "Make rules to be run from inside a docker container."
+	@echo "install ............. Installs Blogger"
+	@echo "run ................. Runs Blogger"
 
 install:
-	@echo Running make install...
-	@npm config set unsafe-perm true
-	@npm install
+ifdef DOCKER
+	@echo Running \"make install\"...
+	npm install
+else
+	@echo \"make install\" will only work inside docker!!!
+endif
 
 run:
-	@echo Running make run...
 ifdef DOCKER
-	@echo Inside docker container...
-ifeq ($(NODE_ENV), dev)
-	@echo Setting up development environment...
-	# This delay is to allow any linked containers to begin.
-	@sleep 2
+	@echo Running \"make run\"...
+ifeq ($(NODE_ENV), production)
+	node app/app.js
+else
 	@echo Starting gulp watch in background...
-	@nohup $(GULP) watch &
-	@echo Starting server via nodemon...
-	@$(NODEMON) -e js,html -i 'app/views/*' app/index.js
-else
-	@echo Starting nodejs...
-	@node app/index.js
+	@nohup npx gulp watch &
+	@sleep 1
+	@echo Starting server with nodemon...
+	@npx nodemon --watch app --ignore app/views --ignore app/public --delay 0.5 app/app.js
 endif
 else
-	@echo Starting nodejs...
-	@node app/index.js
+	@echo \"make run\" will only work inside docker!!!
 endif
 
-
-clean:
-	@rm -rf node_modules
+command:
+ifdef DOCKER:
+	@echo 'make command' will NOT work inside docker!!!
+else
+ifdef CMD
+	@echo Running \"${CMD}\" inside docker...
+	docker exec -it blogger_v2_container ${CMD}
+else
+	@echo 'make command' needs arguments!!
+endif
+endif
 
 # to catch all default targets and do nothing
 .DEFAULT: ;
 
-.PHONY: help install run clean
+.PHONY: help install run

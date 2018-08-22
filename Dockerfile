@@ -1,10 +1,17 @@
 # Dockerfile for surenderthakran/blogger
 
-FROM surenderthakran/nodejs:v6
+FROM node:8.11-alpine
+
+LABEL version="2.0"
 
 MAINTAINER https://github.com/surenderthakran
 
-ADD . /blogger
+# Add required packages.
+RUN apk add --no-cache \
+    bash \
+    make
+
+COPY . /blogger
 
 WORKDIR /blogger
 

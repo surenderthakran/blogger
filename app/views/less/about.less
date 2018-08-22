@@ -1,0 +1,70 @@
+section.about {
+  float: none;
+  margin: auto;
+  max-width: @project-max-width;
+  overflow: hidden;
+
+  @media @phones {
+    padding: 0.5em 1em;
+  }
+
+  @media @tablets-portrait, @tablets-landscape {
+    padding: 0.5em 1.5em;
+  }
+
+  @media @desktop {
+    padding: 0.5em 2em;
+  }
+
+  img {
+    border: solid #aaa 1px;
+    height: 200px;
+    padding: 0.5em;
+    width: 200px;
+
+    @media @phones {
+      margin: 1em 0;
+    }
+
+    @media @tablets-portrait, @tablets-landscape {
+      margin: 1.5em 0;
+    }
+
+    @media @desktop {
+      margin: 2em 0;
+    }
+  }
+
+  h2 {
+    padding: 0.5em 0;
+    width: 100%;
+  }
+
+  p {
+    line-height: 1.4em;
+    font-weight: 400;
+    font-size: 1.1em;
+    padding: .5em 0;
+    width: 100%;
+    word-spacing: .1em;
+  }
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    list-style-type: none;
+
+    li {
+      padding: 0.5em;
+
+      img {
+        border: 0;
+        height: 25px;
+        margin: 0;
+        width: auto;
+        padding: 0;
+      }
+    }
+  }
+}

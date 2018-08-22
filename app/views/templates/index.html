@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {{>head_content}}
+  </head>
+  <body>
+    {{>header}}
+    <section class="article-list">
+      <header>LATEST ARTICLES</header>
+      <ul>
+        {{#articles}}
+        <li>
+          <a href="{{ url }}"><h1>{{ article.title }}</h1></a>
+          <time datetime="{{ article.datetime }}">{{ article.date }}</time>
+          <p class="tags">
+            {{ #article.tags }}
+            <span>{{ . }}</span>
+            {{ /article.tags }}
+          </p>
+        </li>
+        {{/articles}}
+      </ul>
+    </section>
+    {{>footer}}
+  </body>
+</html>

@@ -1,60 +1,50 @@
 'use strict';
 
-var gulp = require('gulp');
-var cleanCSS = require('gulp-clean-css');
-var concat = require('gulp-concat');
-var jshint = require('gulp-jshint');
-var rename = require('gulp-rename');
-var sass = require('gulp-sass');
-var uglify = require('gulp-uglify');
-var stylish = require('jshint-stylish');
-var pump = require('pump');
+const cleanCSS = require('gulp-clean-css');
+const eslint = require('gulp-eslint');
+const gulp = require('gulp');
+const less = require('gulp-less');
+const LessAutoprefix = require('less-plugin-autoprefix');
+const rename = require('gulp-rename');
+const sourcemaps = require('gulp-sourcemaps');
 
-// compiles and compresses all .scss files.
-gulp.task('css-pack', function() {
-  return gulp.src(__dirname + '/app/views/app/scss/main.scss')
-    .pipe(sass.sync().on('error', sass.logError))
-    .pipe(gulp.dest(__dirname + '/app/views/dist/css'))
-    .pipe(cleanCSS({debug: true}, function(details) {
-      console.log(details.name + ': ' + details.stats.originalSize);
-      console.log(details.name + ': ' + details.stats.minifiedSize);
-    }))
-    .pipe(rename('main.min.css'))
-    .pipe(gulp.dest(__dirname + '/app/views/dist/css'));
-});
+// create autoprefixer to add vendor prefixes.
+const autoprefix = new LessAutoprefix({browsers: ['cover 99.5%']});
 
-// tests javascript for lint errors and reports to console.
-gulp.task('js-lint', function() {
+gulp.task('eslint', function() {
   return gulp.src([
-    './**/*.js',
-    '!./app/views/dist{,/**}',
-    '!./node_modules{,/**}'])
-    .pipe(jshint())
-    .pipe(jshint.reporter(stylish));
+    './app/**/*.js',
+    './gulpfile.js',
+    '!./app/public{,/**}'])
+    .pipe(eslint())
+    .pipe(eslint.format())
+    .pipe(eslint.failAfterError());
 });
 
-// combines and compresses all .js files.
-gulp.task('js-pack', function(cb) {
-  console.log('inside js-pack');
-  pump([
-    gulp.src([
-      __dirname + '/app/views/app/js/*.js',
-      '!' + __dirname + '/app/views/app/js/*_test.js'
-    ]),
-    concat('main.js'),
-    gulp.dest(__dirname + '/app/views/dist/js'),
-    uglify(),
-    rename('main.min.js'),
-    gulp.dest(__dirname + '/app/views/dist/js')
-  ], cb);
+gulp.task('less', function() {
+  // Run less on only the make file and all the imports will be handled
+  // automatically. Running on *.less will disturb import order and all less
+  // files may not be imported in the final output.
+  return gulp.src(__dirname + '/app/views/less/main.less')
+    .pipe(sourcemaps.init())
+    .pipe(less({
+      plugins: [autoprefix], // Automatically adds vendor prefixes.
+    }).on('error', function(err) {
+      // Added handler to prevent gulp watch crashing on error in the task.
+      console.log('[gulp-less]', err);
+      this.emit('end');
+    }))
+    .pipe(cleanCSS())
+    .pipe(rename('main.min.css'))
+    .pipe(sourcemaps.write('./')) // Writes sourcemap to main.min.css.map
+    .pipe(gulp.dest('./app/public/css'));
 });
 
-// watches various frontend resources and runs tasks when saved.
-gulp.task('watch', function () {
-  // watches all .scss files and runs css-pack task when saved.
-  gulp.watch(__dirname + '/app/views/app/scss/**/*.scss', ['css-pack']);
-  // watches all frontend .js files and runs js-pack task when saved.
-  gulp.watch(__dirname + '/app/views/app/js/**/*.js', ['js-pack']);
-  // watches all .js files and runs js-lint task when saved.
-  gulp.watch(__dirname + '/app/**/*.js', ['js-lint']);
+gulp.task('watch', function() {
+  // Watch js files and run eslint on change.
+  gulp.watch(
+    ['./app/**/*.js', './gulpfile.js', '!./app/public{,/**}'], ['eslint']);
+
+  // Watch less files and run task less on change.
+  gulp.watch(__dirname + '/app/views/less/**/*.less', ['less']);
 });

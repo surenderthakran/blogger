@@ -1,0 +1,237 @@
+header.page-header {
+  background-color: @theme-color;
+  box-shadow: 0px 1px 3px 0px @theme-color;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  opacity: 0.9;
+  width: 100%;
+  z-index: 100;
+
+  @media @phones {
+    position: relative;
+  }
+
+  @media @tablets-portrait, @tablets-landscape, @desktop {
+    position: fixed;
+  }
+
+  .content {
+    align-items: center;
+    display: flex;
+    max-width: @project-max-width;
+    width: 100%;
+
+    @media @phones {
+      padding: 0.5em 1em;
+    }
+
+    @media @tablets-portrait, @tablets-landscape {
+      padding: 0.5em 1.5em;
+    }
+
+    @media @desktop {
+      padding: 0.5em 2em;
+    }
+
+    .signature {
+      align-items: center;
+      color: #FFFFFF;
+      display: flex;
+      letter-spacing: 1px;
+      line-height: 1.5em;
+      min-width: 260px;
+
+      @media @phones, @tablets-portrait {
+        width: 80%;
+      }
+
+      @media @tablets-landscape, @desktop {
+        width: 43%;
+      }
+
+      .owner-image {
+        border: solid #fff 3px;
+        border-radius: 50%;
+        box-shadow: 0px 0px 3px 1px @theme-color;
+        height: 100px;
+        margin-right: 1em;
+        width: 100px;
+
+        @media @phones {
+          display: none;
+        }
+      }
+
+      div {
+
+        a {
+          p {
+            clear: both;
+            font-size: 1em;
+            font-style: normal;
+          }
+        }
+
+        p {
+          clear: both;
+          font-size: 0.9em;
+          font-style: italic;
+        }
+      }
+    }
+
+    .centerbar {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+
+      @media @phones, @tablets-portrait {
+        display: none;
+      }
+
+      @media @tablets-landscape, @desktop {
+        width: 14%;
+      }
+
+      a {
+        padding: 0 0.5em;
+        text-decoration: none;
+
+        img {
+          border-radius: 50%;
+          filter: brightness(0) invert(1);
+          width: 25px;
+
+          &:hover {
+            filter: none;
+          }
+
+          &.linkedin {
+            border-radius: 15%;
+          }
+        }
+      }
+    }
+
+    nav.menu {
+      @media @phones, @tablets-portrait {
+        display: none;
+      }
+
+      @media @tablets-landscape, @desktop {
+        width: 43%;
+      }
+
+      ul {
+        display: flex;
+        justify-content: flex-end;
+        list-style-type: none;
+        width: 100%;
+
+        li {
+          padding-left: 1.5em;
+
+          a {
+            color: #FFFFFF;
+            font-size: 0.9em;
+            letter-spacing: 1px;
+            line-height: 2em;
+            position: relative;
+            text-decoration: none;
+
+            &:before {
+              background-color: #FFFFFF;
+              bottom: 0;
+              content: "";
+              height: 2px;
+              left: 0;
+              position: absolute;
+              transform: scaleX(0);
+              transition: all 0.3s ease-in-out 0s;
+              visibility: hidden;
+              width: 100%;
+            }
+
+            &:hover:before {
+              transform: scaleX(1);
+              visibility: visible;
+            }
+          }
+        }
+      }
+    }
+
+    nav.hamburger {
+      @media @phones, @tablets-portrait {
+        width: 20%;
+      }
+
+      @media @tablets-landscape, @desktop {
+        display: none;
+      }
+
+      button {
+        background: url(/images/hamburger.svg) no-repeat;
+        border: 0;
+        float: right;
+        height: 32px;
+        width: 32px;
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+  }
+
+  div.drawer {
+    background-color: #FFFFFF;
+    transition: all 1s;
+    width: 100%;
+
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      list-style-type: none;
+      width: 100%;
+
+      li {
+        border-bottom: solid 1px #B1B1B1;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+
+        a {
+          color: @theme-color;
+          font-size: 0.8em;
+          letter-spacing: 1px;
+          line-height: 2em;
+          padding: 0.5em;
+          text-decoration: none;
+
+          img.logo {
+            border-radius: 50%;
+            width: 25px;
+
+            &.linkedin {
+              border-radius: 15%;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+div.spacer {
+  width: 100%;
+
+  @media @phones {
+    height: 0px;
+  }
+
+  @media @tablets-portrait, @tablets-landscape, @desktop {
+    height: 120px;
+  }
+}

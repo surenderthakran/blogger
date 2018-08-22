@@ -2,53 +2,17 @@
 [http://surenderthakran.com](http://surenderthakran.com)
 
 ### Salient Features:
-- Runs on `nodejs v6` and `npm v3`
-- Node.js runs with [hapi](https://github.com/hapijs/hapi) framework
-- Makes use of [mustache](https://mustache.github.io/) templating engine on nodejs with [vision](https://github.com/hapijs/vision)
+- Runs on `nodejs v8` and `npm v5`.
+- Node.js runs with [Express.js](https://expressjs.com/) framework.
 - Uses [prism](https://github.com/PrismJS/prism) for syntax-highlighting and other code utilities.
-- Architecture and dependencies are encapsulated in [docker](https://www.docker.com/) images hence making the dev and production environment COMPLETELY independent of host machine.
+- Application code and dependencies run inside [Docker](https://www.docker.com/) containers making the dev and production environment COMPLETELY independent of host machine.
 - In Development Environment:
-    - Provides simple development environment setup with docker-compose.
-    - scss to css auto compilation and CSS minification using [gulp](http://gulpjs.com/) task runner.
-- In Production Environment:
-    - Continuous Deployment is achieved via [Jenkins](https://jenkins.io/) on every push to `production` branch
-
-### How To Use:
-#### To build docker image for the application:
-```
-docker build -t blogger_app .
-```
-
-#### To run docker container:
-```
-docker run --rm -it -d --name blogger_app_1 --net=host blogger_app
-```
-With `--net=host` the container will listen for requests on port `18660`.
-
-To listen on a different port (ex: `80`) run:
-```
-docker run --rm -it -d --name blogger_app_1 -p 80:18660 blogger_app
-```
-
-#### To set up development environment:
-##### With Docker Compose:
-```
-docker-compose build
-docker-compose up
-```
-
-##### Without Docker Compose:
-```
-docker build -t blogger_app .
-docker run --rm -it -d -v $(pwd)/app/:/blogger/app/ --name blogger_app_1 --net=host --env NODE_ENV=dev blogger_app
-```
-
-Above commands (with and without `docker-compose`) will run the blogger docker container with the `blogger/app/` folder volume mounted.
-
-It will also start a `gulp` watch task to:
-- Create a single minified `js` file from all `.js` files on change.
-- Create a single minified `css` file from `.scss` files on change.
-- Test and report jshint issues on change.
+    - Provides simple development environment setup with [Docker Compose](https://docs.docker.com/compose/).
+    - Generates html pages from templates using [mustache](https://mustache.github.io/) templating engine.
+    - Uses [Gulp](http://gulpjs.com/) to compile [LessCss](http://lesscss.org/) to Css and for CSS minification.
+      - Uses [less-plugin-autoprefix](https://www.npmjs.com/package/less-plugin-autoprefix) to automatically add vendor prefixes on Less to CSS compilation.
+    - Uses [Webpack](https://webpack.js.org/) to bundle frontend javascript files on code change.
+    - Runs [EsLint](https://eslint.org/) checks on every code change using Gulp.
 
 ### Third Party
 #### Prism
@@ -67,3 +31,37 @@ Prism's default theme is inherited and apart from prism's code language package,
 - SQL
 - Vim
 - YAML
+
+### Production
+```
+docker build --no-cache=true -t blogger .
+
+docker run --rm -it -d \
+-p 18660:18660 \
+--name blogger_container \
+--env NODE_ENV=production \
+blogger
+```
+
+### Development
+```
+docker build --no-cache=true -t blogger_v2 .
+
+docker run --rm -it \
+-v $(pwd)/:/blogger/ \
+-v /blogger/node_modules/ \
+-p 18660:18660 \
+--name blogger_v2_container \
+--env NODE_ENV=development \
+blogger_v2 bash
+```
+
+### Debug
+```
+docker run --rm -it \
+-v $(pwd)/:/blogger/ \
+-v /blogger/node_modules/ \
+-p 18660:18660 \
+--name blogger_v2_container \
+node:dev bash
+```

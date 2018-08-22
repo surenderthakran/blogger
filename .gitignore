@@ -1,2 +1,5 @@
 node_modules
-*.log
+
+# Cache folders by npm
+.npm
+.config
