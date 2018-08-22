@@ -1,3 +1,4 @@
+/** @module eventHandlers */
 'use strict';
 
 /**
@@ -13,6 +14,7 @@ export const showHideDrawer = () => {
  * @export
  */
 export const changeHeaderOnScroll = () => {
+  // Only change change header on scroll on large screens.
   if (screen.width > 600) {
     const owner = document.getElementById('header-image');
     const scroll = window.pageYOffset || document.documentElement.scrollTop;

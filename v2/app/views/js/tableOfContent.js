@@ -1,15 +1,22 @@
+/** @module tableOfContent */
 'use strict';
 
 const headers =['H1', 'H2', 'H3', 'H4', 'H5', 'H6'];
 
+/** Class representing table of contents in an article page. */
 export default class {
+  /** Initializes table of content. */
   constructor() {
+    // Holds array of IndexElement objects.
     this.index = [];
   }
 
+  /** Reads header tags in the articles as populates class's index object. */
   generateIndexObject() {
     const section = document.getElementsByTagName('section')[0];
     const articleBody = section.getElementsByClassName('body')[0];
+
+    // Read all root level elements in the article body.
     const children = articleBody.children;
 
     let currentLevel = 0;
@@ -17,45 +24,64 @@ export default class {
     let lastHeader = null;
 
     for (let child of children) {
+      // If child is a header element.
       if (headers.indexOf(child.tagName) !== -1) {
-        const indexElement = new IndexElement(child);
+        const currentHeader = new IndexElement(child);
 
-        const seniorityComparison = indexElement.compareSeniority(lastHeader);
+        // Compare current header with the previous header.
+        const seniorityComparison = currentHeader.compareSeniority(lastHeader);
 
         if (seniorityComparison === -1) {
+          // If the current header is smaller than the previous header.
+
+          // Set last header as current header's parent.
+          currentHeader.parent = lastHeader;
+
+          // Add current header to last header's children.
+          lastHeader.children.push(currentHeader);
+
+          // Set last header as the new parent.
           currentParent = lastHeader;
-          indexElement.parent = currentParent;
-          currentParent.children.push(indexElement);
+
+          // Take current level one unit deeper.
           currentLevel++;
         } else if (seniorityComparison === 1) {
+          // If the current header is larger than the previous header.
+
           if (currentLevel === 0) {
-            // Header element higher than the first header will be treated as on
-            // the same level.
-            this.index.push(indexElement);
+            // Header elements larger than the header at 0th level will be
+            // added to the same level.
+            this.index.push(currentHeader);
           } else {
             if (currentLevel - 1 === 0) {
               currentParent = null;
-              this.index.push(indexElement);
+              this.index.push(currentHeader);
             } else {
               currentParent = lastHeader.parent.parent;
-              indexElement.parent = currentParent;
-              currentParent.children.push(indexElement);
+              currentHeader.parent = currentParent;
+              currentParent.children.push(currentHeader);
             }
           }
           currentLevel--;
         } else {
+          // If the current header is same as the previous header.
+
           if (currentLevel === 0) {
-            this.index.push(indexElement);
+            this.index.push(currentHeader);
           } else {
-            indexElement.parent = currentParent;
-            currentParent.children.push(indexElement);
+            currentHeader.parent = currentParent;
+            currentParent.children.push(currentHeader);
           }
         }
-        lastHeader = indexElement;
+        lastHeader = currentHeader;
       }
     }
   }
 
+  /**
+   * Displays table of content's index object as a nested list in te=he article
+   * page.
+   */
   displayTableOfContent() {
     const section = document.getElementsByTagName('section')[0];
     const articleBody = section.getElementsByClassName('body')[0];
@@ -70,6 +96,12 @@ export default class {
     }
   }
 
+  /**
+   * Recursively creates html list from index object.
+   *
+   * @param {Array.<IndexElement>} indexObj - TableOfContent's index object.
+   * @return {HTMLElement} HTMLUListElement
+   */
   createTocFromArray(indexObj=this.index) {
     const list = document.createElement('ul');
 
@@ -101,7 +133,13 @@ export default class {
   }
 }
 
+/** Class representing an element in the table of content. */
 class IndexElement {
+  /**
+   * Initializes a table of content element.
+   *
+   * @param {HTMLHeadElement} element - HTML header element.
+   */
   constructor(element) {
     this.element = element;
     this.text = element.textContent;
@@ -114,6 +152,13 @@ class IndexElement {
     this.children = [];
   }
 
+  /**
+   * Compares two header element for size.
+   *
+   * @param {HTMLHeadElement} newElement - HTML header element.
+   * @return {number} Returns 1 if the new header is smaller, -1 if larger
+   *                  and 0 if same.
+   */
   compareSeniority(newElement) {
     if (!newElement) {
       return 0;
@@ -123,10 +168,10 @@ class IndexElement {
     const newHeader = newElement.element.tagName;
 
     if (headers.indexOf(currentHeader) > headers.indexOf(newHeader)) {
-      // If new header is smaller than the current header.
+      // If new header is larger than the current header.
       return -1;
     } else if (headers.indexOf(currentHeader) < headers.indexOf(newHeader)) {
-      // If new header is larger than the current header.
+      // If new header is smaller than the current header.
       return 1;
     }
 
