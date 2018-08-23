@@ -45,7 +45,7 @@ ifdef DOCKER:
 else
 ifdef CMD
 	@echo Running \"${CMD}\" inside docker...
-	docker exec -it blogger_v2_container ${CMD}
+	docker exec -it blogger_container ${CMD}
 else
 	@echo 'make command' needs arguments!!
 endif
