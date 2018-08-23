@@ -13,12 +13,13 @@ const express = require('express');
 const articleStore = require(__root + '/datastore/articlestore');
 const watchers = require(__root + '/watchers');
 
-const publicPath = path.join(__root, '/public/');
-
 const port = 18660;
+const publicPath = path.join(__root, '/public/');
 
 const initServer = () => {
   const app = express();
+  // Treats /foo and /foo/ routes differently.
+  app.enable('strict routing');
 
   app.use(compression());
 
