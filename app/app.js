@@ -6,6 +6,7 @@ global.__root = __dirname;
 const path = require('path');
 
 // NPM requires.
+const compression = require('compression');
 const express = require('express');
 
 // Local requires.
@@ -18,6 +19,8 @@ const port = 18660;
 
 const initServer = () => {
   const app = express();
+
+  app.use(compression());
 
   app.use(express.static(publicPath));
 
