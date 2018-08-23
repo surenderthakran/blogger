@@ -30,6 +30,9 @@ const initServer = () => {
     preload: true,
   }));
 
+  // Disables 'X-Powered-By: Express' response header.
+  app.disable('x-powered-by')
+
   // To gzip responses.
   app.use(compression());
 
