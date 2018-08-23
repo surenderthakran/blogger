@@ -23,6 +23,19 @@ const initServer = () => {
 
   app.use(compression());
 
+  // Middleware to redirect urls with trailing slashes to urls without trailing
+  // slashes.
+  app.use(function(req, res, next) {
+    // Only redirect if the request method is GET and url has trailing slash.
+    if (req.method === 'GET' && req.path.substr(-1) == '/' &&
+        req.path.length > 1) {
+      var query = req.url.slice(req.path.length);
+      res.redirect(301, req.path.slice(0, -1) + query);
+    } else {
+      next();
+    }
+  });
+
   app.use(express.static(publicPath));
 
   app.get('/projects', (req, res) => {
