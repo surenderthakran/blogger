@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/surenderthakran/blogger#readme",
   "dependencies": {
+    "compression": "^1.7.3",
     "express": "^4.16.3",
     "glob": "^7.1.2"
   },
