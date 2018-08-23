@@ -22,10 +22,10 @@ const initServer = () => {
   // Treats /foo and /foo/ routes differently.
   app.enable('strict routing');
 
-  // Sets response header
+  // Sets response header for HSTS security,
   // Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
   app.use(helmet.hsts({
-    maxAge: 31536000,
+    maxAge: 31536000, // one year
     includeSubDomains: true,
     preload: true,
   }));
