@@ -8,6 +8,7 @@ const path = require('path');
 // NPM requires.
 const compression = require('compression');
 const express = require('express');
+const helmet = require('helmet');
 
 // Local requires.
 const articleStore = require(__root + '/datastore/articlestore');
@@ -21,6 +22,15 @@ const initServer = () => {
   // Treats /foo and /foo/ routes differently.
   app.enable('strict routing');
 
+  // Sets response header
+  // Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+  app.use(helmet.hsts({
+    maxAge: 31536000,
+    includeSubDomains: true,
+    preload: true,
+  }));
+
+  // To gzip responses.
   app.use(compression());
 
   // Middleware to redirect urls with trailing slashes to urls without trailing
@@ -29,7 +39,7 @@ const initServer = () => {
     // Only redirect if the request method is GET and url has trailing slash.
     if (req.method === 'GET' && req.path.substr(-1) == '/' &&
         req.path.length > 1) {
-      var query = req.url.slice(req.path.length);
+      const query = req.url.slice(req.path.length);
       res.redirect(301, req.path.slice(0, -1) + query);
     } else {
       next();
