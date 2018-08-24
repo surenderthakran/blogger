@@ -4,6 +4,7 @@
 const fs = require('fs');
 const path = require('path');
 const url = require('url');
+const xmlbuilder = require('xmlbuilder');
 
 // NPM requires.
 const glob = require('glob');
@@ -115,6 +116,22 @@ const renderArticles = () => {
   });
 };
 
+const generateSitemap = () => {
+  console.log('Generating sitemap...');
+
+  const sitemap = xmlbuilder.create({
+    'urlset': {
+      'url': sitemapUrlList,
+    },
+  },
+  {
+    encoding: 'utf-8',
+  }).end({pretty: true});
+
+  // Write sitemap.xml
+  fs.writeFileSync(path.join(publicPath, 'sitemap.xml'), sitemap);
+};
+
 module.exports = () => {
   console.log('\nGenerating Public Content...');
 
@@ -124,4 +141,6 @@ module.exports = () => {
 
   renderPages();
   renderArticles();
+
+  generateSitemap();
 };
