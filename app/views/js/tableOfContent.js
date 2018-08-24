@@ -134,7 +134,7 @@ export default class {
 }
 
 /** Class representing an element in the table of content. */
-class IndexElement {
+export class IndexElement {
   /**
    * Initializes a table of content element.
    *
