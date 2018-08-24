@@ -10,6 +10,7 @@ const webpack = require('webpack');
 
 // Local requires.
 const renderer = require(__root + '/renderer');
+const webpackConfig = require(path.join(__root, '../webpack.config'));
 
 const sleep = promisify(setTimeout);
 
@@ -39,17 +40,7 @@ const watchRenderer = () => {
 const watchWebpack = () => {
   console.log('Setting webpack watcher...');
 
-  const compiler = webpack({
-    mode: 'production',
-    entry: {
-      'public/js/main.min': path.join(__root, 'views/js/main.js'),
-    },
-    output: {
-      path: __root,
-      filename: '[name].js',
-    },
-    devtool: 'source-map',
-  });
+  const compiler = webpack(webpackConfig);
 
   compiler.watch({
     aggregateTimeout: 500,
