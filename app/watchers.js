@@ -19,7 +19,7 @@ const watchRenderer = () => {
   console.log('Setting renderer watcher...');
   const renderHtml = async (path) => {
     await sleep(800);
-    renderer.render();
+    renderer();
   };
   renderHtml();
 
