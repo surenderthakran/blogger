@@ -12,7 +12,7 @@ describe('IndexElement', function() {
         textContent: 'h1 element',
       });
 
-      assert.equal(indexElement.textContent, 'h1 element');
+      assert.equal(indexElement.text, 'h1 element');
     });
 
     it('should properly compare headers');
