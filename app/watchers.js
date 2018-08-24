@@ -41,10 +41,12 @@ const watchWebpack = () => {
 
   const compiler = webpack({
     mode: 'production',
-    entry: path.join(__root, 'views/js/main.js'),
+    entry: {
+      'public/js/main.min': path.join(__root, 'views/js/main.js'),
+    },
     output: {
-      path: path.join(__root, 'public/js'),
-      filename: 'main.min.js',
+      path: __root,
+      filename: '[name].js',
     },
     devtool: 'source-map',
   });
