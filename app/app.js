@@ -31,7 +31,7 @@ const initServer = () => {
   }));
 
   // Disables 'X-Powered-By: Express' response header.
-  app.disable('x-powered-by')
+  app.disable('x-powered-by');
 
   // To gzip responses.
   app.use(compression());

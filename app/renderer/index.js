@@ -3,6 +3,8 @@
 // Global requires.
 const fs = require('fs');
 const path = require('path');
+const url = require('url');
+const xmlbuilder = require('xmlbuilder');
 
 // NPM requires.
 const glob = require('glob');
@@ -16,7 +18,8 @@ const templatesPath = path.join(__root, '/views/templates/');
 const partialsPath = path.join(__root, '/views/templates/partials/');
 const publicPath = path.join(__root, '/public/');
 
-const externals = {};
+const sitemapUrlList = [];
+const sitemapDomainBase = 'https://www.surenderthakran.com';
 
 const registerPartials = () => {
   console.log('Registering partials...');
@@ -56,6 +59,18 @@ const renderPages = () => {
       file, page.viewData, rendererConfig.partials);
 
     fs.writeFileSync(path.join(publicPath, page.target), output);
+
+    // Add page to sitemapUrlList to get them added to sitemap.xml
+    const parsedTargetPath = path.parse(page.target);
+    let urlPathName = path.join(parsedTargetPath.dir, parsedTargetPath.name);
+    // Don't use 'index' pathnames in urls.
+    if (urlPathName === 'index') {
+      urlPathName = '';
+    }
+    const sitemapLoc = url.resolve(sitemapDomainBase, urlPathName);
+    sitemapUrlList.push({
+      loc: sitemapLoc,
+    });
   });
 };
 
@@ -92,11 +107,33 @@ const renderArticles = () => {
 
     // Write final page at target path.
     fs.writeFileSync(targetPath, output);
+
+    // Add articles to sitemapUrlList to get them added to sitemap.xml
+    const sitemapLoc = url.resolve(sitemapDomainBase, article.url);
+    sitemapUrlList.push({
+      loc: sitemapLoc,
+    });
   });
 };
 
-externals.render = () => {
-  console.log('\nRunning Renderer...');
+const generateSitemap = () => {
+  console.log('Generating sitemap...');
+
+  const sitemap = xmlbuilder.create({
+    'urlset': {
+      'url': sitemapUrlList,
+    },
+  },
+  {
+    encoding: 'utf-8',
+  }).end({pretty: true});
+
+  // Write sitemap.xml
+  fs.writeFileSync(path.join(publicPath, 'sitemap.xml'), sitemap);
+};
+
+module.exports = () => {
+  console.log('\nGenerating Public Content...');
 
   registerPartials();
 
@@ -104,6 +141,6 @@ externals.render = () => {
 
   renderPages();
   renderArticles();
-};
 
-module.exports = externals;
+  generateSitemap();
+};
