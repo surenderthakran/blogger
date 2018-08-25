@@ -14,7 +14,43 @@ describe('IndexElement', function() {
 
       assert.equal(indexElement.text, 'h1 element');
     });
+  });
 
-    it('should properly compare headers');
+  describe('compareSeniority', function() {
+    let firstHeader;
+
+    beforeEach(function() {
+      firstHeader = new IndexElement({
+        tagName: 'H2',
+        textContent: 'h2 element',
+      });
+    });
+
+    it('should return 0 for same headers', function() {
+      const secondHeader = new IndexElement({
+        tagName: 'H2',
+        textContent: 'h2 element',
+      });
+
+      assert.equal(firstHeader.compareSeniority(secondHeader), 0);
+    });
+
+    it('should return 1 when compared with smaller headers', function() {
+      const secondHeader = new IndexElement({
+        tagName: 'H3',
+        textContent: 'h3 element',
+      });
+
+      assert.equal(firstHeader.compareSeniority(secondHeader), 1);
+    });
+
+    it('should return -1 when compared with larger headers', function() {
+      const secondHeader = new IndexElement({
+        tagName: 'H1',
+        textContent: 'h1 element',
+      });
+
+      assert.equal(firstHeader.compareSeniority(secondHeader), -1);
+    });
   });
 });
