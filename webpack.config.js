@@ -6,10 +6,10 @@ const path = require('path');
 module.exports = {
   mode: 'production',
   entry: {
-    'public/js/main.min': path.join(__root, 'views/js/main.js'),
+    'app/public/js/main.min': path.join(__dirname, 'app/views/js/main.js'),
   },
   output: {
-    path: __root,
+    path: __dirname,
     filename: '[name].js',
   },
   devtool: 'source-map',
