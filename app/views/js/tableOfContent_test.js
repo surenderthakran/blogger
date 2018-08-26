@@ -1,6 +1,6 @@
 'use strict';
 
-const assert = require('assert');
+const {expect} = require('chai');
 
 import {IndexElement} from './tableOfContent';
 
@@ -12,7 +12,7 @@ describe('IndexElement', function() {
         textContent: 'h1 element',
       });
 
-      assert.equal(indexElement.text, 'h1 element');
+      expect(indexElement.text).to.equal('h1 element');
     });
   });
 
@@ -32,7 +32,7 @@ describe('IndexElement', function() {
         textContent: 'h2 element',
       });
 
-      assert.equal(firstHeader.compareSeniority(secondHeader), 0);
+      expect(firstHeader.compareSeniority(secondHeader)).to.equal(0);
     });
 
     it('should return 1 when compared with smaller headers', function() {
@@ -41,7 +41,7 @@ describe('IndexElement', function() {
         textContent: 'h3 element',
       });
 
-      assert.equal(firstHeader.compareSeniority(secondHeader), 1);
+      expect(firstHeader.compareSeniority(secondHeader)).to.equal(1);
     });
 
     it('should return -1 when compared with larger headers', function() {
@@ -50,7 +50,7 @@ describe('IndexElement', function() {
         textContent: 'h1 element',
       });
 
-      assert.equal(firstHeader.compareSeniority(secondHeader), -1);
+      expect(firstHeader.compareSeniority(secondHeader)).to.equal(-1);
     });
   });
 });
