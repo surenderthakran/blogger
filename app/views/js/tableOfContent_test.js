@@ -101,7 +101,8 @@ describe('TableOfContent', function() {
       expect(toc.index[0].children[0].element.tagName).to.equal('H2');
       expect(toc.index[0].children[0].children).to.have.lengthOf(1);
 
-      expect(toc.index[0].children[0].children[0].element.tagName).to.equal('H3');
+      expect(toc.index[0].children[0].children[0].element.tagName)
+          .to.equal('H3');
     });
 
     it('should make proper hierarchy of headers from article', function() {
@@ -126,7 +127,8 @@ describe('TableOfContent', function() {
       expect(toc.index[0].children[0].element.tagName).to.equal('H2');
       expect(toc.index[0].children[0].children).to.have.lengthOf(1);
 
-      expect(toc.index[0].children[0].children[0].element.tagName).to.equal('H3');
+      expect(toc.index[0].children[0].children[0].element.tagName)
+          .to.equal('H3');
       expect(toc.index[0].children[0].children[0].children).to.have.lengthOf(0);
 
       expect(toc.index[1].element.tagName).to.equal('H1');
