@@ -19,62 +19,40 @@ export default class {
     // Read all root level elements in the article body.
     const children = articleBody.children;
 
-    let currentLevel = 0;
-    let currentParent = null;
-    let lastHeader = null;
-
     for (let child of children) {
-      // If child is a header element.
-      if (headers.indexOf(child.tagName) !== -1) {
-        const currentHeader = new IndexElement(child);
-
-        // Compare current header with the previous header.
-        const seniorityComparison = currentHeader.compareSeniority(lastHeader);
-
-        if (seniorityComparison === -1) {
-          // If the current header is smaller than the previous header.
-
-          // Set last header as current header's parent.
-          currentHeader.parent = lastHeader;
-
-          // Add current header to last header's children.
-          lastHeader.children.push(currentHeader);
-
-          // Set last header as the new parent.
-          currentParent = lastHeader;
-
-          // Take current level one unit deeper.
-          currentLevel++;
-        } else if (seniorityComparison === 1) {
-          // If the current header is larger than the previous header.
-
-          if (currentLevel === 0) {
-            // Header elements larger than the header at 0th level will be
-            // added to the same level.
-            this.index.push(currentHeader);
-          } else {
-            if (currentLevel - 1 === 0) {
-              currentParent = null;
-              this.index.push(currentHeader);
-            } else {
-              currentParent = lastHeader.parent.parent;
-              currentHeader.parent = currentParent;
-              currentParent.children.push(currentHeader);
-            }
-          }
-          currentLevel--;
-        } else {
-          // If the current header is same as the previous header.
-
-          if (currentLevel === 0) {
-            this.index.push(currentHeader);
-          } else {
-            currentHeader.parent = currentParent;
-            currentParent.children.push(currentHeader);
-          }
-        }
-        lastHeader = currentHeader;
+      if (headers.includes(child.tagName)) {
+        this.addHeaderToIndexObj(new IndexElement(child), this.index);
       }
+    }
+  }
+
+  /**
+   * Add a new IndexElement to in the TableOfContent's index after recursively
+   * finding its proper position.
+   *
+   * @param {IndexElement} newHeader
+   * @param {Array.<IndexElement>} indexObj
+   */
+  addHeaderToIndexObj(newHeader, indexObj) {
+    // Add header if the index is empty at the current level.
+    if (indexObj.length == 0) {
+      indexObj.push(newHeader);
+      return;
+    }
+
+    // Last element at the current level.
+    const lastHeader = indexObj[indexObj.length - 1];
+
+    // Compare new and last header for seniority.
+    const seniority = newHeader.compareSeniority(lastHeader);
+
+    if (seniority == -1) { // If new header is smaller than the last header.
+      // Add new header to the children of the last header.
+      this.addHeaderToIndexObj(newHeader, lastHeader.children);
+    } else {
+      // If the new header is same or larger than the last header, add it at the
+      // current level.
+      indexObj.push(newHeader);
     }
   }
 
@@ -83,16 +61,18 @@ export default class {
    * page.
    */
   displayTableOfContent() {
-    const section = document.getElementsByTagName('section')[0];
-    const articleBody = section.getElementsByClassName('body')[0];
-    if (section.getElementsByClassName('article-toc').length === 0) {
-      const nav = document.createElement('nav');
-      nav.className = 'article-toc';
-      section.insertBefore(nav, articleBody);
+    if (this.index.length > 0) {
+      const section = document.getElementsByTagName('section')[0];
+      const articleBody = section.getElementsByClassName('body')[0];
+      if (section.getElementsByClassName('article-toc').length === 0) {
+        const nav = document.createElement('nav');
+        nav.className = 'article-toc';
+        section.insertBefore(nav, articleBody);
 
-      const indexList = this.createTocFromArray();
+        const indexList = this.createTocFromArray();
 
-      nav.appendChild(indexList);
+        nav.appendChild(indexList);
+      }
     }
   }
 
