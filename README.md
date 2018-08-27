@@ -1,11 +1,14 @@
 ## Blogger
 [http://surenderthakran.com](http://surenderthakran.com)
 
+[![Build Status](https://travis-ci.com/surenderthakran/blogger.svg?branch=master)](https://travis-ci.com/surenderthakran/blogger)
+
 ### Salient Features:
 - Runs on `nodejs v8` and `npm v5`.
 - Node.js runs with [Express.js](https://expressjs.com/) framework.
 - Uses [prism](https://github.com/PrismJS/prism) for syntax-highlighting and other code utilities.
 - Application code and dependencies run inside [Docker](https://www.docker.com/) containers making the dev and production environment COMPLETELY independent of host machine.
+- Every push to the master branch is built and tested using [Travis-CI](https://travis-ci.com/surenderthakran/blogger).
 - In Development Environment:
     - Provides simple development environment setup with [Docker Compose](https://docs.docker.com/compose/).
     - Generates html pages from templates using [mustache](https://mustache.github.io/) templating engine.
