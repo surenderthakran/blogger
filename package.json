@@ -4,7 +4,7 @@
   "description": "blogger",
   "main": "app.js",
   "scripts": {
-    "test-fe": "mocha-webpack --interactive false --webpack-config webpack-config.test.js ./app/views/js/**/*_test.js || true"
+    "test-fe": "mocha-webpack --interactive false --webpack-config webpack-config.test.js ./app/views/js/**/*_test.js"
   },
   "repository": {
     "type": "git",
