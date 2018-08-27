@@ -3,6 +3,8 @@ sudo: required
 services:
   - docker
 
-before_install:
+install:
 - docker build --no-cache=true -t blogger .
+
+script:
 - docker run --rm -it blogger npm run test-fe
