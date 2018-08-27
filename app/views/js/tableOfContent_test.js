@@ -44,7 +44,7 @@ describe('TableOfContent', function() {
     expect(toc.index).to.deep.equal([]);
   });
 
-  it('should read root headers from article as IndexElements', function() {
+  it('should read root headers from article', function() {
     articleSection.innerHTML = `<article class="body">
       <h1>header element 1</h1>
       <p>some text</p>
@@ -56,6 +56,80 @@ describe('TableOfContent', function() {
     toc.generateIndexObject();
 
     expect(toc.index).to.have.lengthOf(3);
+  });
+
+  it('should read child header from article', function() {
+    articleSection.innerHTML = `<article class="body">
+      <h1>header element 1</h1>
+      <p>some text</p>
+      <h2>header element 2</h2>
+      <p>some text</p>
+      <h1>header element 3</h1>
+    </article>`;
+
+    toc.generateIndexObject();
+
+    expect(toc.index).to.have.lengthOf(2);
+
+    expect(toc.index[0].element.tagName).to.equal('H1');
+    expect(toc.index[0].children).to.have.lengthOf(1);
+
+    expect(toc.index[0].children[0].element.tagName).to.equal('H2');
+    expect(toc.index[0].children[0].children).to.have.lengthOf(0);
+
+    expect(toc.index[1].element.tagName).to.equal('H1');
+    expect(toc.index[1].children).to.have.lengthOf(0);
+  });
+
+  it('should read deep child headers from article', function() {
+    articleSection.innerHTML = `<article class="body">
+      <h1>header element 1</h1>
+      <p>some text</p>
+      <h2>header element 2</h2>
+      <p>some text</p>
+      <h3>header element 3</h3>
+    </article>`;
+
+    toc.generateIndexObject();
+
+    expect(toc.index).to.have.lengthOf(1);
+
+    expect(toc.index[0].element.tagName).to.equal('H1');
+    expect(toc.index[0].children).to.have.lengthOf(1);
+
+    expect(toc.index[0].children[0].element.tagName).to.equal('H2');
+    expect(toc.index[0].children[0].children).to.have.lengthOf(1);
+
+    expect(toc.index[0].children[0].children[0].element.tagName).to.equal('H3');
+  });
+
+  it('should make proper hierarchy of headers from article', function() {
+    articleSection.innerHTML = `<article class="body">
+      <h1>header element 1</h1>
+      <p>some text</p>
+      <h2>header element 2</h2>
+      <p>some text</p>
+      <h3>header element 3</h3>
+      <p>some text</p>
+      <h1>header element 6</h1>
+    </article>`;
+
+    toc.generateIndexObject();
+
+    // expect(toc.index).to.deep.equal([]);
+    expect(toc.index).to.have.lengthOf(2);
+
+    expect(toc.index[0].element.tagName).to.equal('H1');
+    expect(toc.index[0].children).to.have.lengthOf(1);
+
+    expect(toc.index[0].children[0].element.tagName).to.equal('H2');
+    expect(toc.index[0].children[0].children).to.have.lengthOf(1);
+
+    expect(toc.index[0].children[0].children[0].element.tagName).to.equal('H3');
+    expect(toc.index[0].children[0].children[0].children).to.have.lengthOf(0);
+
+    expect(toc.index[1].element.tagName).to.equal('H1');
+    expect(toc.index[1].children).to.have.lengthOf(0);
   });
 });
 
@@ -106,6 +180,10 @@ describe('IndexElement', function() {
       });
 
       expect(firstHeader.compareSeniority(secondHeader)).to.equal(-1);
+    });
+
+    it('should return 0 if new header is null', function() {
+      expect(firstHeader.compareSeniority(null)).to.equal(0);
     });
   });
 });

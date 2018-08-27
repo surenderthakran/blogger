@@ -86,6 +86,7 @@ export default class {
     const list = document.createElement('ul');
 
     for (const indexElement of indexObj) {
+      // Set element's id for internal links.
       indexElement.element.id = indexElement.href;
 
       const listItem = document.createElement('li');
