@@ -1,0 +1,8 @@
+sudo: required
+
+services:
+  - docker
+
+before_install:
+- docker build --no-cache=true -t blogger .
+- docker run --rm -it -d -p 18660:18660 --name blogger_container --env NODE_ENV=production blogger "npm run test-fe"
