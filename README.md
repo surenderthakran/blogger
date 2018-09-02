@@ -6,15 +6,15 @@
 ### Salient Features:
 - Runs on `nodejs v8` and `npm v5`.
 - Node.js runs with [Express.js](https://expressjs.com/) framework.
-- Uses [prism](https://github.com/PrismJS/prism) for syntax-highlighting and other code utilities.
+- Uses [prism](https://github.com/PrismJS/prism) for syntax-highlighting.
 - Application code and dependencies run inside [Docker](https://www.docker.com/) containers making the dev and production environment COMPLETELY independent of host machine.
 - Every push to the master branch is built and tested using [Travis-CI](https://travis-ci.com/surenderthakran/blogger).
 - In Development Environment:
     - Provides simple development environment setup with [Docker Compose](https://docs.docker.com/compose/).
-    - Generates html pages from templates using [mustache](https://mustache.github.io/) templating engine.
-    - Auto generates sitemap.xml
+    - Generates html pages from templates using [mustache](https://mustache.github.io/) templating engine on every code change in templates.
+    - Auto generates sitemap.xml once on server start.
     - Uses [Gulp](http://gulpjs.com/) to compile [LessCss](http://lesscss.org/) to Css and for CSS minification.
-      - Uses [less-plugin-autoprefix](https://www.npmjs.com/package/less-plugin-autoprefix) to automatically add vendor prefixes on Less to CSS compilation.
+      - Uses [less-plugin-autoprefix](https://www.npmjs.com/package/less-plugin-autoprefix) to automatically add vendor prefixes during Less to CSS compilation.
     - Uses [Webpack](https://webpack.js.org/) to bundle frontend javascript files on code change.
     - Runs [EsLint](https://eslint.org/) checks on every code change using Gulp.
 
