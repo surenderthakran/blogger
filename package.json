@@ -4,7 +4,7 @@
   "description": "blogger",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test-fe": "mocha-webpack --interactive false --webpack-config webpack-config.test.js ./app/views/js/**/*_test.js"
   },
   "repository": {
     "type": "git",
@@ -23,6 +23,7 @@
     "helmet": "^3.13.0"
   },
   "devDependencies": {
+    "chai": "^4.1.2",
     "chokidar": "^2.0.4",
     "eslint": "^5.3.0",
     "eslint-config-google": "^0.9.1",
@@ -32,11 +33,14 @@
     "gulp-less": "^4.0.1",
     "gulp-rename": "^1.4.0",
     "gulp-sourcemaps": "^2.6.4",
+    "jsdom": "^12.0.0",
     "less-plugin-autoprefix": "^2.0.0",
     "mocha": "^5.2.0",
+    "mocha-webpack": "^2.0.0-beta.0",
     "mustache": "^2.3.1",
     "nodemon": "^1.18.3",
     "webpack": "^4.16.5",
+    "webpack-node-externals": "^1.7.2",
     "xmlbuilder": "^10.0.0"
   }
 }

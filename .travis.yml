@@ -1,0 +1,10 @@
+sudo: required
+
+services:
+  - docker
+
+install:
+- docker build --no-cache=true -t blogger .
+
+script:
+- docker run --rm -it blogger npm run test-fe
