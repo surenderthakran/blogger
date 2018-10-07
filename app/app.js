@@ -60,7 +60,7 @@ const initServer = () => {
   });
 
   // Register article routes.
-  articleStore.forEach((article) => {
+  articleStore.list().forEach((article) => {
     app.get('/' + article.url, (req, res) => {
       res.sendFile(path.join(publicPath, req.url + '.html'));
     });
