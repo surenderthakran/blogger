@@ -16,7 +16,7 @@ module.exports = {
               'development, server management and enterprise architecture',
           keywords: 'web,css3,html5',
         },
-        articles: articleStore,
+        articles: articleStore.list(),
       },
     },
     {

@@ -78,7 +78,7 @@ const renderArticles = () => {
   console.log('Rendering article pages...');
 
   // Iterate over all articles listed in the store.
-  articleStore.forEach((article) => {
+  articleStore.list().forEach((article) => {
     // Make deep copy of the article object to be discarded later.
     const articleData = JSON.parse(JSON.stringify(article));
 

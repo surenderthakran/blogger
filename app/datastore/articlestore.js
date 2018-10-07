@@ -1,6 +1,8 @@
 'use strict';
 
-module.exports = [
+const tagStore = require(__root + '/datastore/tagstore');
+
+const articlesStore = [
   {
     articleId: 'introducing-gomind',
     url: 'articles/tech/introducing-gomind',
@@ -14,7 +16,7 @@ module.exports = [
       title: 'Introducing GoMind: A Simplistic Neural Network Library in Go',
       datetime: '2018-07-29',
       date: '29th July 2018',
-      tags: ['Neural Network', 'Go'],
+      tags: ['neural_network', 'go'],
     },
   },
   {
@@ -33,7 +35,7 @@ module.exports = [
       title: 'Implementing Back Propagation Algorithm In A Neural Network',
       datetime: '2017-12-26',
       date: '26th December 2017',
-      tags: ['Neural Network', 'Math'],
+      tags: ['neural_network', 'math'],
     },
   },
   {
@@ -54,7 +56,7 @@ module.exports = [
       date: '30th May 2017',
       updateDatetime: '2018-08-10',
       updateDate: '10th Aug 2018',
-      tags: ['Docker', 'Go', 'Testing', 'Makefile', 'Docker-Compose'],
+      tags: ['docker', 'go', 'testing', 'makefile', 'docker_compose'],
     },
   },
   {
@@ -72,7 +74,7 @@ module.exports = [
           'Using SSH Tunnel On Ubuntu 14.04',
       datetime: '2016-06-02',
       date: '2nd June 2016',
-      tags: ['Docker', 'SSH', 'Upstart'],
+      tags: ['docker', 'ssh', 'upstart'],
     },
   },
   {
@@ -91,7 +93,29 @@ module.exports = [
       title: 'AWS S3 Direct Upload from Browser with Node.js as Backend',
       datetime: '2016-05-28',
       date: '28th May 2016',
-      tags: ['AWS', 'S3', 'Node.js', 'Javascript', 'Ajax'],
+      tags: ['aws', 's3', 'nodejs', 'javascript', 'ajax'],
     },
   },
 ];
+
+module.exports = {
+  list: () => {
+    const articles = JSON.parse(JSON.stringify(articlesStore));
+
+    articles.forEach((article) => {
+      const tagKeys = article.article.tags;
+      const tagObjects = [];
+
+      tagKeys.forEach((tagKey) => {
+        const tagObject = tagStore.getTagByKey(tagKey);
+        if (tagObject !== undefined) {
+          tagObjects.push(tagObject);
+        }
+      });
+
+      article.article.tags = tagObjects;
+    });
+
+    return articles;
+  },
+};
