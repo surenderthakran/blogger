@@ -12,11 +12,7 @@
         {{#article.updateDate}}
           <time datetime="{{ article.updateDatetime }}">Last Updated: {{ article.updateDate }}</time>
         {{/article.updateDate}}
-        <div class="tags">
-          {{ #article.tags }}
-          <span>{{ name }}</span>
-          {{ /article.tags }}
-        </div>
+        {{>tags}}
       </header>
       <article class="body">
         {{{ article.body }}}

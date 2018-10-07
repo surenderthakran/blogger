@@ -12,11 +12,7 @@
         <li>
           <a href="{{ url }}"><h1>{{ article.title }}</h1></a>
           <time datetime="{{ article.datetime }}">{{ article.date }}</time>
-          <div class="tags">
-            {{ #article.tags }}
-            <span>{{ name }}</span>
-            {{ /article.tags }}
-          </div>
+          {{>tags}}
         </li>
         {{/articles}}
       </ul>
