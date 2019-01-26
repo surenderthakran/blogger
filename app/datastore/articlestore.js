@@ -14,6 +14,7 @@ const articlesStore = [
     },
     article: {
       title: 'Introducing GoMind: A Simplistic Neural Network Library in Go',
+      readTime: 3,
       datetime: '2018-07-29',
       date: '29th July 2018',
       tags: ['neural_network', 'go'],
@@ -33,6 +34,7 @@ const articlesStore = [
     },
     article: {
       title: 'Implementing Back Propagation Algorithm In A Neural Network',
+      readTime: 20,
       datetime: '2017-12-26',
       date: '26th December 2017',
       tags: ['neural_network', 'math'],
@@ -52,6 +54,7 @@ const articlesStore = [
     article: {
       title: 'Dockerized Development and Production Environment For Go ' +
           '(GoLang)',
+      readTime: 6,
       datetime: '2017-05-30',
       date: '30th May 2017',
       updateDatetime: '2018-08-10',
@@ -72,6 +75,7 @@ const articlesStore = [
     article: {
       title: 'Enable Docker Remote API on Remote Docker Host and Connect ' +
           'Using SSH Tunnel On Ubuntu 14.04',
+      readTime: 3,
       datetime: '2016-06-02',
       date: '2nd June 2016',
       tags: ['docker', 'ssh', 'upstart'],
@@ -91,6 +95,7 @@ const articlesStore = [
     },
     article: {
       title: 'AWS S3 Direct Upload from Browser with Node.js as Backend',
+      readTime: 9,
       datetime: '2016-05-28',
       date: '28th May 2016',
       tags: ['aws', 's3', 'nodejs', 'javascript', 'ajax'],
