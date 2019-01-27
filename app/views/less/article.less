@@ -49,11 +49,25 @@ section.article {
       }
     }
 
-    time {
+    span.read-time {
+      color: #888;
       font-size: 1em;
       line-height: 1.5em;
-      opacity: 0.8;
-      width: 100%;
+    }
+
+    span.dot-separator {
+      padding: 0 .5em;
+
+      &:after {
+        color:#888;
+        content: '\25C8';
+      }
+    }
+
+    time {
+      color: #888;
+      font-size: 1em;
+      line-height: 1.5em;
     }
   }
 
