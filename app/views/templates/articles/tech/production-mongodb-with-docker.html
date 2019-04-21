@@ -1,0 +1,77 @@
+<pre><code class="language-bash">sudo mkdir -p $HOME/workspace/data/mongo/db
+sudo mkdir -p $HOME/workspace/data/mongo/backup</code></pre>
+
+<pre><code class="language-bash">docker run -d -p 27017:27017 \
+--restart unless-stopped \
+--log-driver json-file --log-opt max-size=10m --log-opt max-file=5 \
+-e TZ=Asia/Kolkata \
+-v $HOME/workspace/data/mongo/db:/data/db \
+-v $HOME/workspace/data/mongo/backup:/data/backup \
+--name mongo_container \
+mongo:4.0.8 --timeStampFormat ctime</code></pre>
+
+<pre><code class="language-bash">docker exec -it mongo_container mongodump --out /data/backup/manual</code></pre>
+
+<pre><code class="language-bash">docker exec -it mongo_container mongorestore /data/backup/manual --drop</code></pre>
+
+<pre><code class="language-bash">sudo mkdir -p $HOME/workspace/data/mongo/logs
+sudo touch $HOME/workspace/data/mongo/logs/backup.log
+sudo chmod 666 $HOME/workspace/data/mongo/logs/backup.log</code></pre>
+<pre><code class="language-bash">sudo dpkg-reconfigure tzdata
+sudo service cron restart</code></pre>
+<pre><code class="language-bash">#!/bin/sh
+
+set -e
+
+HOST_BACKUPS_DIR=/home/ubuntu/workspace/data/mongo/backup
+DOCKER_BACKUPS_DIR=/data/backup
+
+# Creates backup names like 2019-04-18
+BACKUP_NAME=`date +%F`
+
+HOST_BACKUP_DEST=$HOST_BACKUPS_DIR/$BACKUP_NAME
+DOCKER_BACKUP_DEST=$DOCKER_BACKUPS_DIR/$BACKUP_NAME
+
+BACKUP_TTL_DAYS=15
+
+echo `date` Backing up in $DOCKER_BACKUP_DEST
+docker exec mongo_container mongodump --out $DOCKER_BACKUP_DEST
+
+echo `date` Compressing backup directory to $BACKUP_NAME.tar.gz
+cd $HOST_BACKUPS_DIR
+tar -zcvf $BACKUP_NAME.tar.gz $BACKUP_NAME
+
+echo `date` Removing backup directory $HOST_BACKUP_DEST
+rm -rf $HOST_BACKUP_DEST
+
+echo `date` Deleting backup tarballs older than $BACKUP_TTL_DAYS days in $HOST_BACKUPS_DIR
+find $HOST_BACKUPS_DIR -type f -mtime +$BACKUP_TTL_DAYS -exec rm '{}' +
+
+echo `date` Mongo backup successful</code></pre>
+<pre><code class="language-bash">#!/bin/sh
+
+set -e
+
+HOST_BACKUPS_DIR=$HOME/workspace/data/mongo/backup
+DOCKER_BACKUPS_DIR=/data/backup
+
+BACKUP_NAME=$1
+
+HOST_BACKUP_DEST=$HOST_BACKUPS_DIR/$BACKUP_NAME
+DOCKER_BACKUP_DEST=$DOCKER_BACKUPS_DIR/$BACKUP_NAME
+
+if [ -f $HOST_BACKUP_DEST.tar.gz ]
+then
+  echo `date` Uncompressing backup tarball $HOST_BACKUP_DEST.tar.gz
+  cd $HOST_BACKUPS_DIR
+  tar -zxvf $BACKUP_NAME.tar.gz
+
+  echo `date` Restoring from $DOCKER_BACKUP_DEST
+  docker exec -it mongo_container mongorestore $DOCKER_BACKUP_DEST --drop
+
+  echo `date` Restore successful
+else
+  echo `date` Backup tarball $HOST_BACKUP_DEST.tar.gz not found!
+fi</code></pre>
+<pre><code class="language-bash">0 1 * * * $HOME/workspace/configurations/mongo/mongo-backup.sh >> $HOME/workspace/data/mongo/logs/backup.log 2>&1</code></pre>
+<pre><code class="language-bash">sudo ./$HOME/workspace/configurations/mongo/mongo-restore.sh &lt;yyyy-mm-dd&gt;</code></pre>

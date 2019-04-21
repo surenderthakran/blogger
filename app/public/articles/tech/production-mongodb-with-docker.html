@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+<title>Production ready MongoDB setup with Docker | Surender Thakran</title>
+<meta name="description" content="Introducing GoMind. A Neural Network Library in Go">
+<meta name="author" content="Surender Thakran">
+<meta charset="utf-8">
+<meta name="keywords" content="mongo,mongodb,docker,bash,logrotate,logrotation,backup,restore">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!-- Added to have blog's theme color on browser's address bar in mobile browsers -->
+<meta name="theme-color" content="#5B2358" />
+<link rel="icon" href="/images/favicon.png" type="image/x-icon" />
+<meta property="og:title" content="Production ready MongoDB setup with Docker | Surender Thakran" />
+<meta property="og:type" content="blog" />
+<link rel="stylesheet" href="/css/main.min.css">
+<script async src="/js/main.min.js"></script>
+<!-- Prism for syntax highlighting -->
+<link rel="stylesheet" href="/vendor/prism/prism.min.css">
+<script async src="/vendor/prism/prism.min.js"></script>
+<!-- Included to create a TCP connection with the google analytics server to speed up analytics.js download -->
+<link rel="preconnect" href="//www.google-analytics.com">
+<script>
+  if (window.location.hostname === "surenderthakran.com" || window.location.hostname === "www.surenderthakran.com") {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-78619965-1', 'auto');
+    ga('send', 'pageview');
+  }
+</script>
+  </head>
+  <body>
+<header class="page-header">
+  <div class="content">
+    <div class="signature">
+      <img id="header-image" class="owner-image"
+           alt="Surender Thakran's Image"
+           src="/images/owner.jpeg">
+      <div>
+        <a href="/">
+          <p>SURENDER THAKRAN</p>
+        </a>
+        <p>Technology Enthusiast</p>
+      </div>
+    </div>
+    <div class="centerbar">
+      <a href="https://github.com/surenderthakran" target="_blank">
+        <img class="github" alt="GitHub Logo"
+             src="/images/github_logo_small.png">
+      </a>
+      <a href="https://in.linkedin.com/in/surenderthakran" target="_blank">
+        <img class="linkedin" alt="LinkedIn Logo"
+             src="/images/linkedin_logo_small.png">
+      </a>
+      <a href="https://store.docker.com/profiles/surenderthakran"
+         target="_blank">
+        <img class="docker" alt="Docker Logo"
+             src="/images/docker_logo_small.png">
+      </a>
+    </div>
+    <nav class="menu">
+      <ul>
+        <li>
+          <a href="/">HOME</a>
+        </li>
+        <li>
+          <a href="/projects">PROJECTS</a>
+        </li>
+        <li>
+          <a href="/about">ABOUT</a>
+        </li>
+      </ul>
+    </nav>
+    <nav class="hamburger">
+      <button title="menu icon"
+              aria-label="menu icon"
+              aria-pressed="false"
+              id="hamburger"></button>
+    </nav>
+  </div>
+  <div id="drawer" class="drawer hide">
+    <ul>
+      <li>
+        <a href="https://github.com/surenderthakran" target="_blank">
+          <img class="logo github" alt="GitHub Logo"
+               src="/images/github_logo_small.png">
+        </a>
+        <a href="https://in.linkedin.com/in/surenderthakran" target="_blank">
+          <img class="logo linkedin" alt="LinkedIn Logo"
+               src="/images/linkedin_logo_small.png">
+        </a>
+        <a href="https://store.docker.com/profiles/surenderthakran"
+           target="_blank">
+          <img class="logo docker" alt="Docker Logo"
+               src="/images/docker_logo_small.png">
+        </a>
+      </li>
+      <li>
+        <a class="menu-link" href="/">HOME</a>
+      </li>
+      <li>
+        <a class="menu-link" href="/projects">PROJECTS</a>
+      </li>
+      <li>
+        <a class="menu-link" href="/about">ABOUT</a>
+      </li>
+    </ul>
+  </div>
+</header>
+<div class="spacer"></div>
+    <section class="article">
+      <header class="head">
+        <h1>Production ready MongoDB setup with Docker</h1>
+        <span class="read-time">20 min read</span>
+        <span class="dot-separator"></span>
+        <time datetime="2019-04-20">Published 20th April 2019</time>
+<div class="tags">
+  <p>
+    <span>Mongo DB</span>
+  </p>
+  <p>
+    <span>Docker</span>
+  </p>
+  <p>
+    <span>Shell Script</span>
+  </p>
+  <p>
+    <span>Logrotate</span>
+  </p>
+</div>
+      </header>
+      <article class="body">
+        <pre><code class="language-bash">sudo mkdir -p $HOME/workspace/data/mongo/db
+sudo mkdir -p $HOME/workspace/data/mongo/backup</code></pre>
+
+<pre><code class="language-bash">docker run -d -p 27017:27017 \
+--restart unless-stopped \
+--log-driver json-file --log-opt max-size=10m --log-opt max-file=5 \
+-e TZ=Asia/Kolkata \
+-v $HOME/workspace/data/mongo/db:/data/db \
+-v $HOME/workspace/data/mongo/backup:/data/backup \
+--name mongo_container \
+mongo:4.0.8 --timeStampFormat ctime</code></pre>
+
+<pre><code class="language-bash">docker exec -it mongo_container mongodump --out /data/backup/manual</code></pre>
+
+<pre><code class="language-bash">docker exec -it mongo_container mongorestore /data/backup/manual --drop</code></pre>
+
+<pre><code class="language-bash">sudo mkdir -p $HOME/workspace/data/mongo/logs
+sudo touch $HOME/workspace/data/mongo/logs/backup.log
+sudo chmod 666 $HOME/workspace/data/mongo/logs/backup.log</code></pre>
+<pre><code class="language-bash">sudo dpkg-reconfigure tzdata
+sudo service cron restart</code></pre>
+<pre><code class="language-bash">#!/bin/sh
+
+set -e
+
+HOST_BACKUPS_DIR=/home/ubuntu/workspace/data/mongo/backup
+DOCKER_BACKUPS_DIR=/data/backup
+
+# Creates backup names like 2019-04-18
+BACKUP_NAME=`date +%F`
+
+HOST_BACKUP_DEST=$HOST_BACKUPS_DIR/$BACKUP_NAME
+DOCKER_BACKUP_DEST=$DOCKER_BACKUPS_DIR/$BACKUP_NAME
+
+BACKUP_TTL_DAYS=15
+
+echo `date` Backing up in $DOCKER_BACKUP_DEST
+docker exec mongo_container mongodump --out $DOCKER_BACKUP_DEST
+
+echo `date` Compressing backup directory to $BACKUP_NAME.tar.gz
+cd $HOST_BACKUPS_DIR
+tar -zcvf $BACKUP_NAME.tar.gz $BACKUP_NAME
+
+echo `date` Removing backup directory $HOST_BACKUP_DEST
+rm -rf $HOST_BACKUP_DEST
+
+echo `date` Deleting backup tarballs older than $BACKUP_TTL_DAYS days in $HOST_BACKUPS_DIR
+find $HOST_BACKUPS_DIR -type f -mtime +$BACKUP_TTL_DAYS -exec rm '{}' +
+
+echo `date` Mongo backup successful</code></pre>
+<pre><code class="language-bash">#!/bin/sh
+
+set -e
+
+HOST_BACKUPS_DIR=$HOME/workspace/data/mongo/backup
+DOCKER_BACKUPS_DIR=/data/backup
+
+BACKUP_NAME=$1
+
+HOST_BACKUP_DEST=$HOST_BACKUPS_DIR/$BACKUP_NAME
+DOCKER_BACKUP_DEST=$DOCKER_BACKUPS_DIR/$BACKUP_NAME
+
+if [ -f $HOST_BACKUP_DEST.tar.gz ]
+then
+  echo `date` Uncompressing backup tarball $HOST_BACKUP_DEST.tar.gz
+  cd $HOST_BACKUPS_DIR
+  tar -zxvf $BACKUP_NAME.tar.gz
+
+  echo `date` Restoring from $DOCKER_BACKUP_DEST
+  docker exec -it mongo_container mongorestore $DOCKER_BACKUP_DEST --drop
+
+  echo `date` Restore successful
+else
+  echo `date` Backup tarball $HOST_BACKUP_DEST.tar.gz not found!
+fi</code></pre>
+<pre><code class="language-bash">0 1 * * * $HOME/workspace/configurations/mongo/mongo-backup.sh >> $HOME/workspace/data/mongo/logs/backup.log 2>&1</code></pre>
+<pre><code class="language-bash">sudo ./$HOME/workspace/configurations/mongo/mongo-restore.sh &lt;yyyy-mm-dd&gt;</code></pre>
+
+      </article>
+    </section>
+<footer>&copy; 2016-2019 Surender Thakran, unless stated otherwise.</footer>
+  </body>
+</html>
