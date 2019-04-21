@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-<title>Production ready MongoDB setup with Docker | Surender Thakran</title>
+<title>Production-ready MongoDB setup with Docker | Surender Thakran</title>
 <meta name="description" content="Introducing GoMind. A Neural Network Library in Go">
 <meta name="author" content="Surender Thakran">
 <meta charset="utf-8">
@@ -11,7 +11,7 @@
 <!-- Added to have blog's theme color on browser's address bar in mobile browsers -->
 <meta name="theme-color" content="#5B2358" />
 <link rel="icon" href="/images/favicon.png" type="image/x-icon" />
-<meta property="og:title" content="Production ready MongoDB setup with Docker | Surender Thakran" />
+<meta property="og:title" content="Production-ready MongoDB setup with Docker | Surender Thakran" />
 <meta property="og:type" content="blog" />
 <link rel="stylesheet" href="/css/main.min.css">
 <script async src="/js/main.min.js"></script>
@@ -113,8 +113,8 @@
 <div class="spacer"></div>
     <section class="article">
       <header class="head">
-        <h1>Production ready MongoDB setup with Docker</h1>
-        <span class="read-time">20 min read</span>
+        <h1>Production-ready MongoDB setup with Docker</h1>
+        <span class="read-time">15 min read</span>
         <span class="dot-separator"></span>
         <time datetime="2019-04-20">Published 20th April 2019</time>
 <div class="tags">
@@ -141,12 +141,33 @@ with subjective hesitation. The primary reason for this mistrust is relatively
 lower database performance compared to native installations, which is expected
 due to introduction of an additional networking layer (Docker's intermediate
 network drivers) between database clients and the database server.</p>
-<p>Upgrading to a newer version of Mongo is easier with a dockerized setup.</p>
+<p>Another reason why system architects shy away from using Docker for database
+deployments is the general sense of unease around keeping their precious data
+with a less used database setup.</p>
+<p>In this article, we will try to address the second concern system architects
+have while running their databases with Docker by setting up a production-grade
+MongoDB system using Docker.</p>
 
-<h2>What does this setup covers</h2>
+<h2>What does this Setup covers</h2>
+<p>In this setup we will look at setting up a MongoDB setup which:</p>
+<ul>
+  <li>Can recover from failures.</li>
+  <li>Can recover from unplanned system reboots.</li>
+  <li>Doesn't overruns the system storage with log records.</li>
+  <li>Has automated backup and restore strategies.</li>
+</ul>
+
 <h2>What this setup doesn't covers</h2>
+<p>For the sake of brevity and avoiding bloat, this article considers the
+following features/strategies out of scope:</p>
+<ul>
+  <li>MongoDB replication and sharding.</li>
+  <li>MongoDB authentication.</li>
+</ul>
 
 <h2>Setup</h2>
+
+<h3>Prerequisites</h3>
 
 <h3>Preparing directory structure on host.</h3>
 <pre><code class="language-bash">sudo mkdir -p /home/surender/data/mongo/db

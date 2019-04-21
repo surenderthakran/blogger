@@ -7,14 +7,14 @@ const articlesStore = [
     articleId: 'production-mongodb-with-docker',
     url: 'articles/tech/production-mongodb-with-docker',
     head: {
-      title: 'Production ready MongoDB setup with Docker | Surender Thakran',
+      title: 'Production-ready MongoDB setup with Docker | Surender Thakran',
       description: 'Introducing GoMind. A Neural Network Library in Go',
       keywords: 'mongo,mongodb,docker,bash,logrotate,logrotation,backup,' +
           'restore',
     },
     article: {
-      title: 'Production ready MongoDB setup with Docker',
-      readTime: 20,
+      title: 'Production-ready MongoDB setup with Docker',
+      readTime: 15,
       datetime: '2019-04-20',
       date: '20th April 2019',
       tags: ['mongodb', 'docker', 'shellscript', 'logrotate'],
