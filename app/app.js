@@ -71,7 +71,7 @@ const initServer = () => {
   });
 
   app.listen(
-      port, () => console.log(`\nExample app listening on port ${port}!`));
+      port, () => console.log(`\nListening on port ${port}!`));
 };
 
 const init = () => {
