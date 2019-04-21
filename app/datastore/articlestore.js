@@ -9,7 +9,8 @@ const articlesStore = [
     head: {
       title: 'Production ready MongoDB setup with Docker | Surender Thakran',
       description: 'Introducing GoMind. A Neural Network Library in Go',
-      keywords: 'mongo,mongodb,docker,bash,logrotate,logrotation,backup,restore',
+      keywords: 'mongo,mongodb,docker,bash,logrotate,logrotation,backup,' +
+          'restore',
     },
     article: {
       title: 'Production ready MongoDB setup with Docker',
