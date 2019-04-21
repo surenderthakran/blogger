@@ -1,29 +1,53 @@
-<pre><code class="language-bash">sudo mkdir -p $HOME/workspace/data/mongo/db
-sudo mkdir -p $HOME/workspace/data/mongo/backup</code></pre>
+<h2>Introduction</h2>
+<p>Docker has very quickly turned from a nascent technology to a ubiquitous
+deployment strategy for a wide variety of projects. However, Docker's use for
+running long-lasting and production grade database systems is still perceived
+with subjective hesitation. The primary reason for this mistrust is relatively
+lower database performance compared to native installations, which is expected
+due to introduction of an additional networking layer (Docker's intermediate
+network drivers) between database clients and the database server.</p>
+<p>Upgrading to a newer version of Mongo is easier with a dockerized setup.</p>
 
+<h2>What does this setup covers</h2>
+<h2>What this setup doesn't covers</h2>
+
+<h2>Setup</h2>
+
+<h3>Preparing directory structure on host.</h3>
+<pre><code class="language-bash">sudo mkdir -p /home/surender/data/mongo/db
+sudo mkdir -p /home/surender/data/mongo/backup</code></pre>
+
+<h3>Running a perennial MongoDB docker container.</h3>
 <pre><code class="language-bash">docker run -d -p 27017:27017 \
 --restart unless-stopped \
 --log-driver json-file --log-opt max-size=10m --log-opt max-file=5 \
 -e TZ=Asia/Kolkata \
--v $HOME/workspace/data/mongo/db:/data/db \
--v $HOME/workspace/data/mongo/backup:/data/backup \
+-v /home/surender/data/mongo/db:/data/db \
+-v /home/surender/data/mongo/backup:/data/backup \
 --name mongo_container \
 mongo:4.0.8 --timeStampFormat ctime</code></pre>
 
+<h3>Taking manual backup of all databases.</h3>
 <pre><code class="language-bash">docker exec -it mongo_container mongodump --out /data/backup/manual</code></pre>
 
+<h3>Manually restoring from the manual MongoDB dump.</h3>
 <pre><code class="language-bash">docker exec -it mongo_container mongorestore /data/backup/manual --drop</code></pre>
 
-<pre><code class="language-bash">sudo mkdir -p $HOME/workspace/data/mongo/logs
-sudo touch $HOME/workspace/data/mongo/logs/backup.log
-sudo chmod 666 $HOME/workspace/data/mongo/logs/backup.log</code></pre>
+<h3>Preparing log file to record backup cron job's events.</h3>
+<pre><code class="language-bash">sudo mkdir -p /home/surender/data/mongo/logs
+sudo touch /home/surender/data/mongo/logs/backup.log
+sudo chmod 666 /home/surender/data/mongo/logs/backup.log</code></pre>
+
+<h3>Setting timezone to be used by cron job. (Optional)</h3>
 <pre><code class="language-bash">sudo dpkg-reconfigure tzdata
 sudo service cron restart</code></pre>
+
+<h3>Shell script to backup MongoDB to a tarball file.</h3>
 <pre><code class="language-bash">#!/bin/sh
 
 set -e
 
-HOST_BACKUPS_DIR=/home/ubuntu/workspace/data/mongo/backup
+HOST_BACKUPS_DIR=/home/surender/data/mongo/backup
 DOCKER_BACKUPS_DIR=/data/backup
 
 # Creates backup names like 2019-04-18
@@ -48,11 +72,13 @@ echo `date` Deleting backup tarballs older than $BACKUP_TTL_DAYS days in $HOST_B
 find $HOST_BACKUPS_DIR -type f -mtime +$BACKUP_TTL_DAYS -exec rm '{}' +
 
 echo `date` Mongo backup successful</code></pre>
+
+<h3>Shell script to restore MongoDB from a tarball dump file.</h3>
 <pre><code class="language-bash">#!/bin/sh
 
 set -e
 
-HOST_BACKUPS_DIR=$HOME/workspace/data/mongo/backup
+HOST_BACKUPS_DIR=/home/surender/data/mongo/backup
 DOCKER_BACKUPS_DIR=/data/backup
 
 BACKUP_NAME=$1
@@ -73,5 +99,9 @@ then
 else
   echo `date` Backup tarball $HOST_BACKUP_DEST.tar.gz not found!
 fi</code></pre>
-<pre><code class="language-bash">0 1 * * * $HOME/workspace/configurations/mongo/mongo-backup.sh >> $HOME/workspace/data/mongo/logs/backup.log 2>&1</code></pre>
-<pre><code class="language-bash">sudo ./$HOME/workspace/configurations/mongo/mongo-restore.sh &lt;yyyy-mm-dd&gt;</code></pre>
+
+<h3>Crontab entry for scheduling nightly backups.</h3>
+<pre><code class="language-bash">0 1 * * * /home/surender/mongo-backup.sh >> /home/surender/data/mongo/logs/backup.log 2>&1</code></pre>
+
+<h3>Command to restore from a nightly backup tarball.</h3>
+<pre><code class="language-bash">sudo ./home/surender/mongo-restore.sh &lt;yyyy-mm-dd&gt;</code></pre>
