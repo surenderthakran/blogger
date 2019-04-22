@@ -7,6 +7,9 @@ const tags = {
   'aws': {
     name: 'AWS',
   },
+  'cron': {
+    name: 'Cron',
+  },
   'docker': {
     name: 'Docker',
   },

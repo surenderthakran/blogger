@@ -10,14 +10,14 @@ const articlesStore = [
       title: 'Setting up production grade MongoDB using Docker | Surender Thakran',
       description: 'Introducing GoMind. A Neural Network Library in Go',
       keywords: 'mongo,mongodb,docker,bash,logrotate,logrotation,backup,' +
-          'restore',
+          'restore,database,nosql',
     },
     article: {
       title: 'Setting up production grade MongoDB using Docker',
       readTime: 15,
-      datetime: '2019-04-20',
-      date: '20th April 2019',
-      tags: ['mongodb', 'docker', 'shellscript', 'logrotate'],
+      datetime: '2019-04-23',
+      date: '23rd April 2019',
+      tags: ['mongodb', 'docker', 'shellscript', 'logrotate', 'cron'],
     },
   },
   {

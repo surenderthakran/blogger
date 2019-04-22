@@ -5,7 +5,7 @@
 <meta name="description" content="Introducing GoMind. A Neural Network Library in Go">
 <meta name="author" content="Surender Thakran">
 <meta charset="utf-8">
-<meta name="keywords" content="mongo,mongodb,docker,bash,logrotate,logrotation,backup,restore">
+<meta name="keywords" content="mongo,mongodb,docker,bash,logrotate,logrotation,backup,restore,database,nosql">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <!-- Added to have blog's theme color on browser's address bar in mobile browsers -->
@@ -116,7 +116,7 @@
         <h1>Setting up production grade MongoDB using Docker</h1>
         <span class="read-time">15 min read</span>
         <span class="dot-separator"></span>
-        <time datetime="2019-04-20">Published 20th April 2019</time>
+        <time datetime="2019-04-23">Published 23rd April 2019</time>
 <div class="tags">
   <p>
     <span>Mongo DB</span>
@@ -130,33 +130,40 @@
   <p>
     <span>Logrotate</span>
   </p>
+  <p>
+    <span>Cron</span>
+  </p>
 </div>
       </header>
       <article class="body">
         <h2>Introduction</h2>
-<p>Docker has very quickly turned from a nascent technology to a ubiquitous
-  deployment strategy for a wide variety of projects. However, Docker's use for
-  running long-lasting and production grade database systems is still perceived
-  with subjective hesitation. The primary reason for this mistrust is relatively
-  lower database performance compared to native installations, which is expected
-  due to introduction of an additional networking layer (Docker's intermediate
-  network drivers) between database clients and the database server.</p>
+<p><a href="https://www.docker.com/" target="_blank">Docker</a> has very quickly
+  evolved from a nascent technology to a ubiquitous deployment strategy for a
+  wide variety of projects. However, Docker's use for running long-lasting and
+  production grade database systems is still perceived with subjective
+  hesitation. The primary reason for this mistrust is relatively lower database
+  performance compared to native installations, which is expected due to
+  introduction of an additional networking layer (Docker's intermediate network
+  drivers) between database clients and the server.</p>
 <p>Another reason why system architects shy away from using Docker for database
   deployments is the general sense of unease around keeping their precious data
   with a less used/understood database setup.</p>
-<p>In this article, we will try to address the second concern system architects
-  have by setting up a production-grade MongoDB system using Docker.</p>
+<p>While I too can be accused of having exactly the same biases against Docker,
+  we can still achieve reasonable efficiency and production-ish robustness for
+  early-stage POC startups and personal projects.</p>
+<p>In this article, we will try to address some of the concerns system
+  architects have by setting up a production-grade
+  <a href="https://www.mongodb.com/" target="_blank">MongoDB</a> system using
+  Docker.</p>
 
-<h2>What does this Setup covers</h2>
-<p>In this setup we will look at setting up a MongoDB setup which:</p>
+<h2>Scope</h2>
+<p>In this setup, we will look at establishing a MongoDB setup which:</p>
 <ul>
   <li>Can recover from failures.</li>
   <li>Can recover from unplanned system reboots.</li>
-  <li>Doesn't overruns the system storage with log records.</li>
+  <li>Has a reliable logrotation policy.</li>
   <li>Has automated backup and restore strategies.</li>
 </ul>
-
-<h2>What this setup doesn't covers</h2>
 <p>For the sake of brevity and avoiding bloat, this article considers the
   following features/strategies out of scope:</p>
 <ul>
@@ -179,9 +186,9 @@
 mkdir -p /home/surender/data/mongo/backup</code></pre>
 <p>As the directory names suggest,
   <span class="code">/home/surender/data/mongo/db</span> will be used to persist
-  Mongo's DB files between container runs and
+  MongoDB's database files between container runs and
   <span class="code">/home/surender/data/mongo/db</span> will be used to store
-  Mongo backups.</p>
+  MongoDB backups.</p>
 
 <h4>Running a perennial MongoDB docker container.</h4>
 <pre><code class="language-bash">docker run -d -p 27017:27017 \
@@ -194,14 +201,17 @@ mkdir -p /home/surender/data/mongo/backup</code></pre>
 -v /home/surender/data/mongo/backup:/data/backup \
 --name mongo_container \
 mongo:4.0.8 --timeStampFormat ctime</code></pre>
-<p>We will use the above command to start a long-running container with Mongo
-  inside. Let us have a look at all the options in the command:</p>
+<p>We will use the above command to run MongoDB inside a container and make sure
+  that it can recover from crashes and reboots. Also, the container should
+  generate usable logs but should not overrun system's storage with log files if
+  left to run for a long time.</p>
+<p>Let us have a look at all the options in the command:</p>
 <ul>
   <li><strong>-d</strong> runs the container in daemon/detached
-    mode. The container will run as a background task and will not block the
-    current shell.</li>
+    mode. The container will run as a background task and will not terminate
+    when the current shell is closed.</li>
   <li><strong>-p</strong> publishes a port from inside the container and binds
-    it to a port on the host. Here we have kept both host and container ports
+    it to a port on the host. Here, we have kept both host and container ports
     identical (<span class="code">27017</span>) to avoid ambiguity and simulate
     a native MongoDB setup.</li>
   <li><strong>--restart unless-stopped</strong> sets the container's restart
@@ -212,46 +222,67 @@ mongo:4.0.8 --timeStampFormat ctime</code></pre>
     the default logging driver <span class="code">json-file</span>. Container
     will output logs to a log file formatted as JSONs.</li>
   <li><strong>--log-opt max-size=10m</strong> configures the container's logging
-    strategy to not create a log file larger than 10 megabytes. Large log files
-    are difficult to be parsed in most text editors and are often unusable. If
-    a log file's size exceeds the specified limit the log file is
-    <em>rotated</em> i.e. a new log file is created for logging new entries
-    while the existing log file is renamed and archived.</li>
+    strategy to not create a log file larger than
+    <span class="code">10 megabytes</span>. Large log files are difficult to be
+    parsed in most text editors and are often unusable. If a log file's size
+    exceeds the specified limit the log file is <em>rotated</em> i.e. a new log
+    file is created for logging new entries while the existing log file is
+    renamed and archived.</li>
   <li><strong>--log-opt max-file=5</strong> directs the docker daemon to not
     keep more than <span class="code">5</span> archived log files. When a new
     archived log file is created after log rotation the oldest archived log file
-    is deleted. This keeps the system storage being run over with log files.
-  </li>
+    is deleted. This prevents the system storage from being run over with log
+    files.</li>
   <li><strong>-e TZ=Asia/Kolkata</strong> sets the timezone environment variable
     <span class="code">TZ</span> inside the container to
     <span class="code">Asia/Kolkata</span>. The <span class="code">mongod</span>
     process inside the container will use this timezone while creating Mongo
-    logs.</li>
+    logs. This can be treated as an optional configuration.</li>
   <li><strong>-v</strong> option like we discussed earlier, bind mounts a
     directory on the host with a directory inside the container. In our
-    container MongoDB will use <span class="code">/data/db</span> directory to
+    container, MongoDB will use <span class="code">/data/db</span> directory to
     store database files and we will be using
     <span class="code">/data/backup</span> directory to dump our MongoDB
     backups.</li>
   <li><strong>--timeStampFormat ctime</strong> option unlike all other options
     is not a docker command's option, instead it is an option on the
-    <span class="code">mongod</span> command-line service. It configures the
-    MongoDB to use a more human-readable timestamp in the logs. This is an
-    optional setting and we can choose to omit it.</li>
+    <span class="code">mongod</span> service. It configures the MongoDB to use a
+    more human-readable timestamp in the logs. This is an optional setting and
+    we can choose to omit it.</li>
 </ul>
 
-<h3>Taking manual backup of all databases.</h3>
+<h3>Manual backups and restores</h3>
+<p>Since the <span class="code">mongod</span> process is running inside the
+  container we cannot directly invoke the <span class="code">mongodump</span>
+  command to backup our databases. We will be using
+  <span class="code">docker exec</span> command to run the
+  <span class="code">mongodump</span> inside the container.</p>
 <pre><code class="language-bash">docker exec -it mongo_container mongodump --out /data/backup/manual</code></pre>
-
-<h3>Manually restoring from the manual MongoDB dump.</h3>
+<p>In the above command, we are dumping the backup files in the
+  <span class="code">/data/backup/manual</span> directory inside the container.
+  Since we have already bind mounted its parent to the host, the backup is
+  available in the host and persisted even after the docker container is
+  stopped.</p>
+<p>We can use the <span class="code">mongorestore</span> command to restore from
+  the backed up files using the following command.</p>
 <pre><code class="language-bash">docker exec -it mongo_container mongorestore /data/backup/manual --drop</code></pre>
+<p>The <span class="code">--drop</span> option drops the collections from the
+  target database before restoring the collections from the dumped backup. It
+  does not drop collections that are not in the backup.</p>
 
-<h3>Preparing log file to record backup cron job's events.</h3>
-<pre><code class="language-bash">sudo mkdir -p /home/surender/data/mongo/logs
-sudo touch /home/surender/data/mongo/logs/backup.log
-sudo chmod 666 /home/surender/data/mongo/logs/backup.log</code></pre>
+<h3>Backup and restore scripts</h3>
+<p>It is all well and good to manually backup to a directory and restore from it
+  but a production grade system needs to automate the backup process. The setup
+  should allow to make versioned backups and restore from any of those backups.
+</p>
+<p>Before we schedule our backups, let us script the backup and restore
+  processes to conform to our other requirements.</p>
 
-<h3>Shell script to backup MongoDB to a tarball file.</h3>
+<h4>Backup Script</h4>
+<p>The following script (named <span class="code">mongo-backup.sh</span>) is
+  meant for daily runs and creates date stamped backup tarballs like
+  <span class="code">2019-04-23.tar.gz</span>. It also removes existing backup
+  tarballs if they are older than <span class="code">15</span> days.</p>
 <pre><code class="language-bash">#!/bin/sh
 
 set -e
@@ -259,30 +290,36 @@ set -e
 HOST_BACKUPS_DIR=/home/surender/data/mongo/backup
 DOCKER_BACKUPS_DIR=/data/backup
 
-# Creates backup names like 2019-04-18
+# Creates backup names like 2019-04-23
 BACKUP_NAME=`date +%F`
 
 HOST_BACKUP_DEST=$HOST_BACKUPS_DIR/$BACKUP_NAME
 DOCKER_BACKUP_DEST=$DOCKER_BACKUPS_DIR/$BACKUP_NAME
 
+# Do not keep backups older than 15 days.
 BACKUP_TTL_DAYS=15
 
 echo `date` Backing up in $DOCKER_BACKUP_DEST
 docker exec mongo_container mongodump --out $DOCKER_BACKUP_DEST
 
-echo `date` Compressing backup directory to $BACKUP_NAME.tar.gz
+echo Compressing backup directory to $BACKUP_NAME.tar.gz
 cd $HOST_BACKUPS_DIR
 tar -zcvf $BACKUP_NAME.tar.gz $BACKUP_NAME
 
-echo `date` Removing backup directory $HOST_BACKUP_DEST
+echo Removing backup directory $HOST_BACKUP_DEST
 rm -rf $HOST_BACKUP_DEST
 
-echo `date` Deleting backup tarballs older than $BACKUP_TTL_DAYS days in $HOST_BACKUPS_DIR
+echo Deleting backup tarballs older than $BACKUP_TTL_DAYS days in $HOST_BACKUPS_DIR
 find $HOST_BACKUPS_DIR -type f -mtime +$BACKUP_TTL_DAYS -exec rm '{}' +
 
 echo `date` Mongo backup successful</code></pre>
 
-<h3>Shell script to restore MongoDB from a tarball dump file.</h3>
+<h4>Restore Script</h4>
+<p>Similar to a backup script, we would also need a script to restore our
+  databases from the backup tarballs our backup script generates.</p>
+<p>The following script (named <span class="code">mongo-restore.sh</span>)
+  accepts the backup tarball name as command-line argument and restores it to
+  the MongoDB databases.</p>
 <pre><code class="language-bash">#!/bin/sh
 
 set -e
@@ -290,18 +327,22 @@ set -e
 HOST_BACKUPS_DIR=/home/surender/data/mongo/backup
 DOCKER_BACKUPS_DIR=/data/backup
 
+# Command line argument by the user to specify the backup version to restore.
+# Should be of format yyyy-mm-dd
 BACKUP_NAME=$1
 
 HOST_BACKUP_DEST=$HOST_BACKUPS_DIR/$BACKUP_NAME
 DOCKER_BACKUP_DEST=$DOCKER_BACKUPS_DIR/$BACKUP_NAME
 
+echo `date` Restoring from $DOCKER_BACKUP_DEST
+
 if [ -f $HOST_BACKUP_DEST.tar.gz ]
 then
-  echo `date` Uncompressing backup tarball $HOST_BACKUP_DEST.tar.gz
+  echo Uncompressing backup tarball $HOST_BACKUP_DEST.tar.gz
   cd $HOST_BACKUPS_DIR
   tar -zxvf $BACKUP_NAME.tar.gz
 
-  echo `date` Restoring from $DOCKER_BACKUP_DEST
+  echo Restoring from $DOCKER_BACKUP_DEST
   docker exec -it mongo_container mongorestore $DOCKER_BACKUP_DEST --drop
 
   echo `date` Restore successful
@@ -309,11 +350,28 @@ else
   echo `date` Backup tarball $HOST_BACKUP_DEST.tar.gz not found!
 fi</code></pre>
 
-<h3>Crontab entry for scheduling nightly backups.</h3>
+<h3>Scheduling Backups</h3>
+<p>We will setup a nightly crontab to run our backup script at
+  <span class="code">0100 hrs</span> daily. However, before we start our cron we
+  need to make it auditable (sigh). Thankfully, that is easy to achive. Let us
+  create a log file to record backup script's exploits in every scheduled run.
+</p>
+<pre><code class="language-bash">mkdir -p /home/surender/data/mongo/logs
+touch /home/surender/data/mongo/logs/backup.log
+chmod 666 /home/surender/data/mongo/logs/backup.log</code></pre>
+<p>Now, let us make the following crontab entry where we direct the backup
+  script's stdout and stderr streams to the created log file.</p>
 <pre><code class="language-bash">0 1 * * * /home/surender/mongo-backup.sh >> /home/surender/data/mongo/logs/backup.log 2>&1</code></pre>
+<p>It is imperative that we use <span class="code">&gt;&gt;</span> instead of
+  <span class="code">&gt;</span> otherwise at each scheduled run the script will
+  overwrite the previous logs in the file instead of appending to the existing
+  logs.</p>
 
-<h3>Command to restore from a nightly backup tarball.</h3>
-<pre><code class="language-bash">sudo ./home/surender/mongo-restore.sh &lt;yyyy-mm-dd&gt;</code></pre>
+<h3>Restoring from scheduled backups</h3>
+<p>To restore from any of the available backup tarballs, simply run the
+  following command with the tarball's name as argument which is in
+  <span class="code">yyyy-mm-dd</span> format.</p>
+<pre><code class="language-bash">./home/surender/mongo-restore.sh &lt;yyyy-mm-dd&gt;</code></pre>
 
       </article>
     </section>
