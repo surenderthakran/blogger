@@ -15,21 +15,22 @@
 <h3>Why bother?</h3>
 <p>I started learning Neural Network as an intellectual exercise and like
   almost every learning exercise it is best to set an end goal. In my case I
-  decided on a two-dimensional self driving car simulation project, which I in
+  decided on a two-dimensional self driving car simulation project, which I, in
   my magnanimosity christened, <a href="https://github.com/surenderthakran/vaahan"
     target="_blank">Vaahan</a>.
 </p>
 <p>Over the course of the project I was forced to write my own computational
-  geometry library, which I started calling <a href="https://github.com/surenderthakran/vaahan/tree/master/src/vaahan/gogeo"
-    target="_blank">GoGeo</a>, for the of lack of any reliable library in Go like
-  Python's <a href="http://www.sympy.org/en/index.html" target="_blank">
+  geometry library, which I started calling
+  <a href="https://github.com/surenderthakran/vaahan/tree/master/src/vaahan/gogeo"
+     target="_blank">GoGeo</a>, for the of lack of any reliable library in Go
+  like Python's <a href="http://www.sympy.org/en/index.html" target="_blank">
   SymPy</a>. Hopefully some day GoGeo will also get its own repositiory but it
   has a long journey ahead of it before that happens.
 </p>
-<p>Similarly after a while a need arose for a neural network library which
-  gelled perfectly with Vaahan and was also simplistic enough for quick training
+<p>Similarly, after a while a need arose for a neural network library which
+  gelled seemlesly with Vaahan and was also simplistic enough for quick training
   exercises. But I would be lying if I said that I only wrote GoMind because of
-  lack of good open source libraries in Go. No, the reason for starting
+  a lack of good open source libraries in Go. No, the reason for starting
   GoMind is again educational. Afterall, what better way to understand neural
   networks than creating them yourselves?
 </p>
@@ -49,7 +50,7 @@
 </p>
 <h2>Salient Features</h2>
 <p>Even though still in its infancy, GoMind attempts to provide a few
-  good-to-have features for a neural network library like:
+  good-to-have features for a neural network library like it:
 </p>
 <ul>
   <li>Smartly estimates ideal number of hidden layer neurons for given input and
@@ -95,7 +96,8 @@
 </p>
 <h2>Usage</h2>
 <h3>Installation</h3>
-<p>GoMind can be installed using Go's go get command:</p>
+<p>GoMind can be installed using Go's <span class="code">go get</span>
+  command:</p>
 <pre><code class="language-bash">go get github.com/surenderthakran/gomind</code></pre>
 <h3>Example</h3>
 <p>The following example teaches the XOR gate to GoMind's neural network.</p>
@@ -173,6 +175,6 @@ func main() {
 <p>While GoMind is nowhere close to machine learning giants like <a
   href="https://www.tensorflow.org/" target="_blank">Tensorflow</a> or <a
   href="http://scikit-learn.org/stable/" target="_blank">scikit-learn</a>, it
-  serves it purpose as a simplistic library for quick training in Go without
+  serves its purpose as a simplistic library for quick training in Go without
   worrying about C bindings or pre-creating models in Python.
 </p>
