@@ -140,6 +140,12 @@ module.exports = () => {
 
   deleteAllHtmlPages();
 
+  /**
+  * Empty sitemap url list before every renderer run so that the list doesn't
+  * gets bloated with repeated URLs and generates a large sitemap.xml.
+  */
+  sitemapUrlList.length = 0;
+
   renderPages();
   renderArticles();
 
