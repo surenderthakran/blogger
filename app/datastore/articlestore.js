@@ -4,16 +4,17 @@ const tagStore = require(__root + '/datastore/tagstore');
 
 const articlesStore = [
   {
-    articleId: 'production-mongodb-with-docker',
-    url: 'articles/tech/production-mongodb-with-docker',
+    articleId: 'production-mongodb-using-docker',
+    url: 'articles/tech/production-mongodb-using-docker',
     head: {
-      title: 'Setting up production grade MongoDB using Docker | Surender Thakran',
+      title: 'Setting up Production grade MongoDB using Docker | Surender ' +
+          'Thakran',
       description: 'Introducing GoMind. A Neural Network Library in Go',
       keywords: 'mongo,mongodb,docker,bash,logrotate,logrotation,backup,' +
           'restore,database,nosql',
     },
     article: {
-      title: 'Setting up production grade MongoDB using Docker',
+      title: 'Setting up Production grade MongoDB using Docker',
       readTime: 15,
       datetime: '2019-04-23',
       date: '23rd April 2019',
