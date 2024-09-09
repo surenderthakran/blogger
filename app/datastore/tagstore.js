@@ -7,6 +7,9 @@ const tags = {
   'aws': {
     name: 'AWS',
   },
+  'bloomfilter': {
+    name: 'Bloom Filter',
+  },
   'cron': {
     name: 'Cron',
   },
@@ -25,6 +28,9 @@ const tags = {
   'logrotate': {
     name: 'Logrotate',
   },
+  'lsmtree': {
+    name: 'LSM Tree',
+  },
   'makefile': {
     name: 'Makefile',
   },
@@ -40,6 +46,9 @@ const tags = {
   'nodejs': {
     name: 'Node.js',
   },
+  'nosql': {
+    name: 'NoSQL',
+  },
   'shellscript': {
     name: 'Shell Script',
   },
@@ -54,6 +63,9 @@ const tags = {
   },
   'upstart': {
     name: 'Upstart',
+  },
+  'wal': {
+    name: 'Write-Ahead Log (WAL)',
   },
 };
 

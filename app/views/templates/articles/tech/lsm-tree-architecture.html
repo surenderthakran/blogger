@@ -1,0 +1,185 @@
+<h2>Problem</h2>
+<p>Over the past decade the modern world has become more and more data driven. 
+    The amount of data generated and consumed has also exploded to an extent that 
+    traditional databases are no longer the silver bullet to all use cases as they were 
+    once thought to be.</p>
+<p>Modern systems need storage solutions which in addition to handling varied 
+    read loads can also <strong>handle large data ingestion workloads</strong> while 
+    maintaining reasonable read performance.</p>
+<h2>Limitations in traditional storage engines</h2>
+<p>Storage engines in traditional database solutions are largely <strong>architectured 
+    around B+ Trees</strong>. These provide balanced read and write performances but 
+    as the data grows they start encountering performance challenges. Especially under 
+    high write workloads.</p>
+<p>Traditional B+ Tree based storage engines operate with the following limitations:</p>
+<ul>
+    <li>For each write, in addition to writing row data on disk, B+ trees too have to be read, 
+        rebalanced and written back to the disk. This leads to substantial 
+        <strong>Write Amplification</strong> and makes database writes very compute & 
+        I/O intensive operations. Under high write throughput this turns into a major 
+        bottleneck.</li>
+    <li>These were designed for spinning disks and <strong>provide only block level 
+        addressing</strong>. Hence, to read or update even a small segment of data, 
+        entire disk blocks have to be read and updated which leads to even more 
+        Write Amplification.</li>
+</ul>
+<h2>Solution: LSM (Log-Structured Merge) Tree Architecture</h2>
+<p>With advancements in storage technologies, storage devices have become far more 
+    efficient and performant then the earlier spinning disk designs. With development of 
+    SSDs and more recent NVDIMMs, we now have the capabilities of <strong>byte level 
+    addressing</strong>. However, it is still not enough to handle the kind of write 
+    throughputs we require. </p>
+<p>One of the viable solution is to <strong>write to memory first and then persist to 
+    persistent storage</strong>. This is where LSM Tree based architectures come into the 
+    picture.</p>
+<h2>Who uses it?</h2>
+<p>LSM Tree based database storage engines have proven themselves under tremendous 
+    workloads and we see a lot of database solutions built using this architecture. Some of 
+    the more prominent ones are:</p>
+<ul>
+    <li>Amazon’s Dynamodb</li>
+    <li>Cassandra</li>
+    <li>ScyllaDB</li>
+    <li>Google’s BigTable and LevelDB</li>
+    <li>Facebook’s RocksDB</li>
+    <li>InfluxDB</li>
+</ul>
+<h2>How does it work?</h2>
+<p>Storage engines built on LSM Trees primarily follow two basic design ideas:</p>
+<ul>
+    <li>First is to <strong>write to memory first before persisting it to disk 
+        asynchronously</strong>. To handle read queries on keys whose writes 
+        or updates are not yet persisted to disk, the database first reads from 
+        memory and fallbacks to disk only if the record is not found.</li>
+    <li>Second is to <strong>treat every write as an insert</strong> i.e. append 
+        writes to some data structure and post-process asynchronously to 
+        merge all writes against a key into a single record. Writing in append-only 
+        fashion makes writes very performant. This idea of append-only writes 
+        is not new and we can find <strong>inspiration in existing Log-structured 
+        file systems</strong>.</li>
+</ul>
+<p><strong>LSM Tree is not a single data structure</strong>, instead it combines 
+    multiple data structures residing in different storages of a machine to efficiently 
+    handle read and write workloads.</p>
+<p>While dissecting the term Log-Structured Merge Tree, <strong>log-structured
+    </strong> indicates that data is structured one after the other in a way similar 
+    to an append-only logs. The term <strong>merge</strong> indicates the 
+    techniques used to combine multiple data structures to better manage the data 
+    (more on this later). Lastly, the <strong>tree</strong> indicates the storage 
+    hierarchy of RAM and persistent storage used in the architecture.</p>
+<p>To better understand how a database storage engine built using LSM Trees works, 
+    we first need to understand the key components of the architecture.</p>
+<h3>Components</h3>
+<h4>Memtable</h4>
+<p>In an LSM Tree architecture, <strong>writes are first buffered in an in-memory 
+    structure</strong> called a Memtable which provides for fast random reads and 
+    sorted iteration on the data. The actual data structure used could vary across 
+    database implementations. It could be something as simple as a key-value Map or 
+    a much more sophisticated data structure like a balanced binary tree 
+    (<a href="https://en.wikipedia.org/wiki/AVL_tree" target="_blank">AVL Trees</a> or 
+    <a href="https://en.wikipedia.org/wiki/Red%E2%80%93black_tree" target="_blank">
+    Red-Black Trees</a>) or a <a href="https://en.wikipedia.org/wiki/Skip_list" target="_blank">
+    Skip List</a>.</p>
+<p>Data in the Memtable is flushed to a persistent storage when the size of the Memtable 
+    reaches a certain threshold or when a certain amount of time has passed since the 
+    last flush. When flushing, the entire data in Memtable is written to persistent storage 
+    in SSTable files and the Memtable is emptied to accommodate further writes. 
+    <strong>The Memtable effectively operates as a write-back cache</strong>.</p>
+<h4>Write-Ahead Logs (WALs)</h4>
+<p>Since the data is kept in memory in Memtables before it is flushed to persistent 
+    storage, any hardware failure would result in loss of data in the Memtables. 
+    To provide for tolerance against such faults, every write is also simultaneously 
+    written to persistent log files. In case of failures, the database can replay the write 
+    instructions from the WAL files and re-create the Memtable.</p>
+<p><strong>A write is only considered successful after it has been persisted in the WAL 
+    file</strong>. Since WAL files exist only in persistent storage and do not maintain 
+    any in-memory buffer, writing to them is slower than writing to Memtables, effectively 
+    making <strong>WAL writes the actual bottleneck for writes in LSM Tree based 
+    architectures</strong>.</p>
+<p>To improve write performance in WAL files, writes are only appended to the files 
+    starting from the last written byte offset.</p>
+<h4>SSTable</h4>
+<p>SSTable is a file format which stores key-value entries from Memtable in sorted order 
+    to allow quick random <strong>reads and scans in logarithmic time complexity</strong>.
+</p>
+<p>In LSM Tree based architectures, there can be multiple levels of SSTables ranging from 
+    <span class="code">L0, L1, .. LN</span> where <span class="code">L0</span> is the first 
+    level to which Memtables are flushed. Each level can have multiple SSTable files 
+    partitioned by the keys they store. In some implementations, SSTables at each level are 
+    <strong>also augmented with a separate Sparse index to assist in faster scans</strong>.</p>
+<p>A background compactor job moves records in SSTables from newer levels to fresh 
+    SSTables in older levels (more on this later). SSTables are immutable once created.</p>
+<p>Since LSM Tree architecture does not update records in-place and instead operates 
+    in append-only fashion, it often happens that an update to a record is still in a newer(lower) 
+    level SSTable while its original write or any previous update has since been moved to a 
+    higher level. Hence, <strong>a key can exist in SSTables in multiple levels</strong>.</p>
+<h4>Bloom Filter</h4>
+<p>Many implementations of the LSM Tree architecture also maintain a Bloom Filter for 
+    every SSTable to determine if a key does not exist in the SSTable.</p>
+<p><strong>A Bloom Filter is a probabilistic data structure which when queried to check 
+    if a certain value has been stored in it can answer in constant time if the value does 
+    not exist or may exist in the data structure i.e. it can give false positives but never false 
+    negatives.</strong></p>
+<p>The probability of false positives can be controlled by configuring the size of the filter 
+    and the efficacy of the hash functions used.</p>
+<p>Another big advantage of using a Bloom Filter is that its size does not increase as more 
+    values are stored in it (i.e. <strong>it maintains constant space complexity</strong>) 
+    although the probability of false positives increases with more values.</p>
+<h3>Operations</h3>
+<p>Now we are ready to look at the workings of basic operations of a LSM Tree architecture 
+    database and understand how the above components come together.</p>
+<h4>Writes (Inserts, Updates and Deletes)</h4>
+<p><strong>Writes to the database are simultaneously written to both a WAL file and the 
+    Memtable</strong>. In case of a hardware failure, the writes in WAL are replayed from 
+    the last flushed write’s offset in the file to re-create the Memtable.</p>
+<p>Writes in the Memtable are flushed to a <span class="code">L0</span> SSTable file 
+    once the Memtable becomes large enough or when a certain time duration has passed 
+    since the last flush.</p>
+<p>Deletes are also processed in append-only manner by writing a <strong>tombstone 
+    entry</strong> for the key to be deleted to the Memtable instead of deleting it 
+    in-place. <strong>A tombstone entry is a special record which declares that the key 
+    has been deleted.</strong></p>
+<h4>Compaction</h4>
+<p>A background compactor job runs to perform compaction across SSTables in different 
+    levels. When SSTables in two neighboring levels are being compacted, the following 
+    actions are performed:</p>
+<ul>
+    <li>Fresh SSTables are created in the older level by merging the SSTables in two levels. 
+        For a key occurring in SSTables of both levels, the record from the newer(lower) 
+        level is kept in the new SSTables.</li>
+    <li>Keys with tombstone entries are not written to the final SSTables.</li>
+    <li>Sparse indices and Bloom Filters are created for the final SSTables.</li>
+    <li>Existing SSTables from the two levels are deleted.</li>
+</ul>
+<p>Most implementations of LSM Tree use 
+    <a href="https://en.wikipedia.org/wiki/K-way_merge_algorithm" target="_blank">k-way 
+    merge algorithm</a> to merge SSTables.</p>
+<h4>Reads</h4>
+<p>When reading a key, it is first searched in the Memtable. If not found, the 
+    <span class="code">L0</span> SSTables are consulted next. Since most LSM Tree 
+    architecture implementations use Bloom Filters with their SSTables, the SSTables 
+    are only scanned for the key if the Bloom Filter does not rule out the existence of 
+    the key. Since the SSTables are already sorted we can search for the key using 
+    binary search.</p>
+<p>If either the Bloom Filter says the key is not in the SSTable or the key is not 
+    found in the SSTable after scanning for it, we search in the older(higher) levels 
+    until we either find the key (either with a record or its tombstone entry) or we 
+    conclude that the key is not in the database since it is not in any of the levels.</p>
+<p>Since the architecture requires searching in multiple data structures and files, 
+    it leads to <strong>Read Amplification</strong> and makes LSM Tree 
+    architecture less performant for reads then B+ Tree based database solutions.</p>
+<h2>Conclusion</h2>
+<p>LSM Tree architectures are superior at handling high write workloads compared 
+    to B+ Tree however suffer from relatively slower reads.</p>
+<p>LSM Tree architecture is also less space efficient then B+ Tree architectures 
+    since multiple versions of records can exist at multiple levels of storage and files. 
+    Additionally, the compaction process is also very compute, I/O and space 
+    intensive.</p>
+<p><strong>B+ Tree based solutions suffer for Write Amplification while LSM Tree 
+    based solutions suffer from Read and Space Amplification.</strong></p>
+<h2>References</h2>
+<ul>
+    <li>
+        <a href="https://www.cs.umb.edu/~poneil/lsmtree.pdf" target="_blank">LSM Tree Paper</a>
+    </li>
+</ul>

@@ -4,6 +4,22 @@ const tagStore = require(__root + '/datastore/tagstore');
 
 const articlesStore = [
   {
+    articleId: 'lsm-tree-architecture',
+    url: 'articles/tech/lsm-tree-architecture',
+    head: {
+      title: 'LSM Tree Architecture | Surender Thakran',
+      description: 'LSM Tree Architecture',
+      keywords: 'lsmtree,database,nosql',
+    },
+    article: {
+      title: 'LSM Tree Architecture',
+      readTime: 30,
+      datetime: '2024-09-07',
+      date: '7th September 2024',
+      tags: ['lsmtree', 'nosql', 'bloomfilter', 'wal'],
+    },
+  },
+  {
     articleId: 'production-mongodb-using-docker',
     url: 'articles/tech/production-mongodb-using-docker',
     head: {
@@ -18,7 +34,7 @@ const articlesStore = [
       readTime: 15,
       datetime: '2019-04-23',
       date: '23rd April 2019',
-      tags: ['mongodb', 'docker', 'shellscript', 'logrotate', 'cron'],
+      tags: ['mongodb', 'docker', 'nosql', 'shellscript', 'logrotate', 'cron'],
     },
   },
   {
