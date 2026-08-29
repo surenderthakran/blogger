@@ -4,3 +4,5 @@ nohup.out
 # Cache folders by npm
 .npm
 .config
+
+.idea/
