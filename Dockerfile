@@ -3,8 +3,7 @@
 FROM node:8.11-alpine
 
 LABEL version="2.0"
-
-MAINTAINER https://github.com/surenderthakran
+LABEL maintainer="https://github.com/surenderthakran"
 
 # Add required packages.
 RUN apk add --no-cache \
@@ -15,6 +14,6 @@ COPY . /blogger
 
 WORKDIR /blogger
 
-RUN make install
+RUN npm install
 
-CMD make run
+CMD ["make", "run"]
