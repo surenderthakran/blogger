@@ -1,4 +1,4 @@
-DOCKER:=$(shell grep docker /proc/self/cgroup)
+DOCKER := $(wildcard /.dockerenv)
 
 CMD:=
 
@@ -40,7 +40,7 @@ else
 endif
 
 command:
-ifdef DOCKER:
+ifdef DOCKER
 	@echo 'make command' will NOT work inside docker!!!
 else
 ifdef CMD
